@@ -10,6 +10,7 @@ public class LacticeApplicationConsole {
 		System.out.println("  --      	   Développé par Reia !             --  ");		
 		System.out.println("  --  		   Développé par Louis !  	        --  ");
 		System.out.println("  --  		   Développé par Nathan !  	        --  ");
+		System.out.println("  --  		   Développé par Sami !  	        --  ");
 		System.out.println(LIGNE);
 	}
 
