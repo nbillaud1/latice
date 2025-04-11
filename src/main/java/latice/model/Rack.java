@@ -7,5 +7,8 @@ public class Rack {
 		 tiles = new Tile[5];
 	}
 
-
+	public Tile[] Tiles() {
+		return tiles;
+	}
+	
 }
