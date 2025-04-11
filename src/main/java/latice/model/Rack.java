@@ -1,5 +1,6 @@
 package latice.model;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 public class Rack {
@@ -14,4 +15,17 @@ public class Rack {
 		this.tiles.add(this.pool.tiles()[3]);
 		this.tiles.add(this.pool.tiles()[4]);
 	}
+=======
+public class Rack {
+	private Tile[] tiles;
+
+	public Rack(Pool pool) {
+		 tiles = new Tile[5];
+	}
+
+	public Tile[] Tiles() {
+		return tiles;
+	}
+	
+>>>>>>> origin/master
 }
