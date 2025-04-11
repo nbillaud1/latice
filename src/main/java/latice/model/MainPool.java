@@ -30,8 +30,8 @@ public class MainPool {
 		
 		
 		//Bird tiles
-		this.tiles.add(newle(Shape.BIRD, Color.YELLOW));
-		this.tiles.add(newle(Shape.BIRD, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.BIRD, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.BIRD, Color.YELLOW));
 		
 		this.tiles.add(new Tile(Shape.BIRD, Color.NAVY));
 		this.tiles.add(new Tile(Shape.BIRD, Color.NAVY));
