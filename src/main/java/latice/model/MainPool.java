@@ -131,7 +131,7 @@ public class MainPool {
 	}
 
 	public ArrayList<Tile> tiles() {
-		return tiles;
+		return this.tiles;
 	}
 	
 	

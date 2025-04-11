@@ -1,5 +1,7 @@
 package latice.application;
 
+import latice.model.*;
+
 public class LacticeApplicationConsole {
 
 	private final static String LIGNE = "------------------------------------------------------------";
@@ -13,6 +15,8 @@ public class LacticeApplicationConsole {
 		System.out.println("  --  		   Développé par Sami !  	       --  ");
 		System.out.println("  --  		   Développé par Evan!  	       --  ");
 		System.out.println(LIGNE);
+		
+		System.out.println("\\uD83E\\uDEB6");
 	}
 
 }
