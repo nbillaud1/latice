@@ -4,7 +4,7 @@ public class Pool {
 	Tile[] tiles;
 }
 
-public Pool {
+public Pool (Title[] titles) {
 	this.tiles = tiles;
 }
 
