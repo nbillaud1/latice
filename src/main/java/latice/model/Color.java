@@ -9,13 +9,13 @@ public enum Color {
 	GREEN("Vert"),
 	TEAL("Bleu Sarcelle");
 	
-	private String code;
+	private String nom;
 
-	private Color(String code) {
-		this.code = code;
+	private Color(String nom) {
+		this.nom = nom;
 	}
 
-	public String code() {
-		return this.code;
+	public String nom() {
+		return this.nom;
 	}
 }
