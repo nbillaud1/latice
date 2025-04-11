@@ -1,4 +1,4 @@
-package latice.model;
+package src.main.java.latice.model;
 
 public class Pool {
 	Tile[] tiles;
