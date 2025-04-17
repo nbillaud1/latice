@@ -5,6 +5,11 @@ import latice.model.*;
 public class LacticeApplicationConsole {
 
 	private final static String LIGNE = "------------------------------------------------------------";
+	//64 "-"
+	private final static String BOARD_X = "----------------------------------------------------------------";
+	private final static String BOARD_Y = "|      |      |      |      |      |      |      |      |      |" +"\n"
+										+ "|      |      |      |      |      |      |      |      |      |" +"\n"
+										+ "|      |      |      |      |      |      |      |      |      |";
 	
 	public static void main(String[] args) {
 		System.out.println(LIGNE);
@@ -16,7 +21,31 @@ public class LacticeApplicationConsole {
 		System.out.println("  --  		   Développé par Evan!  	       --  ");
 		System.out.println(LIGNE);
 		
-		System.out.println("\uD83E\uDEB6");
+
+		System.out.println("");
+		System.out.println("");
+		
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		System.out.println(BOARD_Y);
+		System.out.println(BOARD_X);
+		
+		
 	}
 
 }
