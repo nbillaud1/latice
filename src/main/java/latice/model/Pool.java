@@ -3,9 +3,12 @@ package latice.model;
 import java.util.ArrayList;
 
 public class Pool {
-	private Pool tiles;
-	public Pool(ArrayList<Tile> tiles) {
-		this.tiles = Game.deal(new MainPool());
+	private ArrayList<Tile> tiles;
+	
+	public Pool() {
+		Game game = new Game();
+		game.shuffle();
+		this.tiles = game.deal();
 	}
 	
 	public ArrayList<Tile> tiles() {
