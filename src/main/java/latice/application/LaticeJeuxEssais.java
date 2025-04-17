@@ -69,13 +69,15 @@ public class LaticeJeuxEssais {
 		int j = 0;
 		for(Tile tile : pool1.tiles().get(0)) {
 			j++;
-			System.out.println(j+ " " + tile.shape().code() + " " + tile.color().nom());
+			System.out.println(j+ " " + tile.afficher());
 		}
+		
+		System.out.println("\n");
 		
 		j = 0;
 		for(Tile tile : pool2.tiles().get(0)) {
 			j++;
-			System.out.println(j+ " " + tile.shape().code() + " " + tile.color().nom());
+			System.out.println(j+ " " + tile.afficher());
 		}
 		
 	}
