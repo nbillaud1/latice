@@ -16,7 +16,13 @@ public class Game {
 		ArrayList<Tile> tilesPool = new ArrayList<Tile>();
 		int tour = 0;
 		for(Tile tile : this.mainPool.tiles()) {
-			tilesPool.add(tile);
+			if (tour < 36) {
+				tilesPool.add(tile);
+			}
+			else{
+				break;
+			}
+			tour++;
 		}
 		return tilesPool;
 	}
