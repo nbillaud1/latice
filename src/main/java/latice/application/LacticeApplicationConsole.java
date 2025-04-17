@@ -15,11 +15,8 @@ public class LacticeApplicationConsole {
 		System.out.println("  --  		   Développé par Sami !  	       --  ");
 		System.out.println("  --  		   Développé par Evan!  	       --  ");
 		System.out.println(LIGNE);
-<<<<<<< Updated upstream
-=======
 		
 		System.out.println("\uD83E\uDEB6");
->>>>>>> Stashed changes
 	}
 
 }
