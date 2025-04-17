@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Pool {
 	private ArrayList<Tile> tiles;
 	
-	public Pool(ArrayList<Tile> tiles) {
+	public Pool() {
 		Game game = new Game();
 		game.shuffle();
 		this.tiles = game.deal();

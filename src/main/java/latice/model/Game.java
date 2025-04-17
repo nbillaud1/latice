@@ -15,8 +15,8 @@ public class Game {
 	public ArrayList<Tile> deal() {
 		ArrayList<Tile> tilesPool = new ArrayList<Tile>();
 		int tour = 0;
-		for(int i=0 ; i<42 ; i++) {
-			tilesPool.add(this.mainPool.tiles()[i]);
+		for(Tile tile : this.mainPool.tiles()) {
+			tilesPool.add(tile);
 		}
 		return tilesPool;
 	}
