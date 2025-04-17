@@ -9,9 +9,9 @@ public class LaticeJeuxEssais {
 
 	private final static String LIGNE = "------------------------------";
 	
-	public static void main(String[] args) {
+	static void printMainPool() {
 		System.out.println(LIGNE);
-		System.out.println("TEST MAIN POOL");
+		System.out.println("AFFICHAGE MAIN POOL");
 		System.out.println(LIGNE);
 		
 		MainPool mainPool = new MainPool();
@@ -19,9 +19,11 @@ public class LaticeJeuxEssais {
 		for(Tile tile : mainPool.tiles()) {
 			System.out.println("Forme + couleur : " + tile.afficher());
 		}
-		
+	}
+	
+	static void printPoolsRacksAndPoolsAgain() {
 		System.out.println(LIGNE);
-		System.out.println("TEST POOL");
+		System.out.println("AFFICHAGE POOLS");
 		System.out.println(LIGNE);
 		
 		Pool pool1 = new Pool();
@@ -41,7 +43,7 @@ public class LaticeJeuxEssais {
 		}
 		
 		System.out.println(LIGNE);
-		System.out.println("TEST RACK");
+		System.out.println("AFFICHAGE RACKS");
 		System.out.println(LIGNE);
 		
 		Rack rack1 = new Rack();
@@ -60,6 +62,27 @@ public class LaticeJeuxEssais {
 			System.out.println(y + " " + tile.afficher());
 		}
 		
+		System.out.println(LIGNE);
+		System.out.println("AFFICHAGE POOLS APRES RACKS");
+		System.out.println(LIGNE);
+		
+		int j = 0;
+		for(Tile tile : pool1.tiles().get(0)) {
+			j++;
+			System.out.println(j+ " " + tile.shape().code() + " " + tile.color().nom());
+		}
+		
+		j = 0;
+		for(Tile tile : pool2.tiles().get(0)) {
+			j++;
+			System.out.println(j+ " " + tile.shape().code() + " " + tile.color().nom());
+		}
+		
 	}
 
+	
+	public static void main(String[] args) {
+		printMainPool();
+		printPoolsRacksAndPoolsAgain();
+	}
 }
