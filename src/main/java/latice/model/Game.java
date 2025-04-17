@@ -12,19 +12,23 @@ public class Game {
 		this.mainPool = new MainPool();
 	}
 	
-	public ArrayList<Tile> deal() {
-		ArrayList<Tile> tilesPool = new ArrayList<Tile>();
+	public ArrayList<ArrayList<Tile>> deal() {
+		ArrayList<Tile> tilesPool1 = new ArrayList<Tile>();
+		ArrayList<Tile> tilesPool2 = new ArrayList<Tile>();		
 		int tour = 0;
 		for(Tile tile : this.mainPool.tiles()) {
-			if (tour < 36) {
-				tilesPool.add(tile);
+			if (tour % 2 == 0) {
+				tilesPool1.add(tile);
 			}
 			else{
-				break;
+				tilesPool2.add(tile);
 			}
 			tour++;
 		}
-		return tilesPool;
+		ArrayList<ArrayList<Tile>> pools = new ArrayList<>();
+		pools.add(tilesPool1);
+		pools.add(tilesPool2);
+		return pools;
 	}
 	
 	public void shuffle() {
