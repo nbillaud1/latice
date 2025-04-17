@@ -7,6 +7,7 @@ public class Rack {
 	private Pool pool;
 	
 	public Rack() {
+		pool = new Pool();
 		this.tiles = new ArrayList<Tile>();
 		this.tiles.add(this.pool.tiles()[0]);
 		this.tiles.add(this.pool.tiles()[1]);
