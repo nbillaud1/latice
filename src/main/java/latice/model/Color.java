@@ -2,12 +2,12 @@ package latice.model;
 
 public enum Color {
 	
-	YELLOW("Jaune"),
-	NAVY("Bleu Marine"),
-	MAGENTA("Magenta"),
-	RED("Rouge"),
-	GREEN("Vert"),
-	TEAL("Bleu Sarcelle");
+	YELLOW("\u001B[33m"),
+	NAVY("\u001B[34m"),
+	MAGENTA("\u001B[35m"),
+	RED("\u001B[31m"),
+	GREEN("\u001B[32m"),
+	TEAL("\u001B[36m");
 	
 	private String nom;
 
@@ -15,7 +15,7 @@ public enum Color {
 		this.nom = nom;
 	}
 
-	public String nom() {
-		return this.nom;
+	public String nom(String text) {
+		return this.nom + text;
 	}
 }
