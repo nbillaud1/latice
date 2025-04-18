@@ -12,14 +12,19 @@ public class GameBoard {
 	
 	public GameBoard() {
 		this.board = new ArrayList<String>();
+		String space = "  ";
+		String separation = "  |  ";
+		String borderLeft = "|  ";
+		String borderRight = "  |";
+		
 		for (int e = 0; e < 9; e++) {
-			this.board.add("|  ");
+			this.board.add(borderLeft);
 			for(int i = 0; i<8 ; i++) {
-				this.board.add("  ");
-				this.board.add("  |  ");
+				this.board.add(space);
+				this.board.add(separation);
 			}
-			this.board.add("  ");
-			this.board.add("  |");
+			this.board.add(space);
+			this.board.add(borderRight);
 			
 		}
 		
