@@ -56,8 +56,6 @@ public class LacticeApplicationConsole {
 		board.set(161,SUN);
 		board.set(169,SUN);
 		
-		System.out.println(board);
-		
 		System.out.println(BOARD_X);
 		for(int i = 0; i<171 ; i += 19) {
 			System.out.println(BOARD_Y);
