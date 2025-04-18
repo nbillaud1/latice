@@ -7,12 +7,7 @@ import latice.model.*;
 public class LacticeApplicationConsole {
 
 	private final static String LIGNE = "------------------------------------------------------------";
-	private final static String BOARD_X = "----------------------------------------------------------------";
-	private final static String BOARD_Y = "|      |      |      |      |      |      |      |      |      |";
-	private final static String SUN = "\u2600";
-	private final static String MOUN = "\uD83C\uDF19";
 	
-	private static ArrayList<String> board = new ArrayList<String>();
 	
 	public static void main(String[] args) {
 		System.out.println(LIGNE);
@@ -28,42 +23,21 @@ public class LacticeApplicationConsole {
 		System.out.println("");
 		System.out.println("");
 		
-		for (int e = 0; e < 9; e++) {
-			board.add("|  ");
-			for(int i = 0; i<8 ; i++) {
-				board.add("  ");
-				board.add("  |  ");
-			}
-			board.add("  ");
-			board.add("  |");
-			
-		}
-		
-		
-		board.set(1,SUN);
-		board.set(9,SUN);
-		board.set(17,SUN);
-		board.set(22,SUN);
-		board.set(34,SUN);
-		board.set(43,SUN);
-		board.set(51,SUN);
-		board.set(85,MOUN);
-		board.set(119,SUN);
-		board.set(127,SUN);
-		board.set(136,SUN);
-		board.set(148,SUN);
-		board.set(153,SUN);
-		board.set(161,SUN);
-		board.set(169,SUN);
-		
-		System.out.println(BOARD_X);
-		for(int i = 0; i<171 ; i += 19) {
-			System.out.println(BOARD_Y);
-			System.out.println(board.get(i) + board.get(i+1) + board.get(i+2) + board.get(i+3) + board.get(i+4) + board.get(i+5) + board.get(i+6) + board.get(i+7) + board.get(i+8) + board.get(i+9) + board.get(i+10) + board.get(i+11) + board.get(i+12) + board.get(i+13) + board.get(i+14) + board.get(i+15) + board.get(i+16) + board.get(i+17) +board.get(18));
-			System.out.println(BOARD_Y);
-			System.out.println(BOARD_X);
-		}
-		
+		printGameBoard();
 	}
-
+	
+	private static void printGameBoard() {
+		
+		GameBoard gameB = new GameBoard();
+		
+		System.out.println(GameBoard.BOARD_X);
+		for(int i = 0; i<171 ; i += 19) {
+			System.out.println(GameBoard.BOARD_Y);
+			System.out.println(gameB.board().get(i) + gameB.board().get(i+1) + gameB.board().get(i+2) + gameB.board().get(i+3) + gameB.board().get(i+4) + gameB.board().get(i+5) + gameB.board().get(i+6) + gameB.board().get(i+7) + gameB.board().get(i+8) + gameB.board().get(i+9) + gameB.board().get(i+10) + gameB.board().get(i+11) + gameB.board().get(i+12) + gameB.board().get(i+13) + gameB.board().get(i+14) + gameB.board().get(i+15) + gameB.board().get(i+16) + gameB.board().get(i+17) + gameB.board().get(18));
+			System.out.println(GameBoard.BOARD_Y);
+			System.out.println(GameBoard.BOARD_X);
+		}
+	}
 }
+		
+		
