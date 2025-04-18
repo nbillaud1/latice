@@ -13,13 +13,13 @@ public class LaticeAppSb extends Application{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("view/GameView.fxml"));
 		
-		/*Mise en place de la page*/
+		/* Mise en place de la page */
 		StackPane root = new StackPane();
 		root.getChildren().add(loader.load());
 		
-		Scene scene = new Scene(root,600,170);
+		Scene scene = new Scene(root,1000,1000);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Test");
+		primaryStage.setTitle("Jeu du Latice");
 		primaryStage.show();
 	}
 
