@@ -36,13 +36,22 @@ public class LaticeAppSb extends Application{
             			|| (row == 6  && col == 2) || (row == 6  && col == 6) || (row == 7  && col == 1)
             			|| (row == 7  && col == 7) || (row == 8  && col == 0) || (row == 8  && col == 8)){
             		Image sun = createSun();
-            		ImageView imv = new ImageView(sun);
-            		imv.fitWidthProperty().bind(square.widthProperty().multiply(0.9));
-                    imv.fitHeightProperty().bind(square.heightProperty().multiply(0.9));
-                    imv.setPreserveRatio(true);
-            		
+            		ImageView imvSun = new ImageView(sun);
+            		imvSun.fitWidthProperty().bind(square.widthProperty().multiply(0.9));
+                    imvSun.fitHeightProperty().bind(square.heightProperty().multiply(0.9));
+                    imvSun.setPreserveRatio(true);
             		StackPane cell = new StackPane();
-                    cell.getChildren().addAll(square,imv);
+                    cell.getChildren().addAll(square,imvSun);
+                    grille.add(cell, col, row);
+            	}
+            	else if(row == 4 && col == 4){
+            		Image moon = createMoon();
+            		ImageView imvMoon = new ImageView(moon);
+            		imvMoon.fitWidthProperty().bind(square.widthProperty().multiply(0.9));
+                    imvMoon.fitHeightProperty().bind(square.heightProperty().multiply(0.9));
+                    imvMoon.setPreserveRatio(true);
+                    StackPane cell = new StackPane();
+                    cell.getChildren().addAll(square,imvMoon);
                     grille.add(cell, col, row);
             	}
             	else {
@@ -54,7 +63,6 @@ public class LaticeAppSb extends Application{
 
 		
 		/* Mise en place de la page */
-		
         StackPane root = new StackPane();
         root.getChildren().add(grille);
 		Scene scene = new Scene(root,1200,900);
@@ -72,6 +80,11 @@ public class LaticeAppSb extends Application{
 	private Image createSun() {
 		Image sun = new Image(getClass().getResource("/latice/image/sun.png").toExternalForm());
 		return sun;
+	}
+	
+	private Image createMoon() {
+		Image moon = new Image(getClass().getResource("/latice/image/moon.png").toExternalForm());
+		return moon;
 	}
 	
 
