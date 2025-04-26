@@ -30,10 +30,19 @@ public class LaticeAppSb extends Application{
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
             	Rectangle square = createSquare();
-            	if( row == 0 && col == 0) {
+            	if((row == 0 && col == 0) || (row == 0  && col == 4) || (row == 0  && col == 8) 
+            			|| (row == 1  && col == 1) || (row == 1  && col == 7) || (row == 2  && col == 2) 
+            			|| (row == 2  && col == 6) || (row == 4  && col == 0) || (row == 4  && col == 8)
+            			|| (row == 6  && col == 2) || (row == 6  && col == 6) || (row == 7  && col == 1)
+            			|| (row == 7  && col == 7) || (row == 8  && col == 0) || (row == 8  && col == 8)){
             		Image sun = createSun();
+            		ImageView imv = new ImageView(sun);
+            		imv.fitWidthProperty().bind(square.widthProperty().multiply(0.9));
+                    imv.fitHeightProperty().bind(square.heightProperty().multiply(0.9));
+                    imv.setPreserveRatio(true);
+            		
             		StackPane cell = new StackPane();
-                    cell.getChildren().addAll(square, new ImageView(sun));
+                    cell.getChildren().addAll(square,imv);
                     grille.add(cell, col, row);
             	}
             	else {
