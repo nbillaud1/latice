@@ -34,8 +34,12 @@ public class LaticeAppSb extends Application{
             		Image sun = createSun();
             		StackPane cell = new StackPane();
                     cell.getChildren().addAll(square, new ImageView(sun));
+                    grille.add(cell, col, row);
             	}
-                grille.add(square, col, row);
+            	else {
+            		grille.add(square, col, row);
+            	}
+                
             }
         }
 
@@ -57,7 +61,7 @@ public class LaticeAppSb extends Application{
 	}
 	
 	private Image createSun() {
-		Image sun = new Image(getClass().getResource("/image/sun.png").toExternalForm());
+		Image sun = new Image(getClass().getResource("/latice/image/sun.png").toExternalForm());
 		return sun;
 	}
 	
