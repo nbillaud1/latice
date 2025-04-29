@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,9 +21,21 @@ public class LaticeAppSb extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("view/GameView.fxml"));
+		loader.setLocation(getClass().getResource("/latice/view/GameView.fxml"));
 		
-		/*Création de la grille*/
+		/*Mise en place de la page*/
+		StackPane root = new StackPane();
+		root.getChildren().add(loader.load());
+		
+		Scene scene = new Scene(root,1000,1000);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Jeu du Latice");
+		primaryStage.show();
+	}
+		
+		
+		
+		/*Création de la grille
 		GridPane grid = new GridPane();
 		grid.setHgap(0.2);
         grid.setVgap(0.2);
@@ -62,7 +75,7 @@ public class LaticeAppSb extends Application{
             }
         }
         
-        /*Création du rack*/
+        Création du rack
         GridPane rack = new GridPane();
         for (int col = 0; col < 5; col++) {
         	Rectangle square = createSquare();
@@ -71,7 +84,7 @@ public class LaticeAppSb extends Application{
         rack.setAlignment(Pos.CENTER);
         rack.setHgap(5);
         
-		/* Mise en place de la page */
+		Mise en place de la page
         BorderPane root = new BorderPane();
         root.setCenter(grid);
         root.setBottom(rack);
@@ -97,6 +110,7 @@ public class LaticeAppSb extends Application{
 		Image moon = new Image(getClass().getResource("/latice/image/moon.png").toExternalForm());
 		return moon;
 	}
+	Je laisse le code de Louis au cas où j'aurais fait de la merde mais normalement on pourra l'effacer.*/
 	
 
 	public static void main(String[] args) {
