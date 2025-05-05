@@ -19,6 +19,5 @@ public class Tile {
 	
 	public String afficher() {
 		return color.nom(shape.code());
-		/*y'a un souci dans cet affichage car il faut mettre un reset de couleur : \u001B[0m*/
 	}
 }

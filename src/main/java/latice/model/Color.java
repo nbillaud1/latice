@@ -16,6 +16,6 @@ public enum Color {
 	}
 
 	public String nom(String text) {
-		return this.nom + text;
+		return this.nom + text + "\u001B[0m";
 	}
 }
