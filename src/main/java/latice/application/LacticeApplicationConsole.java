@@ -10,7 +10,7 @@ public class LacticeApplicationConsole {
 	
 	
 	public static void main(String[] args) {
-		System.out.println(LIGNE);
+		/*System.out.println(LIGNE);
 		System.out.println("  --  Bienvenue dans notre magnifique jeu de latice !  --  ");
 		System.out.println("  --               Développé par Reia !                --  ");		
 		System.out.println("  --  		   Développé par Louis !  	       --  ");
@@ -22,7 +22,7 @@ public class LacticeApplicationConsole {
 
 		System.out.println("");
 		System.out.println("");
-		
+		*/
 		printGameBoard();
 	}
 	
