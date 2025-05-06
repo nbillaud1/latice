@@ -1,5 +1,7 @@
 package latice.application;
 
+import java.util.ArrayList;
+
 import latice.model.MainPool;
 import latice.model.Pool;
 import latice.model.Rack;
@@ -8,16 +10,17 @@ import latice.model.Tile;
 public class LaticeJeuxEssais {
 
 	private final static String LIGNE = "------------------------------";
-	
+	/*corriger les racks !!!*/
 	static void printMainPool() {
 		System.out.println(LIGNE);
 		System.out.println("AFFICHAGE MAIN POOL");
 		System.out.println(LIGNE);
 		
 		MainPool mainPool = new MainPool();
-		
+		int tilesCounter = 0;
 		for(Tile tile : mainPool.tiles()) {
-			System.out.println("Forme + couleur : " + tile.afficher());
+			tilesCounter++;
+			System.out.println(tilesCounter + " Forme + couleur : " + tile.afficher());
 		}
 	}
 	
@@ -25,59 +28,76 @@ public class LaticeJeuxEssais {
 		System.out.println(LIGNE);
 		System.out.println("AFFICHAGE POOLS");
 		System.out.println(LIGNE);
+		System.out.println("pool du joueur1");
+		System.out.println(LIGNE);
 		
-		Pool pool1 = new Pool();
-		int i = 0;
-		for(Tile tile : pool1.tiles().get(0)) {
-			i++;
-			System.out.println(i+ " " + tile.afficher());
+		Pool pool = new Pool();
+		ArrayList<Tile> poolPlayer1 = pool.tiles().get(0);
+		
+		int tilesCounter = 0;
+		for(Tile tile : poolPlayer1) {
+			tilesCounter++;
+			System.out.println(tilesCounter+ " " + tile.afficher());
 		}
 		
 		System.out.println("\n");
+		System.out.println(LIGNE);
+		System.out.println("pool du joueur 2");
+		System.out.println(LIGNE);
 		
-		Pool pool2 = new Pool();
-		i = 0;
-		for(Tile tile : pool2.tiles().get(0)) {
-			i++;
-			System.out.println(i+ " " + tile.afficher());
+		ArrayList<Tile> poolPlayer2 = pool.tiles().get(1);
+		
+		tilesCounter = 0;
+		for(Tile tile : poolPlayer2) {
+			tilesCounter++;
+			System.out.println(tilesCounter+ " " + tile.afficher());
 		}
 		
 		System.out.println(LIGNE);
 		System.out.println("AFFICHAGE RACKS");
 		System.out.println(LIGNE);
+		System.out.println("rack du joueur 1");
+		System.out.println(LIGNE);
 		
-		Rack rack1 = new Rack();
-		int y = 0;
-		for(Tile tile : rack1.tiles().get(0)) {
-			y++;
-			System.out.println(y + tile.afficher());
+		Rack rackPlayer1 = new Rack(poolPlayer1);
+		tilesCounter = 0;
+		for(Tile tile : rackPlayer1.tiles()) {
+			tilesCounter++;
+			System.out.println(tilesCounter + tile.afficher());
 		}
 		
 		System.out.println("\n");
+		System.out.println(LIGNE);
+		System.out.println("rack du joueur 2");
+		System.out.println(LIGNE);
 		
-		Rack rack2 = new Rack();
-		y = 0;
-		for(Tile tile : rack2.tiles().get(1)) {
-			y++;
-			System.out.println(y + " " + tile.afficher());
+		Rack rackPlayer2 = new Rack(poolPlayer2);
+		tilesCounter = 0;
+		for(Tile tile : rackPlayer2.tiles()) {
+			tilesCounter++;
+			System.out.println(tilesCounter + " " + tile.afficher());
 		}
 		
+		System.out.println("\n");
 		System.out.println(LIGNE);
 		System.out.println("AFFICHAGE POOLS APRES RACKS");
 		System.out.println(LIGNE);
 		
-		int j = 0;
-		for(Tile tile : pool1.tiles().get(0)) {
-			j++;
-			System.out.println(j+ " " + tile.afficher());
+		tilesCounter = 0;
+		for(Tile tile : poolPlayer1) {
+			tilesCounter++;
+			System.out.println(tilesCounter+ " " + tile.afficher());
 		}
 		
 		System.out.println("\n");
+		System.out.println(LIGNE);
+		System.out.println("pool du joueur 2");
+		System.out.println(LIGNE);
 		
-		j = 0;
-		for(Tile tile : pool2.tiles().get(0)) {
-			j++;
-			System.out.println(j+ " " + tile.afficher());
+		tilesCounter = 0;
+		for(Tile tile : poolPlayer2) {
+			tilesCounter++;
+			System.out.println(tilesCounter+ " " + tile.afficher());
 		}
 		
 	}
