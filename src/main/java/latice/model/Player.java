@@ -19,6 +19,7 @@ public class Player {
 	}
 	
 	public void buyExtraMove(){
+<<<<<<< HEAD
 		if (points <= 1 && move == 0) {
 			points -= 1;
 			move += 1;
@@ -43,5 +44,28 @@ public class Player {
 	
 	public void setPoints(int points) {
 		this.points += points;
+=======
+		//TODO
+	}
+	
+	public void playATile() {
+		//TODO
+	}
+	
+	public void chagerRackAndPass() {
+		//TODO
+	}
+	
+	public void pass() {
+		//TODO
+	}
+	
+	public void completeRack() {
+		//TODO
+	}
+	
+	public void setPoints(int points) {
+		//TODO
+>>>>>>> origin/master
 	}
 }
