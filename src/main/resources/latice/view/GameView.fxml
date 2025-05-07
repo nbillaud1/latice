@@ -629,10 +629,10 @@
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="450.0">
                <children>
                   <ImageView fx:id="idRackPlayer1Tile1" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="idRackPlayer1Tile2" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="idRackPlayer1Tile3" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="idRackPlayer1Tile4" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="idRackPlayer1Tile5" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0">
