@@ -28,7 +28,6 @@ public class Player {
 	}
 	
 	public void playATile() {
-		//TODO
 		tilePlays += 1;
 	}
 	
