@@ -34,7 +34,7 @@ public class Player {
 	}
 	
 	public void pass() {
-		//TODO
+		move = 0;
 	}
 	
 	public void completeRack() {
