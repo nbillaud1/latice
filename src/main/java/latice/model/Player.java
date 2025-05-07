@@ -1,25 +1,24 @@
 package latice.model;
 
-import latice.model.Pool;
+import java.util.ArrayList;
 
 public class Player {
-	private Pool pool;
+	private ArrayList<Tile> pool;
 	private Rack rack;
 	private int points;
 	private String name;
 	private int move;
 	
-	public Player(Pool pool, Rack rack, String name /*on choisira "1" ou "2" */) {
+	public Player(ArrayList<Tile> pool, Rack rack, String name  /*on choisira "1" ou "2" */) {
 		this.pool = pool;
 		this.rack = rack;
-		this.name = name;
+		this.name = "joueur " + name;
 		this.points = 0;
 		this.move = 0;
 		
 	}
 	
 	public void buyExtraMove(){
-<<<<<<< HEAD
 		if (points <= 1 && move == 0) {
 			points -= 1;
 			move += 1;
@@ -31,7 +30,8 @@ public class Player {
 	}
 	
 	public void chagerRackAndPass() {
-		//TODO
+		this.rack = new Rack(this.pool);
+		pass();
 	}
 	
 	public void pass() {
@@ -44,28 +44,5 @@ public class Player {
 	
 	public void setPoints(int points) {
 		this.points += points;
-=======
-		//TODO
-	}
-	
-	public void playATile() {
-		//TODO
-	}
-	
-	public void chagerRackAndPass() {
-		//TODO
-	}
-	
-	public void pass() {
-		//TODO
-	}
-	
-	public void completeRack() {
-		//TODO
-	}
-	
-	public void setPoints(int points) {
-		//TODO
->>>>>>> origin/master
 	}
 }
