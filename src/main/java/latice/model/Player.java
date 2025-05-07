@@ -7,12 +7,14 @@ public class Player {
 	private Rack rack;
 	private int points;
 	private String name;
+	private int move;
 	
 	public Player(Pool pool, Rack rack, String name /*on choisira "1" ou "2" */) {
 		this.pool = pool;
 		this.rack = rack;
 		this.name = name;
 		this.points = 0;
+		this.move = 0;
 		
 	}
 	
