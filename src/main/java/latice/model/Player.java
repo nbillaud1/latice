@@ -42,6 +42,6 @@ public class Player {
 	}
 	
 	public void setPoints(int points) {
-		//TODO
+		this.points += points;
 	}
 }
