@@ -18,27 +18,30 @@ public class Player {
 		
 	}
 	
-	public buyExtraMove(){
+	public void buyExtraMove(){
+		if (points <= 1 && move == 0) {
+			points -= 1;
+			move += 1;
+		}
+	}
+	
+	public void playATile() {
 		//TODO
 	}
 	
-	public playATile() {
+	public void chagerRackAndPass() {
 		//TODO
 	}
 	
-	public chagerRackAndPass() {
+	public void pass() {
 		//TODO
 	}
 	
-	public pass() {
+	public void completeRack() {
 		//TODO
 	}
 	
-	public completeRack() {
-		//TODO
-	}
-	
-	public setPoints(int points) {
+	public void setPoints(int points) {
 		//TODO
 	}
 }
