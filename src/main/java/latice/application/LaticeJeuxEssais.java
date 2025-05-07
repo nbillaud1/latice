@@ -20,7 +20,7 @@ public class LaticeJeuxEssais {
 		int tilesCounter = 0;
 		for(Tile tile : mainPool.tiles()) {
 			tilesCounter++;
-			System.out.println(tilesCounter + " Forme + couleur : " + tile.afficher());
+			System.out.println(tilesCounter + " Forme + couleur : " + tile.afficher() + " | URL : " + tile.urlImg());
 		}
 	}
 	

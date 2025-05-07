@@ -9,7 +9,11 @@ public class Game {
 	private MainPool mainPool;
 	
 	public Game() {
-		//TODO
+		this.mainPool = new MainPool();
+	}
+	
+	public MainPool mainPool() {
+		return this.mainPool;
 	}
 	
 	/*public Player whoStarts() {

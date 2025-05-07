@@ -136,22 +136,22 @@ public class MainPool {
 	}
 	
 	public ArrayList<ArrayList<Tile>> deal() {
-		ArrayList<Tile> tilesPool1 = new ArrayList<Tile>();
-		ArrayList<Tile> tilesPool2 = new ArrayList<Tile>();	
+		ArrayList<Tile> tilesPoolPlayer1 = new ArrayList<Tile>();
+		ArrayList<Tile> tilesPoolPlayer2 = new ArrayList<Tile>();	
 		//turn détermine quelle pool on va remplir
 		int turn = 0;
 		for(Tile tile : this.tiles()) {
 			if (turn % 2 == 0) {
-				tilesPool1.add(tile);
+				tilesPoolPlayer1.add(tile);
 			}
 			else{
-				tilesPool2.add(tile);
+				tilesPoolPlayer2.add(tile);
 			}
 			turn++;
 		}
 		ArrayList<ArrayList<Tile>> pools = new ArrayList<>();
-		pools.add(tilesPool1);
-		pools.add(tilesPool2);
+		pools.add(tilesPoolPlayer1);
+		pools.add(tilesPoolPlayer2);
 		return pools;
 	}
 	

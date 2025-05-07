@@ -16,27 +16,27 @@ public class Player {
 		
 	}
 	
-	public buyExtraMove(){
+	public void buyExtraMove(){
 		//TODO
 	}
 	
-	public playATile() {
+	public void playATile() {
 		//TODO
 	}
 	
-	public chagerRackAndPass() {
+	public void chagerRackAndPass() {
 		//TODO
 	}
 	
-	public pass() {
+	public void pass() {
 		//TODO
 	}
 	
-	public completeRack() {
+	public void completeRack() {
 		//TODO
 	}
 	
-	public setPoints(int points) {
+	public void setPoints(int points) {
 		//TODO
 	}
 }
