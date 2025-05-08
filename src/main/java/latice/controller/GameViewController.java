@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import latice.model.Game;
 import latice.model.MainPool;
 import latice.model.Pool;
@@ -37,6 +39,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Button idBtnChanger;
 	
+	@FXML
+	private Text idTxtPile1;
+	
+	@FXML
+	private Text idTxtPile2;
+	
 	private Game game = new Game();
 	private MainPool mainPool = game.mainPool();
 
@@ -46,6 +54,16 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private boolean isJ2 = true;
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
+	private String player1Name;
+	private String player2Name;
+	
+	public void setPlayer1Name(String name) {
+        this.player1Name = name;
+    }
+
+    public void setPlayer2Name(String name) {
+        this.player2Name = name;
+    }
 	
 	@Override
 	public void handle(MouseEvent event) {
@@ -54,8 +72,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 
     @FXML
     void initialize() { 	
-    	//Player player1 = new Player(poolPlayer1, rackPlayer1);
-    	//Player player2 = new Player(poolPlayer2, rackPlayer2);
+    	Player player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
+    	Player player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
     	
     	Image imageTile1j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
         Image imageTile2j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
@@ -101,5 +119,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		rackPlayer2 = new Rack(poolPlayer2);
         	}
         });
-    }	
+        
+        this.idTxtPile1.setText(idTxtPile1.getText() + player1Name);
+        this.idTxtPile2.setText(idTxtPile2.getText() + player2Name);
+    }
 }

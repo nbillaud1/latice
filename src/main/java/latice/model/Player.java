@@ -8,7 +8,7 @@ public class Player {
 	private int points;
 	private String name;
 	private int move;
-	private int tilePlays;
+	private int tilePlayed;
 	
 	public Player(ArrayList<Tile> pool, Rack rack, String name  /*on choisira "1" ou "2" */) {
 		this.pool = pool;
@@ -16,7 +16,7 @@ public class Player {
 		this.name = "joueur " + name;
 		this.points = 0; //Points du joueur
 		this.move = 0; //Permet de savoir si le joueur peut encore jouer ou non
-		this.tilePlays = 0; //Permet de savoir le nombre de tuiles joués
+		this.tilePlayed = 0; //Permet de savoir le nombre de tuiles joués
 		
 	}
 	
@@ -28,7 +28,7 @@ public class Player {
 	}
 	
 	public void playATile() {
-		tilePlays += 1;
+		tilePlayed += 1;
 	}
 	
 	public void chagerRackAndPass() {
@@ -38,11 +38,11 @@ public class Player {
 	
 	public void pass() {
 		move = 0;
-		tilePlays = 0;
+		tilePlayed = 0;
 	}
 	
 	public void completeRack() {
-		for (int nbTiles = 1; nbTiles <= (tilePlays +1); nbTiles++) {
+		for (int nbTiles = 1; nbTiles <= (tilePlayed +1); nbTiles++) {
 			rack.tiles().add(this.pool.get(0)); // piocher sur le dessus de la Pool.
 			this.pool.remove(0);
 		}
