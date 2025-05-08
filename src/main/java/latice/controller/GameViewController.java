@@ -17,30 +17,25 @@ import latice.model.Player;
 public class GameViewController implements EventHandler<MouseEvent>{
 	
 	@FXML
-	private ImageView idRackPlayer1Tile1;
+	private ImageView idRackPlayerTile1;
 	
 	@FXML
-	private ImageView idRackPlayer1Tile2;
+	private ImageView idRackPlayerTile2;
 	
 	@FXML
-	private ImageView idRackPlayer1Tile3;
+	private ImageView idRackPlayerTile3;
 	
 	@FXML
-	private ImageView idRackPlayer1Tile4;
+	private ImageView idRackPlayerTile4;
 	
 	@FXML
-	private ImageView idRackPlayer1Tile5;
+	private ImageView idRackPlayerTile5;
 	
 	@FXML
 	private Button idBtnPasser;
 	
 	@FXML
 	private Button idBtnChanger;
-	
-	@Override
-	public void handle(MouseEvent event) {
-		//TODO
-    }
 	
 	private Game game = new Game();
 	private MainPool mainPool = game.mainPool();
@@ -51,16 +46,16 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private boolean isJ2 = true;
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
+	
+	@Override
+	public void handle(MouseEvent event) {
+		//TODO
+    }
 
     @FXML
-    void initialize() {
-    	    	
-    	
-    	
+    void initialize() { 	
     	//Player player1 = new Player(poolPlayer1, rackPlayer1);
     	//Player player2 = new Player(poolPlayer2, rackPlayer2);
-    	
-    	
     	
     	Image imageTile1j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
         Image imageTile2j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
@@ -74,26 +69,26 @@ public class GameViewController implements EventHandler<MouseEvent>{
         Image imageTile4j2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
         Image imageTile5j2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
     	
-        idRackPlayer1Tile1.setImage(imageTile1j1);
-        idRackPlayer1Tile2.setImage(imageTile2j1);
-        idRackPlayer1Tile3.setImage(imageTile3j1);
-        idRackPlayer1Tile4.setImage(imageTile4j1);
-        idRackPlayer1Tile5.setImage(imageTile5j1);
+        idRackPlayerTile1.setImage(imageTile1j1);
+        idRackPlayerTile2.setImage(imageTile2j1);
+        idRackPlayerTile3.setImage(imageTile3j1);
+        idRackPlayerTile4.setImage(imageTile4j1);
+        idRackPlayerTile5.setImage(imageTile5j1);
         
         idBtnPasser.setOnAction(e -> { //Permet de changer entre le raack j1 et j2
         	if (isJ2) {
-        		idRackPlayer1Tile1.setImage(imageTile1j2);
-	            idRackPlayer1Tile2.setImage(imageTile2j2);
-	            idRackPlayer1Tile3.setImage(imageTile3j2);
-	            idRackPlayer1Tile4.setImage(imageTile4j2);
-	            idRackPlayer1Tile5.setImage(imageTile5j2);
+        		idRackPlayerTile1.setImage(imageTile1j2);
+	            idRackPlayerTile2.setImage(imageTile2j2);
+	            idRackPlayerTile3.setImage(imageTile3j2);
+	            idRackPlayerTile4.setImage(imageTile4j2);
+	            idRackPlayerTile5.setImage(imageTile5j2);
         	}
         	else {
-                idRackPlayer1Tile1.setImage(imageTile1j1);
-                idRackPlayer1Tile2.setImage(imageTile2j1);
-                idRackPlayer1Tile3.setImage(imageTile3j1);
-                idRackPlayer1Tile4.setImage(imageTile4j1);
-                idRackPlayer1Tile5.setImage(imageTile5j1);
+                idRackPlayerTile1.setImage(imageTile1j1);
+                idRackPlayerTile2.setImage(imageTile2j1);
+                idRackPlayerTile3.setImage(imageTile3j1);
+                idRackPlayerTile4.setImage(imageTile4j1);
+                idRackPlayerTile5.setImage(imageTile5j1);
         	}
         	isJ2 = !isJ2;
         });
