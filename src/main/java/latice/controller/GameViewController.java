@@ -12,6 +12,7 @@ import latice.model.MainPool;
 import latice.model.Pool;
 import latice.model.Rack;
 import latice.model.Tile;
+import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
 	
@@ -33,22 +34,29 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Button idBtnPasser;
 	
+	@FXML
+	private Button idBtnChanger;
+	
 	@Override
 	public void handle(MouseEvent event) {
 		//TODO
     }
 	
+	private Game game = new Game();
+	private MainPool mainPool = game.mainPool();
+
+	private Pool pools = new Pool();
+	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
+	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
 	private boolean isJ2 = true;
+	private Rack rackPlayer1 = new Rack(poolPlayer1);
+	private Rack rackPlayer2 = new Rack(poolPlayer2);
 
     @FXML
     void initialize() {
-    	Game game = new Game();
-    	MainPool mainPool = game.mainPool();
-    	Pool pools = new Pool();
-    	ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
-    	ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
-    	Rack rackPlayer1 = new Rack(poolPlayer1);
-    	Rack rackPlayer2 = new Rack(poolPlayer2);
+    	    	
+    	
+    	
     	//Player player1 = new Player(poolPlayer1, rackPlayer1);
     	//Player player2 = new Player(poolPlayer2, rackPlayer2);
     	
@@ -72,7 +80,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         idRackPlayer1Tile4.setImage(imageTile4j1);
         idRackPlayer1Tile5.setImage(imageTile5j1);
         
-        idBtnPasser.setOnAction(e -> {
+        idBtnPasser.setOnAction(e -> { //Permet de changer entre le raack j1 et j2
         	if (isJ2) {
         		idRackPlayer1Tile1.setImage(imageTile1j2);
 	            idRackPlayer1Tile2.setImage(imageTile2j2);
@@ -88,6 +96,15 @@ public class GameViewController implements EventHandler<MouseEvent>{
                 idRackPlayer1Tile5.setImage(imageTile5j1);
         	}
         	isJ2 = !isJ2;
+        });
+        
+        idBtnChanger.setOnAction(e -> {
+        	if (isJ2) {
+        		rackPlayer1 = new Rack(poolPlayer1);
+        	}
+        	else {
+        		rackPlayer2 = new Rack(poolPlayer2);
+        	}
         });
     }	
 }
