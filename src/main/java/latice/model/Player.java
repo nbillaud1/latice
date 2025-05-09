@@ -38,9 +38,9 @@ public class Player {
 		}
 	}
 	
-	public void switchRackAndPass() {
+	public void switchRack() {
 		stackTiles();
-		pass();
+		completeRack();
 	}
 	
 	public void pass() {
