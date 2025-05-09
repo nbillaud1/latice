@@ -31,8 +31,15 @@ public class Player {
 		tilePlayed += 1;
 	}
 	
-	public void chagerRackAndPass() {
-		rack = new Rack(this.pool);
+	//Permet de stocker les tuiles restantes du rack dans 
+	private void stackTiles() {
+		for(Tile tile : rack.tiles()) {
+			pool.add(tile);
+		}
+	}
+	
+	public void switchRackAndPass() {
+		stackTiles();
 		pass();
 	}
 	
