@@ -13,7 +13,7 @@ public class Player {
 	public Player(ArrayList<Tile> pool, Rack rack, String name  /*on choisira "1" ou "2" */) {
 		this.pool = pool;
 		this.rack = rack;
-		this.name = "joueur " + name;
+		this.name = name;
 		this.points = 0; //Points du joueur
 		this.move = 0; //Permet de savoir si le joueur peut encore jouer ou non
 		this.tilePlayed = 0; //Permet de savoir le nombre de tuiles joués
