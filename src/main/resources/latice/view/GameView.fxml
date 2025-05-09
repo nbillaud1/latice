@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -625,11 +626,14 @@
             <Insets bottom="80.0" />
          </StackPane.margin>
          <children>
-            <Rectangle fx:id="idPilePlayer1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0">
+            <ImageView fx:id="idPilePlayer1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/pile.png" />
+               </image>
                <HBox.margin>
-                  <Insets right="50.0" />
+                  <Insets right="20.0" />
                </HBox.margin>
-            </Rectangle>
+            </ImageView>
             <HBox alignment="CENTER" prefHeight="90.0" prefWidth="450.0">
                <children>
                   <ImageView fx:id="idRackPlayerTile1" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
@@ -639,11 +643,17 @@
                   <ImageView fx:id="idRackPlayerTile5" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <Rectangle fx:id="idPilePlayer2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0">
+            <ImageView fx:id="idPilePlayer2" fitHeight="100.0" fitWidth="100.0" layoutX="166.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/pile.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
                <HBox.margin>
-                  <Insets left="50.0" />
+                  <Insets left="20.0" />
                </HBox.margin>
-            </Rectangle>
+            </ImageView>
          </children>
       </HBox>
       <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="CENTER">
