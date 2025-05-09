@@ -141,7 +141,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer1.setVisible(false);
 		    idPilePlayer2.setVisible(true);
 		    this.idTxtPile.setText("Au tour de " + player2Name);
-		    System.out.println("j2");
 		}
 		else {
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
@@ -160,7 +159,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer2.setVisible(false);
 		    idPilePlayer1.setVisible(true);
 		    this.idTxtPile.setText("Au tour de " + player1Name);
-		    System.out.println("j1");
 		}
 		isJ2 = !isJ2;
 	}

@@ -119,17 +119,11 @@ public class LaticeAppSb extends Application{
         root.setBottom(hBoxBottom);
         
         //Définit le background
-      		Image image = new Image("/latice/image/fond.png");
-              BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-              BackgroundImage backgroundImage = new BackgroundImage(
-                      image,
-                      BackgroundRepeat.NO_REPEAT,
-                      BackgroundRepeat.NO_REPEAT,
-                      BackgroundPosition.CENTER,
-                      backgroundSize
-              );
-              Background background = new Background(backgroundImage);
-              root.setBackground(background);
+      	Image image = new Image("/latice/image/fond.png");
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background background = new Background(backgroundImage);
+        root.setBackground(background);
         
         primaryStage.setScene(new Scene(root, 1000,1000));
         primaryStage.setTitle("Choix du nom des joueurs");
@@ -172,11 +166,17 @@ public class LaticeAppSb extends Application{
 	    controller.setPlayer2Name(this.player2Name());
 	    loader.setController(controller);
 		
-		/*Mise en place de la page*/
+		//Mise en place de la page
 		StackPane root = new StackPane();
 		root.getChildren().add(loader.load());
 		Stage stage = new Stage();
 		Scene scene = new Scene(root,1000,1000);
+		//Définit le background
+      	Image image = new Image("/latice/image/fond.png");
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background background = new Background(backgroundImage);
+        root.setBackground(background);
 		stage.setScene(scene);
 		stage.setTitle("Jeu du Latice");
 		stage.show();
