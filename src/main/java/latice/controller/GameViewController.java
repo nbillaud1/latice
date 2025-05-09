@@ -69,58 +69,88 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	public void handle(MouseEvent event) {
 		//TODO
     }
+	
+	private Player player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
+	private Player player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
+	
+	private Image imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
+    private Image imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
+    private Image imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
+    private Image imageTile4p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(3).urlImg()).toExternalForm());
+    private Image imageTile5p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(4).urlImg()).toExternalForm());
 
+    private Image imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
+    private Image imageTile2p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
+    private Image imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
+    private Image imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
+    private Image imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
+    
     @FXML
     void initialize() { 	
-    	Player player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
-    	Player player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
-    	
-    	Image imageTile1j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
-        Image imageTile2j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
-        Image imageTile3j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
-        Image imageTile4j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(3).urlImg()).toExternalForm());
-        Image imageTile5j1 = new Image(getClass().getResource(rackPlayer1.tiles().get(4).urlImg()).toExternalForm());
 
-        Image imageTile1j2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
-        Image imageTile2j2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
-        Image imageTile3j2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
-        Image imageTile4j2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
-        Image imageTile5j2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
-    	
-        idRackPlayerTile1.setImage(imageTile1j1);
-        idRackPlayerTile2.setImage(imageTile2j1);
-        idRackPlayerTile3.setImage(imageTile3j1);
-        idRackPlayerTile4.setImage(imageTile4j1);
-        idRackPlayerTile5.setImage(imageTile5j1);
+        idRackPlayerTile1.setImage(imageTile1p1);
+        idRackPlayerTile2.setImage(imageTile2p1);
+        idRackPlayerTile3.setImage(imageTile3p1);
+        idRackPlayerTile4.setImage(imageTile4p1);
+        idRackPlayerTile5.setImage(imageTile5p1);
         
-        idBtnPasser.setOnAction(e -> { //Permet de changer entre le raack j1 et j2
-        	if (isJ2) {
-        		idRackPlayerTile1.setImage(imageTile1j2);
-	            idRackPlayerTile2.setImage(imageTile2j2);
-	            idRackPlayerTile3.setImage(imageTile3j2);
-	            idRackPlayerTile4.setImage(imageTile4j2);
-	            idRackPlayerTile5.setImage(imageTile5j2);
-        	}
-        	else {
-                idRackPlayerTile1.setImage(imageTile1j1);
-                idRackPlayerTile2.setImage(imageTile2j1);
-                idRackPlayerTile3.setImage(imageTile3j1);
-                idRackPlayerTile4.setImage(imageTile4j1);
-                idRackPlayerTile5.setImage(imageTile5j1);
-        	}
-        	isJ2 = !isJ2;
+      //Permet de changer entre le rack p1 et p2
+        idBtnPasser.setOnAction(e -> { 
+        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
+					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
         
+        //Permet de changer son rack et passer son tour
         idBtnChanger.setOnAction(e -> {
         	if (isJ2) {
-        		rackPlayer1 = new Rack(poolPlayer1);
+        		player2.switchRack();
+        		rackPlayer2 = player2.Rack();
+        		System.out.println(rackPlayer2.tiles().get(0));
         	}
         	else {
-        		rackPlayer2 = new Rack(poolPlayer2);
+        		player1.switchRack();
+        		rackPlayer1 = player1.Rack();
         	}
+        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
+					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
         
         this.idTxtPile1.setText(idTxtPile1.getText() + player1Name);
         this.idTxtPile2.setText(idTxtPile2.getText() + player2Name);
     }
+
+	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
+			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
+			Image imageTile5p2) {
+		if (isJ2) {
+			imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
+		    imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
+		    imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
+		    imageTile4p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(3).urlImg()).toExternalForm());
+		    imageTile5p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(4).urlImg()).toExternalForm());
+
+			idRackPlayerTile1.setImage(imageTile1p2);
+		    idRackPlayerTile2.setImage(imageTile2p2);
+		    idRackPlayerTile3.setImage(imageTile3p2);
+		    idRackPlayerTile4.setImage(imageTile4p2);
+		    idRackPlayerTile5.setImage(imageTile5p2);
+		    player2.pass();
+		}
+		else {
+			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
+		    imageTile2p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
+		    imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
+		    imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
+		    imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
+		    
+			
+		    idRackPlayerTile1.setImage(imageTile1p1);
+		    idRackPlayerTile2.setImage(imageTile2p1);
+		    idRackPlayerTile3.setImage(imageTile3p1);
+		    idRackPlayerTile4.setImage(imageTile4p1);
+		    idRackPlayerTile5.setImage(imageTile5p1);
+		    player1.pass();
+		}
+		isJ2 = !isJ2;
+	}
 }
