@@ -42,10 +42,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Button idBtnChanger;
 	
 	@FXML
-	private Rectangle idPilePlayer1;
+	private ImageView idPilePlayer1;
 	
 	@FXML
-	private Rectangle idPilePlayer2;
+	private ImageView idPilePlayer2;
 	
 	@FXML
 	private Text idTxtPile;
