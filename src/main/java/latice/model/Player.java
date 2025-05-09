@@ -34,13 +34,13 @@ public class Player {
 	//Permet de stocker les tuiles restantes du rack dans 
 	private void stackTiles() {
 		for(Tile tile : rack.tiles()) {
-			pool.add(tile);
+			this.pool.add(tile);
 		}
 	}
 	
 	public void switchRack() {
 		stackTiles();
-		rack = new Rack(pool);
+		this.rack = new Rack(pool);
 	}
 	
 	public void pass() {

@@ -105,7 +105,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	if (isJ2) {
         		player2.switchRack();
         		rackPlayer2 = player2.Rack();
-        		System.out.println(rackPlayer2.tiles().get(0));
+        		System.out.println(rackPlayer2.tiles().get(0).afficher());
         	}
         	else {
         		player1.switchRack();
@@ -129,11 +129,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    imageTile4p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(3).urlImg()).toExternalForm());
 		    imageTile5p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(4).urlImg()).toExternalForm());
 
-			idRackPlayerTile1.setImage(imageTile1p2);
-		    idRackPlayerTile2.setImage(imageTile2p2);
-		    idRackPlayerTile3.setImage(imageTile3p2);
-		    idRackPlayerTile4.setImage(imageTile4p2);
-		    idRackPlayerTile5.setImage(imageTile5p2);
+			idRackPlayerTile1.setImage(imageTile1p1);
+		    idRackPlayerTile2.setImage(imageTile2p1);
+		    idRackPlayerTile3.setImage(imageTile3p1);
+		    idRackPlayerTile4.setImage(imageTile4p1);
+		    idRackPlayerTile5.setImage(imageTile5p1);
 		    player2.pass();
 		}
 		else {
@@ -143,12 +143,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
 		    imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
 		    
-			
-		    idRackPlayerTile1.setImage(imageTile1p1);
-		    idRackPlayerTile2.setImage(imageTile2p1);
-		    idRackPlayerTile3.setImage(imageTile3p1);
-		    idRackPlayerTile4.setImage(imageTile4p1);
-		    idRackPlayerTile5.setImage(imageTile5p1);
+		    idRackPlayerTile1.setImage(imageTile1p2);
+		    idRackPlayerTile2.setImage(imageTile2p2);
+		    idRackPlayerTile3.setImage(imageTile3p2);
+		    idRackPlayerTile4.setImage(imageTile4p2);
+		    idRackPlayerTile5.setImage(imageTile5p2);
 		    player1.pass();
 		}
 		isJ2 = !isJ2;
