@@ -40,7 +40,7 @@ public class Player {
 	
 	public void switchRack() {
 		stackTiles();
-		completeRack();
+		rack = new Rack(pool);
 	}
 	
 	public void pass() {
@@ -57,5 +57,9 @@ public class Player {
 	
 	public void setPoints(int points) {
 		this.points += points;
+	}
+
+	public Rack Rack() {
+		return rack;
 	}
 }
