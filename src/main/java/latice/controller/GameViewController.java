@@ -7,8 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import latice.model.Game;
@@ -50,6 +55,24 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Text idTxtPile;
 	
+	@FXML
+	private GridPane idGrid;
+	
+	@FXML
+	private Rectangle idRecTile1;
+	
+	@FXML
+	private Rectangle idRecTile2;
+	
+	@FXML
+	private Rectangle idRecTile3;
+	
+	@FXML
+	private Rectangle idRecTile4;
+	
+	@FXML
+	private Rectangle idRecTile5;
+	
 	private Game game = new Game();
 	private MainPool mainPool = game.mainPool();
 
@@ -61,19 +84,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
 	private String player2Name;
-	
-	public void setPlayer1Name(String name) {
-        this.player1Name = name;
-    }
-
-    public void setPlayer2Name(String name) {
-        this.player2Name = name;
-    }
-	
-	@Override
-	public void handle(MouseEvent event) {
-		//TODO
-    }
 	
 	private Player player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
 	private Player player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
@@ -90,8 +100,24 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private Image imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
     private Image imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
     
+    public void setPlayer1Name(String name) {
+        this.player1Name = name;
+    }
+
+    public void setPlayer2Name(String name) {
+        this.player2Name = name;
+    }
+	
+	@Override
+	public void handle(MouseEvent event) {
+		//TODO
+    }
+    
     @FXML
     void initialize() {
+    	idRecTile1.setFill(Color.RED);
+    	idRecTile1.setOpacity(0.01);
+    	
     	this.idTxtPile.setText("Au tour de " + player1Name);
     	idPilePlayer2.setVisible(false);
         idRackPlayerTile1.setImage(imageTile1p1);
@@ -119,6 +145,36 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
+        
+        // Drag and Drop des images des tuiles ne marche pas je pense que c'est dû a la grid dans laquelle ils sont qui les empêche d'être accessible à la souris
+ 		idRecTile1.setOnDragDetected(event -> {
+             Dragboard dragboard = idRecTile1.startDragAndDrop(TransferMode.ANY);
+             ClipboardContent content = new ClipboardContent();
+             content.putString("Draging");
+             dragboard.setContent(content);
+             dragboard.setDragView(imageTile1p1);
+             System.out.println("Drag started");
+             event.consume();
+         });
+ 	
+ 		idGrid.setOnDragOver(event -> {
+             System.out.println("DragOver détecté");
+             if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
+                 event.acceptTransferModes(TransferMode.ANY);
+             }
+             event.consume();
+         });
+ 	
+ 		idGrid.setOnDragDropped(event -> {
+             Dragboard db = event.getDragboard();
+             if (db.hasString()) {
+                 System.out.println("Drop reçu avec : " + db.getString());
+                 event.setDropCompleted(true);
+             } else {
+                 event.setDropCompleted(false);
+             }
+             event.consume();
+         });
     }
 
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
