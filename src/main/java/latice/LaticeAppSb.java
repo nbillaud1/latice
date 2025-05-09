@@ -14,9 +14,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -28,43 +34,58 @@ public class LaticeAppSb extends Application{
 	
 	private Button btnStart;
 	private Label lblPlayer1Name;
-	private Label lblPlayer2Name;
 	private Label lblErrorStart;
 	private TextField tfPlayer1Name;
-	private TextField tfPlayer2Name;
 	private Stage primaryStage;
+	
+	
+
 
 	@Override
 	public void start(Stage primaryStage){
-		/*Scène principale avant de commencer la partie pour choisir les noms.*/
+		//Scène principale avant de commencer la partie pour choisir les noms.
 		BorderPane root = new BorderPane();
         Stage stage = new Stage();
         this.primaryStage = primaryStage;
         this.btnStart = new Button("Commencer la partie !");
         ButtonListener lstnBtn = new ButtonListener();
 		this.btnStart.setOnMouseClicked(lstnBtn);
+		
+		Label title = new Label("Bienvenue dans notre jeu Latice");
+        title.setTextFill(Color.WHITE);
+        title.setFont(Font.font(null, FontWeight.BOLD, 50));
 
-		this.lblPlayer1Name = new Label("Nom du Joueur 1 : ");
-		this.lblPlayer2Name = new Label("Nom du Joueur 2 : ");
+        Image image = new Image("/latice/image/fond.png");
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                backgroundSize
+        );
+        Background background = new Background(backgroundImage);
+        root.setBackground(background);
+
+		this.lblPlayer1Name = new Label("Veuillez entrer le nom du Joueur 1 : ");
 		this.lblErrorStart = new Label();
 		this.lblErrorStart.setTextFill(Color.RED);
 	    this.lblErrorStart.setFont(Font.font(null, FontWeight.BOLD, -1));
 		this.tfPlayer1Name = new TextField();
-		this.tfPlayer2Name = new TextField();
-		GridPane gridNames = new GridPane();
-		gridNames.add(this.lblPlayer1Name, 0, 0);
-		gridNames.add(this.lblPlayer2Name, 0, 1);
-		gridNames.add(this.tfPlayer1Name, 1, 0);
-		gridNames.add(this.tfPlayer2Name, 1, 1);
-		gridNames.add(this.btnStart, 1, 2);
-		gridNames.setHgap(15);
-		gridNames.setVgap(15);
+		VBox vBoxName = new VBox();
+		vBoxName.setMaxWidth(500);
+        vBoxName.setMaxHeight(500);
+		vBoxName.setSpacing(10);
+		vBoxName.getChildren().addAll(this.lblPlayer1Name,tfPlayer1Name,btnStart);		
 		
-        root.setCenter(gridNames);
+		root.setTop(title);
+		BorderPane.setAlignment(title, javafx.geometry.Pos.CENTER);
+		BorderPane.setMargin(title, new Insets(20, 0, 0, 0));
+        root.setCenter(vBoxName);
         root.setRight(this.lblErrorStart);
         
-        primaryStage.setScene(new Scene(root, 800, 300));
-        primaryStage.setTitle("Choix des noms");
+        primaryStage.setScene(new Scene(root, 1000,1000));
+        primaryStage.setTitle("Choix du nom du joueur1");
         primaryStage.show();
 	}
 
@@ -76,12 +97,10 @@ public class LaticeAppSb extends Application{
 				if(tfPlayer1Name.getText().equals("")) {
 					lblErrorStart.setText("Vous devez renseigner un nom pour le joueur 1.");
 				}
-				else if(tfPlayer2Name.getText().equals("")){
-					lblErrorStart.setText("Vous devez renseigner un nom pour le joueur 2.");
-				}
 				else {
 					try {
 						lblErrorStart.setText("");
+						/*il faudrait essayer de faire disparaitre la fenêtre des noms en lançant le jeu*/
 						startTheGame(primaryStage);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -117,7 +136,7 @@ public class LaticeAppSb extends Application{
 	}
 	
 	public String player2Name() {
-		return this.tfPlayer2Name.getText();
+		return "b";
 	}
 	
 	public static void main(String[] args) {
