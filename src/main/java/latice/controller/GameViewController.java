@@ -56,7 +56,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
-	private boolean isJ2 = true;
+	private boolean isJ2 = false;
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
@@ -141,6 +141,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer1.setVisible(false);
 		    idPilePlayer2.setVisible(true);
 		    this.idTxtPile.setText("Au tour de " + player2Name);
+		    System.out.println("j2");
 		}
 		else {
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
@@ -159,6 +160,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer2.setVisible(false);
 		    idPilePlayer1.setVisible(true);
 		    this.idTxtPile.setText("Au tour de " + player1Name);
+		    System.out.println("j1");
 		}
 		isJ2 = !isJ2;
 	}
