@@ -615,13 +615,17 @@
             </ImageView>
          </children>
       </GridPane>
+      <Text fx:id="idTxtPile" strokeType="OUTSIDE" strokeWidth="0.0" text="Au tour de" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="190.0" />
+         </StackPane.margin>
+      </Text>
       <HBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="850.0" StackPane.alignment="BOTTOM_CENTER">
          <StackPane.margin>
             <Insets bottom="80.0" />
          </StackPane.margin>
          <children>
-            <Text fx:id="idTxtPile1" strokeType="OUTSIDE" strokeWidth="0.0" text="Pile de " />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0">
+            <Rectangle fx:id="idPilePlayer1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0">
                <HBox.margin>
                   <Insets right="50.0" />
                </HBox.margin>
@@ -635,12 +639,11 @@
                   <ImageView fx:id="idRackPlayerTile5" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0">
+            <Rectangle fx:id="idPilePlayer2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="90.0" stroke="BLACK" strokeType="INSIDE" width="90.0">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
             </Rectangle>
-            <Text fx:id="idTxtPile2" strokeType="OUTSIDE" strokeWidth="0.0" text="Pile de " />
          </children>
       </HBox>
       <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="CENTER">

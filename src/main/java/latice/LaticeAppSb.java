@@ -82,7 +82,6 @@ public class LaticeAppSb extends Application{
 				else {
 					try {
 						lblErrorStart.setText("");
-						/*il faudrait essayer de faire disparaitre la fenêtre des noms en lançant le jeu*/
 						startTheGame(primaryStage);
 					} catch (Exception e) {
 						e.printStackTrace();

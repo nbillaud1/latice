@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import latice.model.Game;
 import latice.model.MainPool;
@@ -40,10 +42,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Button idBtnChanger;
 	
 	@FXML
-	private Text idTxtPile1;
+	private Rectangle idPilePlayer1;
 	
 	@FXML
-	private Text idTxtPile2;
+	private Rectangle idPilePlayer2;
+	
+	@FXML
+	private Text idTxtPile;
 	
 	private Game game = new Game();
 	private MainPool mainPool = game.mainPool();
@@ -86,8 +91,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private Image imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
     
     @FXML
-    void initialize() { 	
-
+    void initialize() {
+    	this.idTxtPile.setText("Au tour de " + player1Name);
+    	idPilePlayer2.setVisible(false);
         idRackPlayerTile1.setImage(imageTile1p1);
         idRackPlayerTile2.setImage(imageTile2p1);
         idRackPlayerTile3.setImage(imageTile3p1);
@@ -105,7 +111,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	if (isJ2) {
         		player2.switchRack();
         		rackPlayer2 = player2.Rack();
-        		System.out.println(rackPlayer2.tiles().get(0).afficher());
         	}
         	else {
         		player1.switchRack();
@@ -114,9 +119,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
-        
-        this.idTxtPile1.setText(idTxtPile1.getText() + player1Name);
-        this.idTxtPile2.setText(idTxtPile2.getText() + player2Name);
     }
 
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
@@ -134,7 +136,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackPlayerTile3.setImage(imageTile3p1);
 		    idRackPlayerTile4.setImage(imageTile4p1);
 		    idRackPlayerTile5.setImage(imageTile5p1);
+		    
 		    player2.pass();
+		    idPilePlayer1.setVisible(false);
+		    idPilePlayer2.setVisible(true);
+		    this.idTxtPile.setText("Au tour de " + player2Name);
 		}
 		else {
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
@@ -148,7 +154,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackPlayerTile3.setImage(imageTile3p2);
 		    idRackPlayerTile4.setImage(imageTile4p2);
 		    idRackPlayerTile5.setImage(imageTile5p2);
+		    
 		    player1.pass();
+		    idPilePlayer2.setVisible(false);
+		    idPilePlayer1.setVisible(true);
+		    this.idTxtPile.setText("Au tour de " + player1Name);
 		}
 		isJ2 = !isJ2;
 	}
