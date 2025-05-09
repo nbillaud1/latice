@@ -21,6 +21,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -34,8 +35,10 @@ public class LaticeAppSb extends Application{
 	
 	private Button btnStart;
 	private Label lblPlayer1Name;
+	private Label lblPlayer2Name;
 	private Label lblErrorStart;
 	private TextField tfPlayer1Name;
+	private TextField tfPlayer2Name;
 	private Stage primaryStage;
 	
 	
@@ -43,59 +46,109 @@ public class LaticeAppSb extends Application{
 
 	@Override
 	public void start(Stage primaryStage){
-		//Scène principale avant de commencer la partie pour choisir les noms.
-		BorderPane root = new BorderPane();
-        Stage stage = new Stage();
+		Stage stage = new Stage();
         this.primaryStage = primaryStage;
-        this.btnStart = new Button("Commencer la partie !");
+        
+        //Titre
+        Label title = new Label("Bienvenue dans notre jeu Latice");
+        title.setTextFill(Color.WHITE);
+        title.setFont(Font.font(null, FontWeight.BOLD, 50));
+        
+        //Erreur au start
+        this.lblErrorStart = new Label();
+		this.lblErrorStart.setTextFill(Color.RED);
+	    this.lblErrorStart.setFont(Font.font(null, FontWeight.BOLD, 18));
+	    lblErrorStart.setMaxWidth(Double.MAX_VALUE);
+
+		//Vbox j1
+		this.lblPlayer1Name = new Label("Veuillez entrer le nom du Joueur 1 : ");
+		lblPlayer1Name.setTextFill(Color.WHITE);
+        lblPlayer1Name.setFont(Font.font(null, FontWeight.BOLD, 20));
+		this.tfPlayer1Name = new TextField();
+		VBox vBoxName1 = new VBox();
+		vBoxName1.setMaxWidth(400);
+        vBoxName1.setMaxHeight(400);
+		vBoxName1.setSpacing(10);
+		vBoxName1.getChildren().addAll(this.lblPlayer1Name,tfPlayer1Name);
+		vBoxName1.setAlignment(Pos.CENTER);
+		
+		//Vbox j2
+		this.lblPlayer2Name = new Label("Veuillez entrer le nom du Joueur 2 : ");
+		lblPlayer2Name.setTextFill(Color.WHITE);
+        lblPlayer2Name.setFont(Font.font(null, FontWeight.BOLD, 20));
+		this.tfPlayer2Name = new TextField();
+		VBox vBoxName2 = new VBox();
+		vBoxName2.setMaxWidth(400);
+        vBoxName2.setMaxHeight(400);
+		vBoxName2.setSpacing(10);
+		vBoxName2.getChildren().addAll(this.lblPlayer2Name,tfPlayer2Name);
+		vBoxName2.setAlignment(Pos.CENTER);
+		vBoxName2.setSpacing(10);
+
+		
+		//Bouton pour commencer
+		this.btnStart = new Button("Commencer la partie !");
         ButtonListener lstnBtn = new ButtonListener();
 		this.btnStart.setOnMouseClicked(lstnBtn);
 		
-		Label title = new Label("Bienvenue dans notre jeu Latice");
-        title.setTextFill(Color.WHITE);
-        title.setFont(Font.font(null, FontWeight.BOLD, 50));
-
-        Image image = new Image("/latice/image/fond.png");
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(
-                image,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                backgroundSize
-        );
-        Background background = new Background(backgroundImage);
-        root.setBackground(background);
-
-		this.lblPlayer1Name = new Label("Veuillez entrer le nom du Joueur 1 : ");
-		this.lblErrorStart = new Label();
-		this.lblErrorStart.setTextFill(Color.RED);
-	    this.lblErrorStart.setFont(Font.font(null, FontWeight.BOLD, -1));
-		this.tfPlayer1Name = new TextField();
-		VBox vBoxName = new VBox();
-		vBoxName.setMaxWidth(500);
-        vBoxName.setMaxHeight(500);
-		vBoxName.setSpacing(10);
-		vBoxName.getChildren().addAll(this.lblPlayer1Name,tfPlayer1Name,btnStart);		
+      //Configure l'empillage
+		//HBox du milieu
+		HBox hBoxMidle = new HBox();
+		hBoxMidle.setAlignment(Pos.CENTER);
+		hBoxMidle.setSpacing(50);
+		hBoxMidle.setPadding(new Insets(20));
+		hBoxMidle.getChildren().addAll(vBoxName1,vBoxName2);
+		//VBox et HBox du bas
+		VBox vBoxBottom = new VBox();
+		vBoxBottom.setMaxWidth(500);
+        vBoxBottom.setMaxHeight(500);
+		vBoxBottom.setSpacing(100);
+		vBoxBottom.getChildren().addAll(this.lblErrorStart,btnStart);
+		vBoxBottom.setAlignment(Pos.CENTER);
 		
-		root.setTop(title);
+		HBox hBoxBottom = new HBox(vBoxBottom);
+		hBoxBottom.setAlignment(Pos.CENTER);
+		HBox.setMargin(vBoxBottom, new Insets(0, 0, 50, 0));
+		//BorderPane
 		BorderPane.setAlignment(title, javafx.geometry.Pos.CENTER);
 		BorderPane.setMargin(title, new Insets(20, 0, 0, 0));
-        root.setCenter(vBoxName);
-        root.setRight(this.lblErrorStart);
+		//Root
+		BorderPane root = new BorderPane();
+		root.setTop(title);
+        root.setCenter(hBoxMidle);
+        root.setBottom(hBoxBottom);
+        
+        //Définit le background
+      		Image image = new Image("/latice/image/fond.png");
+              BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+              BackgroundImage backgroundImage = new BackgroundImage(
+                      image,
+                      BackgroundRepeat.NO_REPEAT,
+                      BackgroundRepeat.NO_REPEAT,
+                      BackgroundPosition.CENTER,
+                      backgroundSize
+              );
+              Background background = new Background(backgroundImage);
+              root.setBackground(background);
         
         primaryStage.setScene(new Scene(root, 1000,1000));
-        primaryStage.setTitle("Choix du nom du joueur1");
+        primaryStage.setTitle("Choix du nom des joueurs");
         primaryStage.show();
 	}
 
-	
+
 	private class ButtonListener implements EventHandler<MouseEvent>{
 		@Override
 		public void handle(MouseEvent event) {
 			if(event.getSource() == btnStart) {
 				if(tfPlayer1Name.getText().equals("")) {
 					lblErrorStart.setText("Vous devez renseigner un nom pour le joueur 1.");
+				}
+				else if(tfPlayer2Name.getText().equals("")) {
+					lblErrorStart.setText("Vous devez renseigner un nom pour le joueur 2.");
+				}
+				else if(tfPlayer2Name.getText().equals(tfPlayer1Name.getText())) {
+					lblErrorStart.setText("Les noms doivent être différents");
 				}
 				else {
 					try {
@@ -135,7 +188,7 @@ public class LaticeAppSb extends Application{
 	}
 	
 	public String player2Name() {
-		return "b";
+		return this.tfPlayer2Name.getText();
 	}
 	
 	public static void main(String[] args) {
