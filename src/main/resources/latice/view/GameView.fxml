@@ -672,7 +672,7 @@
       </HBox>
       <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="CENTER">
          <children>
-            <Button fx:id="idBtnPasser" mnemonicParsing="false" prefHeight="33.0" prefWidth="137.0" text="Passer son tour" textAlignment="CENTER">
+            <Button fx:id="idBtnPass" mnemonicParsing="false" prefHeight="33.0" prefWidth="137.0" text="Passer son tour" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>
@@ -680,7 +680,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="idBtnChanger" mnemonicParsing="false" prefHeight="32.0" prefWidth="171.0" text="Changer sa main">
+            <Button fx:id="idBtnChange" mnemonicParsing="false" prefHeight="32.0" prefWidth="171.0" text="Changer sa main">
                <font>
                   <Font name="Arial Bold" size="17.0" />
                </font>
@@ -688,7 +688,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="277.0" text="Acheter une action supplémentaire">
+            <Button fx:id="idBtnExtraMove" mnemonicParsing="false" prefHeight="33.0" prefWidth="277.0" text="Acheter une action supplémentaire">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>
