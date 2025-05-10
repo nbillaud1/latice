@@ -1,18 +1,16 @@
 package latice;
 
 import javafx.application.Application;
-import javafx.application.Platform;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -20,7 +18,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -91,7 +88,7 @@ public class LaticeAppSb extends Application{
         ButtonListener lstnBtn = new ButtonListener();
 		this.btnStart.setOnMouseClicked(lstnBtn);
 		
-      //Configure l'empillage
+      //Configure l'empilage
 		//HBox du milieu
 		HBox hBoxMidle = new HBox();
 		hBoxMidle.setAlignment(Pos.CENTER);

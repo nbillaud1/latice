@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -12,7 +11,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -58,21 +56,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private GridPane idGrid;
 	
-	@FXML
-	private Rectangle idRecTile1;
-	
-	@FXML
-	private Rectangle idRecTile2;
-	
-	@FXML
-	private Rectangle idRecTile3;
-	
-	@FXML
-	private Rectangle idRecTile4;
-	
-	@FXML
-	private Rectangle idRecTile5;
-	
 	private Game game = new Game();
 	private MainPool mainPool = game.mainPool();
 
@@ -115,8 +98,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
     void initialize() {
-    	idRecTile1.setFill(Color.RED);
-    	idRecTile1.setOpacity(0.01);
     	
     	this.idTxtPile.setText("Au tour de " + player1Name);
     	idPilePlayer2.setVisible(false);
@@ -147,34 +128,39 @@ public class GameViewController implements EventHandler<MouseEvent>{
         });
         
         // Drag and Drop des images des tuiles ne marche pas je pense que c'est dû a la grid dans laquelle ils sont qui les empêche d'être accessible à la souris
- 		idRecTile1.setOnDragDetected(event -> {
-             Dragboard dragboard = idRecTile1.startDragAndDrop(TransferMode.ANY);
+ 		idRackPlayerTile1.setOnDragDetected(event -> {
+             Dragboard dragboard = idRackPlayerTile1.startDragAndDrop(TransferMode.MOVE);
              ClipboardContent content = new ClipboardContent();
-             content.putString("Draging");
+             content.putString("tile1");
              dragboard.setContent(content);
              dragboard.setDragView(imageTile1p1);
-             System.out.println("Drag started");
+             System.out.println("Dragging tile1...");
              event.consume();
          });
  	
  		idGrid.setOnDragOver(event -> {
-             System.out.println("DragOver détecté");
-             if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
-                 event.acceptTransferModes(TransferMode.ANY);
-             }
-             event.consume();
-         });
+ 		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
+ 		        event.acceptTransferModes(TransferMode.MOVE);
+ 		        System.out.println("DragOver");
+ 		    }
+ 		    event.consume();
+ 		});
  	
  		idGrid.setOnDragDropped(event -> {
-             Dragboard db = event.getDragboard();
-             if (db.hasString()) {
-                 System.out.println("Drop reçu avec : " + db.getString());
-                 event.setDropCompleted(true);
-             } else {
-                 event.setDropCompleted(false);
-             }
-             event.consume();
-         });
+ 		    Dragboard db = event.getDragboard();
+ 		    if (db.hasString()) {
+ 		        String tileId = db.getString();
+ 		        System.out.println("Dropped: " + tileId);
+ 		        ImageView droppedTile = new ImageView(idRackPlayerTile1.getImage());
+ 		        idGrid.add(droppedTile, 0, 0);
+ 		        event.setDropCompleted(true);
+ 		    }
+ 		    else {
+ 		    	event.setDropCompleted(false);	    	
+ 		    }
+ 		    event.consume();
+ 		});
+
     }
 
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
@@ -194,10 +180,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackPlayerTile5.setImage(imageTile5p1);
 		    
 		    player2.pass();
-		    idPilePlayer1.setVisible(false);
-		    idPilePlayer2.setVisible(true);
-		    this.idTxtPile.setText("Au tour de " + player2Name);
-		    System.out.println("j2");
+		    idPilePlayer1.setVisible(true);
+		    idPilePlayer2.setVisible(false);
+		    this.idTxtPile.setText("Au tour de " + player1Name);
 		}
 		else {
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
@@ -213,10 +198,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackPlayerTile5.setImage(imageTile5p2);
 		    
 		    player1.pass();
-		    idPilePlayer2.setVisible(false);
-		    idPilePlayer1.setVisible(true);
-		    this.idTxtPile.setText("Au tour de " + player1Name);
-		    System.out.println("j1");
+		    idPilePlayer2.setVisible(true);
+		    idPilePlayer1.setVisible(false);
+		    this.idTxtPile.setText("Au tour de " + player2Name);
 		}
 		isJ2 = !isJ2;
 	}
