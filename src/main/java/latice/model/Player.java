@@ -62,4 +62,8 @@ public class Player {
 	public Rack Rack() {
 		return rack;
 	}
+	
+	public int Move() {
+		return move;
+	}
 }
