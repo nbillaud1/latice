@@ -66,4 +66,11 @@ public class Player {
 	public int Move() {
 		return move;
 	}
+	
+	public void setMove(int move) {
+		this.move += move;
+	}
+	public int Points() {
+		return points;
+	}
 }
