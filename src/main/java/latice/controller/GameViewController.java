@@ -130,6 +130,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
         
+        
+        /*
         // Drag and Drop des images des tuiles ne marche pas je pense que c'est dû a la grid dans laquelle ils sont qui les empêche d'être accessible à la souris
  		idRackPlayerTile1.setOnDragDetected(event -> {
              Dragboard dragboard = idRackPlayerTile1.startDragAndDrop(TransferMode.MOVE);
@@ -163,6 +165,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    }
  		    event.consume();
  		});
+ 		*/
  		
  		//Permet d'acheter une action suplémentaire
  		idBtnExtraMove.setOnAction(e -> {
