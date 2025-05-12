@@ -22,7 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -158,16 +157,18 @@ public class LaticeAppSb extends Application{
         FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/latice/view/GameView.fxml"));
 		
-		GameViewController controller = new GameViewController(); // on créer notre propre controller
-	    controller.setPlayer1Name(this.player1Name()); // afin de fournir les noms des joueurs.
-	    controller.setPlayer2Name(this.player2Name());
-	    loader.setController(controller);
-		
 		//Mise en place de la page
 		StackPane root = new StackPane();
 		root.getChildren().add(loader.load());
+		
+		GameViewController controller = loader.getController(); 
+	    controller.setPlayer1Name(this.player1Name()); // fournir les noms des joueurs au controller.
+	    controller.setPlayer2Name(this.player2Name());
+	    controller.initialize();
+	    
 		Stage stage = new Stage();
 		Scene scene = new Scene(root,1000,1000);
+		
 		//Définit le background
       	Image image = new Image("/latice/image/fond.png");
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);

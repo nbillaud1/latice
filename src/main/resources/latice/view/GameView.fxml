@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="975.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="975.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="latice.controller.GameViewController">
    <children>
       <GridPane fx:id="idGrid" maxHeight="720.0" maxWidth="720.0" StackPane.alignment="TOP_CENTER">
         <columnConstraints>
@@ -125,11 +125,6 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="80.0" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="80.0" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="80.0" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
-            <ImageView fx:id="Sun16" fitHeight="79.0" fitWidth="79.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../image/sun.png" />
-               </image>
-            </ImageView>
             <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/bg_sea.png" />
@@ -615,6 +610,11 @@
                   <Image url="@../image/moon.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="Sun16" fitHeight="79.0" fitWidth="79.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../image/sun.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
       <Text fx:id="idTxtPile" strokeType="OUTSIDE" strokeWidth="0.0" text="Au tour de" StackPane.alignment="BOTTOM_CENTER">
@@ -647,11 +647,26 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ImageView fx:id="idRackPlayerTile1" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="idRackPlayerTile2" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                  <ImageView fx:id="idRackPlayerTile3" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                  <ImageView fx:id="idRackPlayerTile4" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-                  <ImageView fx:id="idRackPlayerTile5" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" />
+                  <ImageView fx:id="idRackImageTile1" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/bg_sea.png" />
+                     </image></ImageView>
+                  <ImageView fx:id="idRackImageTile2" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../image/bg_sea.png" />
+                     </image></ImageView>
+                  <ImageView fx:id="idRackImageTile3" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../image/bg_sea.png" />
+                     </image></ImageView>
+                  <ImageView fx:id="idRackImageTile4" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../image/bg_sea.png" />
+                     </image></ImageView>
+                  <ImageView fx:id="idRackImageTile5" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+                     <image>
+                        <Image url="@../image/bg_sea.png" />
+                     </image></ImageView>
                </children>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />

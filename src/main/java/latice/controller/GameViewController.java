@@ -24,19 +24,19 @@ import latice.model.Player;
 public class GameViewController implements EventHandler<MouseEvent>{
 	
 	@FXML
-	private ImageView idRackPlayerTile1;
+	private ImageView idRackImageTile1;
 	
 	@FXML
-	private ImageView idRackPlayerTile2;
+	private ImageView idRackImageTile2;
 	
 	@FXML
-	private ImageView idRackPlayerTile3;
+	private ImageView idRackImageTile3;
 	
 	@FXML
-	private ImageView idRackPlayerTile4;
+	private ImageView idRackImageTile4;
 	
 	@FXML
-	private ImageView idRackPlayerTile5;
+	private ImageView idRackImageTile5;
 	
 	@FXML
 	private Button idBtnPasser;
@@ -97,15 +97,14 @@ public class GameViewController implements EventHandler<MouseEvent>{
     }
     
     @FXML
-    void initialize() {
-    	
-    	this.idTxtPile.setText("Au tour de " + player1Name);
+	public void initialize() {
+    	idTxtPile.setText("Au tour de " + player1Name);
     	idPilePlayer2.setVisible(false);
-        idRackPlayerTile1.setImage(imageTile1p1);
-        idRackPlayerTile2.setImage(imageTile2p1);
-        idRackPlayerTile3.setImage(imageTile3p1);
-        idRackPlayerTile4.setImage(imageTile4p1);
-        idRackPlayerTile5.setImage(imageTile5p1);
+        idRackImageTile1.setImage(imageTile1p1);
+        idRackImageTile2.setImage(imageTile2p1);
+        idRackImageTile3.setImage(imageTile3p1);
+        idRackImageTile4.setImage(imageTile4p1);
+        idRackImageTile5.setImage(imageTile5p1);
         
       //Permet de changer entre le rack p1 et p2
         idBtnPasser.setOnAction(e -> { 
@@ -128,8 +127,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
         });
         
         // Drag and Drop des images des tuiles ne marche pas je pense que c'est dû a la grid dans laquelle ils sont qui les empêche d'être accessible à la souris
- 		idRackPlayerTile1.setOnDragDetected(event -> {
-             Dragboard dragboard = idRackPlayerTile1.startDragAndDrop(TransferMode.MOVE);
+ 		idRackImageTile1.setOnDragDetected(event -> {
+             Dragboard dragboard = idRackImageTile1.startDragAndDrop(TransferMode.MOVE);
              ClipboardContent content = new ClipboardContent();
              content.putString("tile1");
              dragboard.setContent(content);
@@ -151,7 +150,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    if (db.hasString()) {
  		        String tileId = db.getString();
  		        System.out.println("Dropped: " + tileId);
- 		        ImageView droppedTile = new ImageView(idRackPlayerTile1.getImage());
+ 		        ImageView droppedTile = new ImageView(idRackImageTile1.getImage());
  		        idGrid.add(droppedTile, 0, 0);
  		        event.setDropCompleted(true);
  		    }
@@ -159,6 +158,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    	event.setDropCompleted(false);	    	
  		    }
  		    event.consume();
+ 		});
+ 		
+ 		idRackImageTile1.setOnDragDone(event -> {
+ 		    if (event.getTransferMode() == TransferMode.MOVE) {
+ 		        idRackImageTile1.setImage(null); // simule que la tuile a été déplacée
+ 		    }
  		});
 
     }
@@ -173,11 +178,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    imageTile4p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(3).urlImg()).toExternalForm());
 		    imageTile5p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(4).urlImg()).toExternalForm());
 
-			idRackPlayerTile1.setImage(imageTile1p1);
-		    idRackPlayerTile2.setImage(imageTile2p1);
-		    idRackPlayerTile3.setImage(imageTile3p1);
-		    idRackPlayerTile4.setImage(imageTile4p1);
-		    idRackPlayerTile5.setImage(imageTile5p1);
+			idRackImageTile1.setImage(imageTile1p1);
+		    idRackImageTile2.setImage(imageTile2p1);
+		    idRackImageTile3.setImage(imageTile3p1);
+		    idRackImageTile4.setImage(imageTile4p1);
+		    idRackImageTile5.setImage(imageTile5p1);
 		    
 		    player2.pass();
 		    idPilePlayer1.setVisible(true);
@@ -191,11 +196,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
 		    imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
 		    
-		    idRackPlayerTile1.setImage(imageTile1p2);
-		    idRackPlayerTile2.setImage(imageTile2p2);
-		    idRackPlayerTile3.setImage(imageTile3p2);
-		    idRackPlayerTile4.setImage(imageTile4p2);
-		    idRackPlayerTile5.setImage(imageTile5p2);
+		    idRackImageTile1.setImage(imageTile1p2);
+		    idRackImageTile2.setImage(imageTile2p2);
+		    idRackImageTile3.setImage(imageTile3p2);
+		    idRackImageTile4.setImage(imageTile4p2);
+		    idRackImageTile5.setImage(imageTile5p2);
 		    
 		    player1.pass();
 		    idPilePlayer2.setVisible(true);
