@@ -1,6 +1,8 @@
 package latice.controller;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -22,6 +25,11 @@ import latice.model.Tile;
 import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
+	@FXML
+	private GridPane idGridTiles;
+	
+	@FXML
+	private HBox idHboxBas;
 	
 	@FXML
 	private ImageView idRackPlayerTile1;
@@ -65,7 +73,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
-	private boolean isJ2 = false;
+	private boolean isJ2 = new Random().nextBoolean();
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
@@ -101,14 +109,25 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
     void initialize() {
+    	if (isJ2) {
+    		this.idTxtPile.setText("Au tour de " + player2Name);
+        	idPilePlayer1.setVisible(false);
+            idRackPlayerTile1.setImage(imageTile1p2);
+            idRackPlayerTile2.setImage(imageTile2p2);
+            idRackPlayerTile3.setImage(imageTile3p2);
+            idRackPlayerTile4.setImage(imageTile4p2);
+            idRackPlayerTile5.setImage(imageTile5p2);
+    	}
+    	else {
+    		this.idTxtPile.setText("Au tour de " + player1Name);
+        	idPilePlayer2.setVisible(false);
+            idRackPlayerTile1.setImage(imageTile1p1);
+            idRackPlayerTile2.setImage(imageTile2p1);
+            idRackPlayerTile3.setImage(imageTile3p1);
+            idRackPlayerTile4.setImage(imageTile4p1);
+            idRackPlayerTile5.setImage(imageTile5p1);
+    	}
     	
-    	this.idTxtPile.setText("Au tour de " + player1Name);
-    	idPilePlayer2.setVisible(false);
-        idRackPlayerTile1.setImage(imageTile1p1);
-        idRackPlayerTile2.setImage(imageTile2p1);
-        idRackPlayerTile3.setImage(imageTile3p1);
-        idRackPlayerTile4.setImage(imageTile4p1);
-        idRackPlayerTile5.setImage(imageTile5p1);
         
       //Permet de changer entre le rack p1 et p2
         idBtnPass.setOnAction(e -> { 
@@ -129,7 +148,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
-        
+        /*
         // Drag and Drop des images des tuiles ne marche pas je pense que c'est dû a la grid dans laquelle ils sont qui les empêche d'être accessible à la souris
  		idRackPlayerTile1.setOnDragDetected(event -> {
              Dragboard dragboard = idRackPlayerTile1.startDragAndDrop(TransferMode.MOVE);
@@ -163,6 +182,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    }
  		    event.consume();
  		});
+ 		*/
  		
  		//Permet d'acheter une action suplémentaire
  		idBtnExtraMove.setOnAction(e -> {
@@ -179,7 +199,14 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		});
  		
  		//TODO la partie ce joue en 10 cycles max
+ 		
+ 		//Drag and drop
+ 		idHboxBas.setOnDragOver(event -> {
+                event.acceptTransferModes(TransferMode.COPY);
+            event.consume();
+        });
 
+ 		
     }
 
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
@@ -227,4 +254,5 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		isJ2 = !isJ2;
 	}
+	
 }
