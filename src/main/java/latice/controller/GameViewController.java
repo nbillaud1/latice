@@ -3,6 +3,7 @@ package latice.controller;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -92,6 +93,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
 	private boolean isJ2 = new Random().nextBoolean();
+	private int roundCounter;
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
@@ -127,6 +129,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
+    	roundCounter = 0;
+    	
     	if (isJ2) {
     		this.idTxtPile.setText("Au tour de " + player2Name);
         	idPilePlayer1.setVisible(false);
@@ -269,8 +273,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    event.consume();
  		});
 	}
- 		
- 		//TODO la partie ce joue en 10 cycles max.
+	
+	private void shutTheGame() {
+		if (roundCounter == 20) {
+			Platform.exit();
+		}
+	}
+ 	
 
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
 			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
@@ -316,6 +325,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player2.setMove();
 		}
 		isJ2 = !isJ2;
+		roundCounter ++;
+		shutTheGame();
 	}
 	
 }
