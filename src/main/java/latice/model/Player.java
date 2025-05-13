@@ -15,7 +15,7 @@ public class Player {
 		this.rack = rack;
 		this.name = name;
 		this.points = 0; //Points du joueur
-		this.move = 0; //Permet de savoir si le joueur peut encore jouer ou non
+		this.move = 1; //Permet de savoir si le joueur peut encore jouer ou non
 		this.tilePlayed = 0; //Permet de savoir le nombre de tuiles joués
 		
 	}
@@ -61,5 +61,16 @@ public class Player {
 
 	public Rack Rack() {
 		return rack;
+	}
+	
+	public int Move() {
+		return move;
+	}
+	
+	public void setMove() {
+		this.move = 1;
+	}
+	public int Points() {
+		return points;
 	}
 }

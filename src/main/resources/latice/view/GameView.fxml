@@ -624,7 +624,7 @@
       </Text>
       <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="CENTER">
          <children>
-            <Button fx:id="idBtnPasser" mnemonicParsing="false" prefHeight="33.0" prefWidth="137.0" text="Passer son tour" textAlignment="CENTER">
+            <Button fx:id="idBtnPass" mnemonicParsing="false" prefHeight="33.0" prefWidth="137.0" text="Passer son tour" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>
@@ -632,7 +632,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="idBtnChanger" mnemonicParsing="false" prefHeight="32.0" prefWidth="171.0" text="Changer sa main">
+            <Button fx:id="idBtnChange" mnemonicParsing="false" prefHeight="32.0" prefWidth="171.0" text="Changer sa main">
                <font>
                   <Font name="Arial Bold" size="17.0" />
                </font>
@@ -640,7 +640,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="277.0" text="Acheter une action supplémentaire">
+            <Button fx:id="idBtnExtraMove" mnemonicParsing="false" prefHeight="33.0" prefWidth="277.0" text="Acheter une action supplémentaire">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>
@@ -751,45 +751,30 @@
             <Insets bottom="80.0" />
          </StackPane.margin>
          <children>
-            <ImageView fx:id="idRackInvisibleTile1" fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" opacity="0.01" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="idRackInvisibleTile1" fitHeight="90.0" fitWidth="90.0" opacity="0.01" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/bg_sea.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
             </ImageView>
-            <ImageView fx:id="idRackInvisibleTile2" fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView fx:id="idRackInvisibleTile2" fitHeight="90.0" fitWidth="90.0" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@../image/bg_sea.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
             </ImageView>
-            <ImageView fx:id="idRackInvisibleTile3" fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <ImageView fx:id="idRackInvisibleTile3" fitHeight="90.0" fitWidth="90.0" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                <image>
                   <Image url="@../image/bg_sea.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
             </ImageView>
-            <ImageView fx:id="idRackInvisibleTile4" fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+            <ImageView fx:id="idRackInvisibleTile4" fitHeight="90.0" fitWidth="90.0" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
                   <Image url="@../image/bg_sea.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
             </ImageView>
-            <ImageView fx:id="idRackInvisibleTile5" fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+            <ImageView fx:id="idRackInvisibleTile5" fitHeight="90.0" fitWidth="90.0" opacity="0.01" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                <image>
                   <Image url="@../image/bg_sea.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
             </ImageView>
          </children>
       </GridPane>

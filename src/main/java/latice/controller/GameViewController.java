@@ -1,6 +1,8 @@
 package latice.controller;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -22,6 +25,11 @@ import latice.model.Tile;
 import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
+	@FXML
+	private GridPane idGridTiles;
+	
+	@FXML
+	private HBox idHboxBas;
 	
 	@FXML
 	private ImageView idRackImageTile1;
@@ -54,10 +62,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private ImageView idRackInvisibleTile5;
 	
 	@FXML
-	private Button idBtnPasser;
+	private Button idBtnPass;
 	
 	@FXML
-	private Button idBtnChanger;
+	private Button idBtnChange;
 	
 	@FXML
 	private ImageView idPilePlayer1;
@@ -74,13 +82,16 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
     private GridPane idInvisibleGrid;
 	
+	@FXML
+	private Button idBtnExtraMove;
+	
 	private Game game = new Game();
 	private MainPool mainPool = game.mainPool();
 
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
-	private boolean isJ2 = false;
+	private boolean isJ2 = new Random().nextBoolean();
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
@@ -116,22 +127,33 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
-    	idTxtPile.setText("Au tour de " + player1Name);
-    	idPilePlayer2.setVisible(false);
-        idRackImageTile1.setImage(imageTile1p1);
-        idRackImageTile2.setImage(imageTile2p1);
-        idRackImageTile3.setImage(imageTile3p1);
-        idRackImageTile4.setImage(imageTile4p1);
-        idRackImageTile5.setImage(imageTile5p1);
+    	if (isJ2) {
+    		this.idTxtPile.setText("Au tour de " + player2Name);
+        	idPilePlayer1.setVisible(false);
+            idRackImageTile1.setImage(imageTile1p2);
+            idRackImageTile2.setImage(imageTile2p2);
+            idRackImageTile3.setImage(imageTile3p2);
+            idRackImageTile4.setImage(imageTile4p2);
+            idRackImageTile5.setImage(imageTile5p2);
+    	}
+    	else {
+    		this.idTxtPile.setText("Au tour de " + player1Name);
+        	idPilePlayer2.setVisible(false);
+            idRackImageTile1.setImage(imageTile1p1);
+            idRackImageTile2.setImage(imageTile2p1);
+            idRackImageTile3.setImage(imageTile3p1);
+            idRackImageTile4.setImage(imageTile4p1);
+            idRackImageTile5.setImage(imageTile5p1);
+    	}
         
       //Permet de changer entre le rack p1 et p2
-        idBtnPasser.setOnAction(e -> { 
+        idBtnPass.setOnAction(e -> { 
         	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
         
         //Permet de changer son rack et passer son tour
-        idBtnChanger.setOnAction(e -> {
+        idBtnChange.setOnAction(e -> {
         	if (isJ2) {
         		player2.switchRack();
         		rackPlayer2 = player2.Rack();
@@ -143,6 +165,20 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
+        
+      //Permet d'acheter une action suplémentaire
+    	idBtnExtraMove.setOnAction(e -> {
+    		System.out.println("p2 " + player2.Points() + " " + player2.Move() );
+    		System.out.println("p1 " + player1.Points() + " " + player1.Move() );
+    		if (isJ2 && player2.Points() >= 2 && player2.Move() == 0) {
+        		player2.setPoints(-2);
+        		player2.setMove();
+        	}
+        	else if (!isJ2 && player1.Points() >= 2 && player1.Move() == 0) {
+        		player1.setPoints(-2);
+        		player1.setMove();
+        	}
+    	});
        
         idRackInvisibleTile1.setOnDragDetected(event -> {
         	if(isJ2) {
@@ -196,11 +232,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
     }
 
 	private void dragTile(ImageView tile, Image imgTile) {
-         Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
-         ClipboardContent content = new ClipboardContent();
-         content.putString(imgTile.toString());
-         dragboard.setContent(content);
-         dragboard.setDragView(imgTile);
+        Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(imgTile.toString());
+        dragboard.setContent(content);
+        dragboard.setDragView(imgTile);
  	
  		idInvisibleGrid.setOnDragOver(event -> {
  		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
@@ -233,6 +269,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    event.consume();
  		});
 	}
+ 		
+ 		//TODO la partie ce joue en 10 cycles max.
 
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
 			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
@@ -254,6 +292,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer1.setVisible(true);
 		    idPilePlayer2.setVisible(false);
 		    this.idTxtPile.setText("Au tour de " + player1Name);
+		    
+		    player1.setMove();
 		}
 		else {
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
@@ -272,7 +312,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
 		    this.idTxtPile.setText("Au tour de " + player2Name);
+		    
+		    player2.setMove();
 		}
 		isJ2 = !isJ2;
 	}
+	
 }
