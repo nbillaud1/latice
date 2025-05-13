@@ -39,6 +39,21 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private ImageView idRackImageTile5;
 	
 	@FXML
+	private ImageView idRackInvisibleTile1;
+	
+	@FXML
+	private ImageView idRackInvisibleTile2;
+	
+	@FXML
+	private ImageView idRackInvisibleTile3;
+	
+	@FXML
+	private ImageView idRackInvisibleTile4;
+	
+	@FXML
+	private ImageView idRackInvisibleTile5;
+	
+	@FXML
 	private Button idBtnPasser;
 	
 	@FXML
@@ -86,21 +101,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private Image imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
     private Image imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
     
-    @FXML
-	private ImageView idRackInvisibleTile1;
-	
-	@FXML
-	private ImageView idRackInvisibleTile2;
-	
-	@FXML
-	private ImageView idRackInvisibleTile3;
-	
-	@FXML
-	private ImageView idRackInvisibleTile4;
-	
-	@FXML
-	private ImageView idRackInvisibleTile5;
-    
     public void setPlayer1Name(String name) {
         this.player1Name = name;
     }
@@ -144,22 +144,38 @@ public class GameViewController implements EventHandler<MouseEvent>{
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
        
- 		dragTile(idRackInvisibleTile1, imageTile1p1);
- 		dragTile(idRackInvisibleTile2, imageTile2p1);
- 		dragTile(idRackInvisibleTile3, imageTile3p1);
- 		dragTile(idRackInvisibleTile4, imageTile4p1);
- 		dragTile(idRackInvisibleTile5, imageTile5p1);
+        idRackInvisibleTile1.setOnDragDetected(event -> {
+		    dragTile(idRackInvisibleTile1, imageTile1p1);
+		    event.consume();
+        });
+        
+        idRackInvisibleTile2.setOnDragDetected(event -> {
+		    dragTile(idRackInvisibleTile2, imageTile2p1);
+		    event.consume();
+        });
+        
+        idRackInvisibleTile3.setOnDragDetected(event -> {
+		    dragTile(idRackInvisibleTile3, imageTile3p1);
+		    event.consume();
+        });
+        
+        idRackInvisibleTile4.setOnDragDetected(event -> {
+		    dragTile(idRackInvisibleTile4, imageTile4p1);
+		    event.consume();
+        });
+        
+        idRackInvisibleTile5.setOnDragDetected(event -> {
+		    dragTile(idRackInvisibleTile5, imageTile5p1);
+		    event.consume();
+        });
     }
 
 	private void dragTile(ImageView tile, Image imgTile) {
-		tile.setOnDragDetected(event -> {
-             Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
-             ClipboardContent content = new ClipboardContent();
-             content.putString("tile");
-             dragboard.setContent(content);
-             dragboard.setDragView(imgTile);
-             event.consume();
-         });
+         Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
+         ClipboardContent content = new ClipboardContent();
+         content.putString(imgTile.toString());
+         dragboard.setContent(content);
+         dragboard.setDragView(imgTile);
  	
  		idInvisibleGrid.setOnDragOver(event -> {
  		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
@@ -172,10 +188,18 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		idInvisibleGrid.setOnDragDropped(event -> {
  		    Dragboard db = event.getDragboard();
  		    if (db.hasString()) {
- 		        String tileId = db.getString();
- 		        System.out.println("Dropped: " + tileId);
+ 		        System.out.println("Dropped: " + db.getString());
  		        ImageView droppedTile = new ImageView(imgTile);
- 		        idGrid.add(droppedTile, 0, 0);
+ 		        droppedTile.setFitWidth(80);
+ 		        droppedTile.setFitHeight(80);
+ 		        
+ 		    // On veut connaitre les coordonnées de la case où on a drop :
+ 		        int squareWidth = 80;
+ 		        int squareHeight = 80;
+ 		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à l'entier près.
+ 		        int row = (int)(event.getY()/ squareHeight);
+ 		        idGrid.add(droppedTile, col, row);
+ 		        
  		        event.setDropCompleted(true);
  		    }
  		    else {
