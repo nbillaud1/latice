@@ -44,6 +44,7 @@ public class LaticeAppSb extends Application{
 	public void start(Stage primaryStage){
 		Stage stage = new Stage();
         this.primaryStage = primaryStage;
+        primaryStage.setResizable(false);
         
         //Titre
         Label title = new Label("Bienvenue dans notre jeu Latice");
@@ -168,6 +169,7 @@ public class LaticeAppSb extends Application{
 	    
 		Stage stage = new Stage();
 		Scene scene = new Scene(root,1000,1000);
+		stage.setResizable(false);
 		
 		//Définit le background
       	Image image = new Image("/latice/image/fond.png");

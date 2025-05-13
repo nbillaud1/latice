@@ -56,6 +56,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private GridPane idGrid;
 	
+	@FXML
+    private GridPane idInvisibleGrid;
+	
 	private Game game = new Game();
 	private MainPool mainPool = game.mainPool();
 
@@ -82,6 +85,21 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private Image imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
     private Image imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
     private Image imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
+    
+    @FXML
+	private ImageView idRackInvisibleTile1;
+	
+	@FXML
+	private ImageView idRackInvisibleTile2;
+	
+	@FXML
+	private ImageView idRackInvisibleTile3;
+	
+	@FXML
+	private ImageView idRackInvisibleTile4;
+	
+	@FXML
+	private ImageView idRackInvisibleTile5;
     
     public void setPlayer1Name(String name) {
         this.player1Name = name;
@@ -125,32 +143,38 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
 					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
-        
-        // Drag and Drop des images des tuiles ne marche pas je pense que c'est dû a la grid dans laquelle ils sont qui les empêche d'être accessible à la souris
- 		idRackImageTile1.setOnDragDetected(event -> {
-             Dragboard dragboard = idRackImageTile1.startDragAndDrop(TransferMode.MOVE);
+       
+ 		dragTile(idRackInvisibleTile1, imageTile1p1);
+ 		dragTile(idRackInvisibleTile2, imageTile2p1);
+ 		dragTile(idRackInvisibleTile3, imageTile3p1);
+ 		dragTile(idRackInvisibleTile4, imageTile4p1);
+ 		dragTile(idRackInvisibleTile5, imageTile5p1);
+    }
+
+	private void dragTile(ImageView tile, Image imgTile) {
+		tile.setOnDragDetected(event -> {
+             Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
              ClipboardContent content = new ClipboardContent();
-             content.putString("tile1");
+             content.putString("tile");
              dragboard.setContent(content);
-             dragboard.setDragView(imageTile1p1);
-             System.out.println("Dragging tile1...");
+             dragboard.setDragView(imgTile);
              event.consume();
          });
  	
- 		idGrid.setOnDragOver(event -> {
+ 		idInvisibleGrid.setOnDragOver(event -> {
  		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
  		        event.acceptTransferModes(TransferMode.MOVE);
- 		        System.out.println("DragOver");
+ 		        System.out.println("DragOver !");
  		    }
  		    event.consume();
  		});
  	
- 		idGrid.setOnDragDropped(event -> {
+ 		idInvisibleGrid.setOnDragDropped(event -> {
  		    Dragboard db = event.getDragboard();
  		    if (db.hasString()) {
  		        String tileId = db.getString();
  		        System.out.println("Dropped: " + tileId);
- 		        ImageView droppedTile = new ImageView(idRackImageTile1.getImage());
+ 		        ImageView droppedTile = new ImageView(imgTile);
  		        idGrid.add(droppedTile, 0, 0);
  		        event.setDropCompleted(true);
  		    }
@@ -159,14 +183,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    }
  		    event.consume();
  		});
- 		
- 		idRackImageTile1.setOnDragDone(event -> {
- 		    if (event.getTransferMode() == TransferMode.MOVE) {
- 		        idRackImageTile1.setImage(null); // simule que la tuile a été déplacée
- 		    }
- 		});
-
-    }
+	}
 
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
 			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
