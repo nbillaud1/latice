@@ -12,10 +12,6 @@ public class MusicManager {
         stop();
 
         URL music = MusicManager.class.getResource(resourcePath);
-        if (music == null) {
-            System.out.println("Fichier audio non trouvé : " + resourcePath);
-            return;
-        }
         Media media = new Media(music.toExternalForm());
         currentPlayer = new MediaPlayer(media);
         currentPlayer.setCycleCount(MediaPlayer.INDEFINITE);
