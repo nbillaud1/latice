@@ -145,28 +145,53 @@ public class GameViewController implements EventHandler<MouseEvent>{
         });
        
         idRackInvisibleTile1.setOnDragDetected(event -> {
-		    dragTile(idRackInvisibleTile1, imageTile1p1);
-		    event.consume();
+        	if(isJ2) {
+			    dragTile(idRackInvisibleTile1, imageTile1p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile1, imageTile1p1);
+			}
+			event.consume();
         });
         
         idRackInvisibleTile2.setOnDragDetected(event -> {
-		    dragTile(idRackInvisibleTile2, imageTile2p1);
-		    event.consume();
+        	if(isJ2) {
+			    dragTile(idRackInvisibleTile2, imageTile2p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile2, imageTile2p1);
+			}
+			event.consume();
         });
         
         idRackInvisibleTile3.setOnDragDetected(event -> {
-		    dragTile(idRackInvisibleTile3, imageTile3p1);
-		    event.consume();
+        	if(isJ2) {
+			    dragTile(idRackInvisibleTile3, imageTile3p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile3, imageTile3p1);
+			}
+			event.consume();
         });
         
         idRackInvisibleTile4.setOnDragDetected(event -> {
-		    dragTile(idRackInvisibleTile4, imageTile4p1);
-		    event.consume();
+        	if(isJ2) {
+			    dragTile(idRackInvisibleTile4, imageTile4p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile4, imageTile4p1);
+			}
+			event.consume();
         });
         
         idRackInvisibleTile5.setOnDragDetected(event -> {
-		    dragTile(idRackInvisibleTile5, imageTile5p1);
-		    event.consume();
+        	if(isJ2) {
+			    dragTile(idRackInvisibleTile5, imageTile5p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile5, imageTile5p1);
+			}
+			event.consume();
         });
     }
 
