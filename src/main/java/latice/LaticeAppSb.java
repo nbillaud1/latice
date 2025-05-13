@@ -1,5 +1,8 @@
 package latice;
 
+import java.io.File;
+import java.net.URL;
+
 import javafx.application.Application;
 
 import javafx.event.EventHandler;
@@ -21,10 +24,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import latice.audio.MusicManager;
 import latice.controller.GameViewController;
 
 public class LaticeAppSb extends Application{
@@ -88,7 +94,7 @@ public class LaticeAppSb extends Application{
         ButtonListener lstnBtn = new ButtonListener();
 		this.btnStart.setOnMouseClicked(lstnBtn);
 		
-      //Configure l'empilage
+	//Configure l'empilage
 		//HBox du milieu
 		HBox hBoxMidle = new HBox();
 		hBoxMidle.setAlignment(Pos.CENTER);
@@ -122,6 +128,9 @@ public class LaticeAppSb extends Application{
         Background background = new Background(backgroundImage);
         root.setBackground(background);
         
+        //Music du lobby
+        MusicManager.play("/latice/sound/Lobby_music.mp3");
+        
         primaryStage.setScene(new Scene(root, 1000,1000));
         primaryStage.setTitle("Choix du nom des joueurs");
         primaryStage.show();
@@ -154,11 +163,8 @@ public class LaticeAppSb extends Application{
 	}
 	
 	public void startTheGame(Stage primaryStage) throws Exception {
-        
         FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/latice/view/GameView.fxml"));
-		
-		//Mise en place de la page
 		StackPane root = new StackPane();
 		root.getChildren().add(loader.load());
 		
@@ -180,6 +186,10 @@ public class LaticeAppSb extends Application{
 		stage.setScene(scene);
 		stage.setTitle("Jeu du Latice");
 		stage.show();
+		
+		//Music du plateau
+		MusicManager.play("/latice/sound/Latice_theme.mp3");
+		
 		primaryStage.close();
     }
 	
