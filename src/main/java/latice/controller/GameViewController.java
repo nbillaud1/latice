@@ -6,6 +6,7 @@ import java.util.Random;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -262,15 +263,30 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    // On veut connaitre les coordonnées de la case où on a drop :
  		        int squareWidth = 80;
  		        int squareHeight = 80;
- 		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à l'entier près.
+ 		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
  		        int row = (int)(event.getY()/ squareHeight);
- 		        idGrid.add(droppedTile, col, row);
- 		        
- 		        event.setDropCompleted(true);
+ 		        if(!gridAlreadyFilled(col, row)) {
+ 		        	idInvisibleGrid.add(droppedTile, col, row);
+ 		        	event.setDropCompleted(true);
+ 		        }
+ 		        else {
+ 		        	System.out.println("nop !");
+ 		        	event.setDropCompleted(false);
+ 		        }
  		    }
  		    else {
  		    	event.setDropCompleted(false);	    	
  		    }
+ 		   
+ 		    if (event.isDropCompleted()) {
+	 		    Object source = event.getGestureSource();
+	 		    if (source instanceof ImageView) {										// ce bout de code sert à obtenir l'id
+	 		      ((ImageView) source).setImage(new Image("/latice/image/bg_sea.png"));// de la case Invisible, à remplacer son image nulle par le fond
+	 		      ((ImageView) source).setOpacity(1);
+	 		      ((ImageView) source).setMouseTransparent(true);						// et de désactiver le drag and drop.
+	 		    }
+ 		    }
+ 		   
  		    event.consume();
  		});
 	}
@@ -285,6 +301,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
 			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
 			Image imageTile5p2) {
+		idRackInvisibleTile1.setOpacity(0);
+		idRackInvisibleTile2.setOpacity(0);
+		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
+		idRackInvisibleTile4.setOpacity(0);
+		idRackInvisibleTile5.setOpacity(0);
+		
 		if (isJ2) {
 			imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
@@ -312,11 +334,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
 		    imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
 		    
-		    idRackImageTile1.setImage(imageTile1p2);
-		    idRackImageTile2.setImage(imageTile2p2);
-		    idRackImageTile3.setImage(imageTile3p2);
-		    idRackImageTile4.setImage(imageTile4p2);
-		    idRackImageTile5.setImage(imageTile5p2);
+		    idRackInvisibleTile1.setImage(imageTile1p2);
+		    idRackInvisibleTile2.setImage(imageTile2p2);
+		    idRackInvisibleTile3.setImage(imageTile3p2);
+		    idRackInvisibleTile4.setImage(imageTile4p2);
+		    idRackInvisibleTile5.setImage(imageTile5p2);
 		    
 		    player1.pass();
 		    idPilePlayer2.setVisible(true);
@@ -328,7 +350,26 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		isJ2 = !isJ2;
 		roundCounter ++;
 		idNbTour.setText("Tour " + Integer.toString(roundCounter/2 + 1) + " :");
+		
+		idRackInvisibleTile1.setMouseTransparent(false);
+		idRackInvisibleTile2.setMouseTransparent(false);
+		idRackInvisibleTile3.setMouseTransparent(false); // réactiver le drag and drop au changement de tour.
+		idRackInvisibleTile4.setMouseTransparent(false);
+		idRackInvisibleTile5.setMouseTransparent(false);
+		
 		shutTheGame();
+	}
+	
+	private Boolean gridAlreadyFilled(int col, int row) {
+		for (Node img : idInvisibleGrid.getChildren()) {
+			Integer imgCol = GridPane.getColumnIndex(img);
+	        Integer imgRow = GridPane.getRowIndex(img);
+	        
+	        if ((imgCol != null && imgRow != null) && (imgCol == col && imgRow == row)) {
+	        	return true;
+	        }
+		}
+		return false;
 	}
 	
 }
