@@ -78,6 +78,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Text idTxtPile;
 	
 	@FXML
+	private Text idNbTour;
+	
+	@FXML
 	private GridPane idGrid;
 	
 	@FXML
@@ -130,6 +133,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     @FXML
 	public void initialize() {
     	roundCounter = 0;
+    	idNbTour.setText("Tour 1 :");
     	
     	if (isJ2) {
     		this.idTxtPile.setText("Au tour de " + player2Name);
@@ -323,6 +327,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		isJ2 = !isJ2;
 		roundCounter ++;
+		idNbTour.setText("Tour " + Integer.toString(roundCounter/2 + 1) + " :");
 		shutTheGame();
 	}
 	
