@@ -48,7 +48,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <StackPane.margin>
-            <Insets top="20.0" />
+            <Insets top="10.0" />
          </StackPane.margin>
          <children>
             <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
@@ -603,7 +603,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <StackPane.margin>
-            <Insets top="20.0" />
+            <Insets top="10.0" />
          </StackPane.margin>
       </GridPane>
       <ImageView fx:id="idPilePlayer2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT">
@@ -727,5 +727,13 @@
             <Insets bottom="80.0" left="100.0" />
          </StackPane.margin>
       </ImageView>
+      <Text fx:id="idErrTile" fill="#fc0000" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous ne pouvez pas poser une tuile ici." StackPane.alignment="BOTTOM_CENTER">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="210.0" />
+         </StackPane.margin>
+      </Text>
    </children>
 </StackPane>
