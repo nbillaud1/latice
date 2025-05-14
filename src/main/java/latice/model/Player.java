@@ -59,18 +59,18 @@ public class Player {
 		this.points += points;
 	}
 
-	public Rack Rack() {
+	public Rack rack() {
 		return rack;
 	}
 	
-	public int Move() {
+	public int move() {
 		return move;
 	}
 	
 	public void setMove() {
 		this.move = 1;
 	}
-	public int Points() {
+	public int points() {
 		return points;
 	}
 }
