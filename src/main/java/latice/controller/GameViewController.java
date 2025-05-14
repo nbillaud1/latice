@@ -81,6 +81,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Text idNbTour;
 	
+	 @FXML
+	 private Text idErrTile;
+	
 	@FXML
 	private GridPane idGrid;
 	
@@ -188,6 +191,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		player1.setMove();
         	}
     	});
+    	
+    	idErrTile.setVisible(false);
        
         idRackInvisibleTile1.setOnDragDetected(event -> {
         	if(isJ2) {
@@ -266,11 +271,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
  		        int row = (int)(event.getY()/ squareHeight);
  		        if(!gridAlreadyFilled(col, row)) {
+ 		        	idErrTile.setVisible(false);
  		        	idInvisibleGrid.add(droppedTile, col, row);
  		        	event.setDropCompleted(true);
  		        }
  		        else {
- 		        	System.out.println("nop !");
+ 		        	idErrTile.setVisible(true);
  		        	event.setDropCompleted(false);
  		        }
  		    }
