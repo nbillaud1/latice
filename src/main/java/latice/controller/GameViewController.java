@@ -261,6 +261,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  	
  		idInvisibleGrid.setOnDragDropped(event -> {
  		    Dragboard db = event.getDragboard();
+ 		    Boolean dropsuccess = false;
  		    if (db.hasString()) {
  		        ImageView droppedTile = new ImageView(imgTile);
  		        droppedTile.setFitWidth(80);
@@ -273,16 +274,14 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        if(!gridAlreadyFilled(col, row)) {
  		        	idErrTile.setVisible(false);
  		        	idInvisibleGrid.add(droppedTile, col, row);
- 		        	event.setDropCompleted(true);
+ 		        	dropsuccess = true;
  		        }
  		        else {
  		        	idErrTile.setVisible(true);
- 		        	event.setDropCompleted(false);
+ 		        	dropsuccess = false;
  		        }
  		    }
- 		    else {
- 		    	event.setDropCompleted(false);	    	
- 		    }
+ 		    event.setDropCompleted(dropsuccess);
  		   
  		    if (event.isDropCompleted()) {
 	 		    Object source = event.getGestureSource();
