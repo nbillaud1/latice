@@ -240,12 +240,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
         ClipboardContent content = new ClipboardContent();
         content.putString(imgTile.toString());
         dragboard.setContent(content);
-        dragboard.setDragView(imgTile);
+        dragboard.setDragView(imgTile, 50, 50);
  	
  		idInvisibleGrid.setOnDragOver(event -> {
  		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
  		        event.acceptTransferModes(TransferMode.MOVE);
- 		        System.out.println("DragOver !");
  		    }
  		    event.consume();
  		});
@@ -253,11 +252,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		idInvisibleGrid.setOnDragDropped(event -> {
  		    Dragboard db = event.getDragboard();
  		    if (db.hasString()) {
- 		        System.out.println("Dropped: " + db.getString());
  		        ImageView droppedTile = new ImageView(imgTile);
  		        droppedTile.setFitWidth(80);
  		        droppedTile.setFitHeight(80);
- 		        
  		    // On veut connaitre les coordonnées de la case où on a drop :
  		        int squareWidth = 80;
  		        int squareHeight = 80;
