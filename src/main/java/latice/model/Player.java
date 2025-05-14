@@ -46,6 +46,7 @@ public class Player {
 	public void pass() {
 		move = 0;
 		tilePlayed = 0;
+		completeRack();
 	}
 	
 	public void completeRack() {

@@ -177,8 +177,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
       //Permet d'acheter une action suplémentaire
     	idBtnExtraMove.setOnAction(e -> {
-    		System.out.println("p2 " + player2.points() + " " + player2.move() );
-    		System.out.println("p1 " + player1.points() + " " + player1.move() );
     		if (isJ2 && player2.points() >= 2 && player2.move() == 0) {
         		player2.setPoints(-2);
         		player2.resetMove();
@@ -326,7 +324,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 		    
 		    player1.resetMove();
-		    //player1.completeRack();
 		}
 		else {
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
@@ -347,7 +344,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 		    
 		    player2.resetMove();
-		    //player2.completeRack();
 		}
 		isJ2 = !isJ2;
 		roundCounter ++;
