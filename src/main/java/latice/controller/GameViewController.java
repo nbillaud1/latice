@@ -17,7 +17,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import latice.model.Game;
 import latice.model.MainPool;
@@ -160,8 +159,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
       //Permet de changer entre le rack p1 et p2
         idBtnPass.setOnAction(e -> { 
-        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
-					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
+        	changeTiles();
         });
         
         //Permet de changer son rack et passer son tour
@@ -174,8 +172,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		player1.switchRack();
         		rackPlayer1 = player1.rack();
         	}
-        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
-					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
+        	changeTiles();
         });
         
       //Permet d'acheter une action suplémentaire
@@ -184,11 +181,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
     		System.out.println("p1 " + player1.points() + " " + player1.move() );
     		if (isJ2 && player2.points() >= 2 && player2.move() == 0) {
         		player2.setPoints(-2);
-        		player2.setMove();
+        		player2.resetMove();
         	}
         	else if (!isJ2 && player1.points() >= 2 && player1.move() == 0) {
         		player1.setPoints(-2);
-        		player1.setMove();
+        		player1.resetMove();
         	}
     	});
     	
@@ -303,12 +300,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	}
  	
 
-	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
-			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
-			Image imageTile5p2) {
+	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
-		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait pas de cases vides.
+		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
 		idRackInvisibleTile4.setOpacity(0);
 		idRackInvisibleTile5.setOpacity(0);
 		
@@ -330,7 +325,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer2.setVisible(false);
 		    this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 		    
-		    player1.setMove();
+		    player1.resetMove();
+		    //player1.completeRack();
 		}
 		else {
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
@@ -339,18 +335,19 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
 		    imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
 		    
-		    idRackInvisibleTile1.setImage(imageTile1p2);
-		    idRackInvisibleTile2.setImage(imageTile2p2);
-		    idRackInvisibleTile3.setImage(imageTile3p2);
-		    idRackInvisibleTile4.setImage(imageTile4p2);
-		    idRackInvisibleTile5.setImage(imageTile5p2);
+		    idRackImageTile1.setImage(imageTile1p2);
+		    idRackImageTile2.setImage(imageTile2p2);
+		    idRackImageTile3.setImage(imageTile3p2);
+		    idRackImageTile4.setImage(imageTile4p2);
+		    idRackImageTile5.setImage(imageTile5p2);
 		    
 		    player1.pass();
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
 		    this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 		    
-		    player2.setMove();
+		    player2.resetMove();
+		    //player2.completeRack();
 		}
 		isJ2 = !isJ2;
 		roundCounter ++;

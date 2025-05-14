@@ -10,7 +10,7 @@ public class Player {
 	private int move;
 	private int tilePlayed;
 	
-	public Player(ArrayList<Tile> pool, Rack rack, String name  /*on choisira "1" ou "2" */) {
+	public Player(ArrayList<Tile> pool, Rack rack, String name) {
 		this.pool = pool;
 		this.rack = rack;
 		this.name = name;
@@ -67,7 +67,7 @@ public class Player {
 		return move;
 	}
 	
-	public void setMove() {
+	public void resetMove() {
 		this.move = 1;
 	}
 	public int points() {
