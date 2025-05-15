@@ -56,7 +56,7 @@
                   <Image url="@../image/bg_sea.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="idSun1" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
@@ -461,82 +461,82 @@
                   <Image url="@../image/bg_sea.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun12" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" visible="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" visible="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun4" fitHeight="79.0" fitWidth="79.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun5" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun13" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun14" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun15" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun6" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun7" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun9" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun8" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun3" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun10" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun2" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun11" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Moon" fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/moon.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="Sun16" fitHeight="79.0" fitWidth="79.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="79.0" fitWidth="79.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../image/sun.png" />
                </image>
@@ -617,7 +617,7 @@
             <Insets bottom="80.0" right="100.0" />
          </StackPane.margin>
       </ImageView>
-      <GridPane fx:id="idGridRack" alignment="BOTTOM_CENTER" focusTraversable="true" maxHeight="90.0" maxWidth="450.0" StackPane.alignment="BOTTOM_CENTER">
+      <GridPane alignment="BOTTOM_CENTER" focusTraversable="true" maxHeight="90.0" maxWidth="450.0" StackPane.alignment="BOTTOM_CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -677,7 +677,7 @@
             <Insets bottom="80.0" />
          </StackPane.margin>
       </GridPane>
-      <GridPane fx:id="idInvisibleRack" maxHeight="90.0" maxWidth="450.0" StackPane.alignment="BOTTOM_CENTER">
+      <GridPane maxHeight="90.0" maxWidth="450.0" StackPane.alignment="BOTTOM_CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
