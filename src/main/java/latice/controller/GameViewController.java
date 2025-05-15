@@ -18,10 +18,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import latice.model.Pool;
+import latice.controller.Referer;
 import latice.model.Rack;
-import latice.model.Shape;
 import latice.model.Tile;
-import latice.model.Color;
 import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
@@ -91,6 +90,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Button idBtnExtraMove;
 	
+	private Referer referer = new Referer();
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
@@ -269,6 +269,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        	idErrTile.setVisible(false);
  		        	idInvisibleGrid.add(droppedTile, col, row);
  		        	event.setDropCompleted(true);
+ 		        	referer.checkAround(idInvisibleGrid, col, row);
+ 		        	
  		        }
  		        else {
  		        	idErrTile.setVisible(true);

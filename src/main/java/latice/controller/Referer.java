@@ -1,5 +1,6 @@
 package latice.controller;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -11,13 +12,13 @@ public class Referer {
 	
 	
 	//Test pour poser une tuile
-	private String checkTile(ImageView imageGrid) {
+	public String checkTile(ImageView imageGrid) {
 		Image img = imageGrid.getImage();
 		String urlImage = Tile.url(img);
 		return urlImage;
 	}
 	
-	private Shape checkShape(String url) {
+	public Shape checkShape(String url) {
 		String shape = url.substring(137,139);
 		if (shape.equals("fl")){
 			return Shape.FLOWER;
@@ -39,7 +40,7 @@ public class Referer {
 		}
 	}
 	
-	private Color checkColor(String url) {
+	public Color checkColor(String url) {
 		String color = url.substring(url.length()-5, url.length()-4);
 		if (color.equals("y")){
 			return Color.YELLOW;
@@ -59,6 +60,20 @@ public class Referer {
 		else {
 			return Color.MAGENTA;
 		}
+	}
+	
+	public Boolean checkIfTileIsHer(GridPane gridPane, int col, int row) {
+		Boolean isHer = false;
+		for (Node node : gridPane.getChildren()) {
+	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+	            System.out.println("a");
+	            isHer = true;
+	        }
+	    }
+		return isHer;
+	}
+	
+	public Boolean checkAround() {
 		
 	}
 }
