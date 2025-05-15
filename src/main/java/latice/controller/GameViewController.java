@@ -3,6 +3,7 @@ package latice.controller;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,7 +17,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import latice.model.Pool;
 import latice.model.Rack;
 import latice.model.Tile;
@@ -358,14 +361,50 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	//Éteint le jeu
 	private void shutTheGame() {
 		if (roundCounter == 20) {
-			// On pourra déclencher une "Alert" pour annoncer le vainqueur avt de quitter.
-			Platform.exit();
+			int nbrTilesLeftP1 = poolPlayer1.size();
+			int nbrTilesLeftP2 = poolPlayer2.size();
+			if (nbrTilesLeftP1 < nbrTilesLeftP2) {
+				idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
+			}
+			else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
+				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
+			}
+			else {
+				idTxtPile.setText("Égualité");
+			}
+			idTxtPile.setFont(Font.font("Bold",42));
+			//Désactive la vue des différentes piles
+			idPilePlayer1.setVisible(false);
+			idPilePlayer2.setVisible(false);
+			//Désactive les boutons
+			idBtnChange.setDisable(true);
+			idBtnExtraMove.setDisable(true);
+			idBtnPass.setDisable(true);
+			//Désactive le fait de pouvoir attraper des tuiles
+			idRackInvisibleTile1.setMouseTransparent(true);
+			idRackInvisibleTile2.setMouseTransparent(true);
+			idRackInvisibleTile3.setMouseTransparent(true);
+			idRackInvisibleTile4.setMouseTransparent(true);
+			idRackInvisibleTile5.setMouseTransparent(true);
+			//Désactive les images du rack
+			idRackImageTile1.setImage(null);
+		    idRackImageTile2.setImage(null);
+		    idRackImageTile3.setImage(null);
+		    idRackImageTile4.setImage(null);
+		    idRackImageTile5.setImage(null);
+			//Pause de 5 secondes
+			PauseTransition pause = new PauseTransition(Duration.seconds(7));
+			pause.setOnFinished(event -> Platform.exit());
+			pause.play();
 		}
 	}
 	
 	
- 	
-
+ 	/*
+	TODO durant des test le programme à bugué en utilisant changeTiles: L’erreur que tu vois est une NullPointerException,
+	ce qui signifie que tu essaies d'accéder à une variable qui vaut null (non initialisée). Ligne 418
+	Cela ce produit à chaque fois si le joueur 1/2 joue une tuile ou plus, puis on fais changer de main jusqu'au 7ème tour (apparition du bug)
+	*/
 	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
