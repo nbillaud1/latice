@@ -46,14 +46,13 @@ public class Player {
 	public void pass() {
 		move = 0;
 		tilePlayed = 0;
-		completeRack();
 	}
 	
-	public void completeRack() {
-		for (int nbTiles = 1; nbTiles <= (tilePlayed +1); nbTiles++) {
-			rack.tiles().add(this.pool.get(0)); // piocher sur le dessus de la Pool.
+	public void completeRack(ArrayList<Integer> index) {
+		for(int ind : index) {
+			rack.tiles().set(ind, this.pool.get(0)); // piocher sur le dessus de la Pool.
 			this.pool.remove(0);
-		}
+		}	
 	}
 	
 	public void setPoints(int points) {

@@ -76,7 +76,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Text idTxtPile;
 	
 	@FXML
-	private Text idNbTour;
+	private Text idTurnNumber;
 	
 	 @FXML
 	 private Text idErrTile;
@@ -94,8 +94,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
-	private boolean isJ2 = new Random().nextBoolean();
+	
 	private int roundCounter;
+	private boolean hasToPlayOnTheMoon = true;
+	private boolean isJ2 = new Random().nextBoolean();
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
@@ -116,12 +118,23 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private Image imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
     private Image imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
     
+    private ArrayList<Integer> lstPlayer1PlayedTilesIndex = new ArrayList<>();
+    private ArrayList<Integer> lstPlayer2PlayedTilesIndex = new ArrayList<>();
+    
     public void setPlayer1Name(String name) {
         this.player1Name = name;
     }
 
     public void setPlayer2Name(String name) {
         this.player2Name = name;
+    }
+    
+    public void emptyLstPlayer1PlayedTilesIndex() {
+    	this.lstPlayer1PlayedTilesIndex = new ArrayList<Integer>();
+    }
+    
+    public void emptyLstPlayer2PlayedTilesIndex() {
+    	this.lstPlayer2PlayedTilesIndex = new ArrayList<Integer>();
     }
 	
 	@Override
@@ -132,10 +145,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
     @FXML
 	public void initialize() {
     	roundCounter = 0;
-    	idNbTour.setText("Tour 1 :");
+    	idTurnNumber.setText("Tour 1 :");
+    	idErrTile.setVisible(false);
     	
     	if (isJ2) {
-    		this.idTxtPile.setText("Au tour de " + player2Name);
+    		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
         	idPilePlayer1.setVisible(false);
             idRackImageTile1.setImage(imageTile1p2);
             idRackImageTile2.setImage(imageTile2p2);
@@ -144,7 +158,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idRackImageTile5.setImage(imageTile5p2);
     	}
     	else {
-    		this.idTxtPile.setText("Au tour de " + player1Name);
+    		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
         	idPilePlayer2.setVisible(false);
             idRackImageTile1.setImage(imageTile1p1);
             idRackImageTile2.setImage(imageTile2p1);
@@ -155,8 +169,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
       //Permet de changer entre le rack p1 et p2
         idBtnPass.setOnAction(e -> { 
-        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
-					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
+        	changeTiles();
         });
         
         //Permet de changer son rack et passer son tour
@@ -169,8 +182,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		player1.switchRack();
         		rackPlayer1 = player1.rack();
         	}
-        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
-					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
+        	changeTiles();
         });
         
       //Permet d'acheter une action suplémentaire
@@ -186,8 +198,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		player1.resetMove();
         	}
     	});
-    	
-    	idErrTile.setVisible(false);
        
         idRackInvisibleTile1.setOnDragDetected(event -> {
         	if(isJ2) {
@@ -241,6 +251,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
     }
 
 	private void dragTile(ImageView tile, Image imgTile) {
+		hasToPlayOnTheMoon = referer.firstTileOnTheMoon(idInvisibleGrid); //savoir si la grille a été remplie.
+		
         Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(imgTile.toString());
@@ -265,15 +277,24 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        int squareHeight = 80;
  		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
  		        int row = (int)(event.getY()/ squareHeight);
- 		        if(!gridAlreadyFilled(col, row)) {
- 		        	idErrTile.setVisible(false);
- 		        	idInvisibleGrid.add(droppedTile, col, row);
- 		        	event.setDropCompleted(true);
- 		        	referer.checkAround(idInvisibleGrid, col, row);
- 		        	
+ 		        int nbrOfTilesAround = referer.checkAround(idInvisibleGrid, col, row, droppedTile);
+
+ 		        if(!hasToPlayOnTheMoon || (col == 4 && row == 4)) {
+	 		        if(!gridAlreadyFilled(col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
+	 		        	idErrTile.setVisible(false);
+	 		        	idInvisibleGrid.add(droppedTile, col, row);
+	 		        	event.setDropCompleted(true);
+	 		        }
+	 		        else {
+	 		        	idErrTile.setVisible(true);
+	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici.");
+	 		        	event.setDropCompleted(false);
+	 		        }
+
  		        }
  		        else {
  		        	idErrTile.setVisible(true);
+ 		        	idErrTile.setText("Vous devez poser la première tuile sur la Lune.");
  		        	event.setDropCompleted(false);
  		        }
  		    }
@@ -286,25 +307,26 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		    if (source instanceof ImageView) {										// ce bout de code sert à obtenir l'id
 	 		      ((ImageView) source).setImage(new Image("/latice/image/bg_sea.png"));// de la case Invisible, à remplacer son image nulle par le fond
 	 		      ((ImageView) source).setOpacity(1);
-	 		      ((ImageView) source).setMouseTransparent(true);						// et de désactiver le drag and drop.
+	 		      ((ImageView) source).setMouseTransparent(true);						// et à désactiver le drag and drop.
 	 		    }
-	 		    
+	 		//Ensuite on supprime la tuile du rack après l'avoir posée.
 		 		if(isJ2) {
 		 		    for (Tile tileFromRack : rackPlayer2.tiles()) {
 		 		    	if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
-		 		    		rackPlayer2.tiles().remove(tileFromRack);
+		 		    		lstPlayer2PlayedTilesIndex.add(rackPlayer2.tiles().indexOf(tileFromRack)); //utile pour compléter le rack.
+		 		    		rackPlayer2.tiles().set(rackPlayer2.tiles().indexOf(tileFromRack), null); //pour ne pas fausser les indices, on remplace l'ancienne tuile par null.
 		 		    	}
 		 		    }
 		 		}
 		 		else {
 		 			for (Tile tileFromRack : rackPlayer1.tiles()) {
 		 				if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
-		 		    		rackPlayer1.tiles().remove(tileFromRack);
+		 		    		lstPlayer1PlayedTilesIndex.add(rackPlayer1.tiles().indexOf(tileFromRack));
+		 		    		rackPlayer1.tiles().set(rackPlayer1.tiles().indexOf(tileFromRack), null);
 		 		    	}
 		 		    }
 		 		}
  		    }
- 		   
  		    event.consume();
  		});
 	}
@@ -312,6 +334,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	//Éteint le jeu
 	private void shutTheGame() {
 		if (roundCounter == 20) {
+			// On pourra déclencher une "Alert" pour annoncer le vainqueur avt de quitter.
 			Platform.exit();
 		}
 	}
@@ -319,9 +342,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	
  	
 
-	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
-			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
-			Image imageTile5p2) {
+	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
 		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
@@ -329,6 +350,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile5.setOpacity(0);
 		
 		if (isJ2) {
+			
+			player2.pass();
+		    player2.completeRack(lstPlayer2PlayedTilesIndex);
+		    emptyLstPlayer1PlayedTilesIndex();
+			
 			imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
@@ -341,14 +367,18 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackImageTile4.setImage(imageTile4p1);
 		    idRackImageTile5.setImage(imageTile5p1);
 		    
-		    player2.pass();
 		    idPilePlayer1.setVisible(true);
 		    idPilePlayer2.setVisible(false);
-		    this.idTxtPile.setText("Au tour de " + player1Name);
+		    this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 		    
 		    player1.resetMove();
 		}
 		else {
+			
+			player1.pass();
+		    player1.completeRack(lstPlayer1PlayedTilesIndex);
+		    emptyLstPlayer2PlayedTilesIndex();
+			
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
@@ -361,16 +391,15 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackImageTile4.setImage(imageTile4p2);
 		    idRackImageTile5.setImage(imageTile5p2);
 		    
-		    player1.pass();
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
-		    this.idTxtPile.setText("Au tour de " + player2Name);
+		    this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 		    
 		    player2.resetMove();
 		}
 		isJ2 = !isJ2;
 		roundCounter ++;
-		idNbTour.setText("Tour " + Integer.toString(roundCounter/2 + 1) + " :");
+		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + " :");
 		
 		idRackInvisibleTile1.setMouseTransparent(false);
 		idRackInvisibleTile2.setMouseTransparent(false);

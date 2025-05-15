@@ -160,4 +160,8 @@ public class Referer {
 		}
 		return nbrTiles;
 	}
+	
+	public boolean firstTileOnTheMoon(GridPane grid) {
+			return grid.getChildren().isEmpty();
+	}
 }
