@@ -72,6 +72,7 @@ public class Referer {
 		return isHer;
 	}
 	
+	//TODO voir si c'est possible de refactor car beaucoup de répétitions ;)
 	public int checkAround(GridPane grid, int col, int row, ImageView imageToPut) {
 		Boolean putIsNotPossible = false;
 		int nbrTiles = 0;
