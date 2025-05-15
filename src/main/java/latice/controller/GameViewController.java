@@ -427,7 +427,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile5.setMouseTransparent(false);
 		
 		shutTheGame();
-		Shape a = checkColor(checkTile(idRackImageTile1));
 	}
 	
 	private Boolean gridAlreadyFilled(int col, int row) {
