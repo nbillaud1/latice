@@ -22,7 +22,7 @@ public class Player {
 	
 	public void buyExtraMove(){
 		if (points <= 1 && move == 0) {
-			points -= 1;
+			points -= 2;
 			move += 1;
 		}
 	}
@@ -55,7 +55,7 @@ public class Player {
 		}	
 	}
 	
-	public void setPoints(int points) {
+	public void addPoints(int points) {
 		this.points += points;
 	}
 

@@ -18,7 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import latice.model.Pool;
-import latice.controller.Referer;
 import latice.model.Rack;
 import latice.model.Tile;
 import latice.model.Player;
@@ -190,11 +189,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
     		System.out.println("p2 " + player2.points() + " " + player2.move() );
     		System.out.println("p1 " + player1.points() + " " + player1.move() );
     		if (isJ2 && player2.points() >= 2 && player2.move() == 0) {
-        		player2.setPoints(-2);
+        		player2.addPoints(-2);
         		player2.resetMove();
         	}
         	else if (!isJ2 && player1.points() >= 2 && player1.move() == 0) {
-        		player1.setPoints(-2);
+        		player1.addPoints(-2);
         		player1.resetMove();
         	}
     	});
@@ -284,6 +283,31 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	idErrTile.setVisible(false);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
+	 		        	if (isJ2) {
+	 		        		if (nbrOfTilesAround == 2) {
+		 		        		player2.addPoints(1);
+		 		        	}
+	 		        		else if (nbrOfTilesAround == 3) {
+	 		        			player2.addPoints(2);
+	 		        		}
+	 		        		else if (nbrOfTilesAround == 4) {
+	 		        			player2.addPoints(4);
+	 		        		}
+	 		        		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+	 		        	}
+	 		        	else {
+	 		        		if (nbrOfTilesAround == 2) {
+		 		        		player1.addPoints(1);
+		 		        	}
+	 		        		else if (nbrOfTilesAround == 3) {
+	 		        			player1.addPoints(2);
+	 		        		}
+	 		        		else if (nbrOfTilesAround == 4) {
+	 		        			player1.addPoints(4);
+	 		        		}
+	 		        		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+	 		        	}
+	 		        	
 	 		        }
 	 		        else {
 	 		        	idErrTile.setVisible(true);
