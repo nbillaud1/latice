@@ -285,6 +285,21 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		      ((ImageView) source).setOpacity(1);
 	 		      ((ImageView) source).setMouseTransparent(true);						// et de désactiver le drag and drop.
 	 		    }
+	 		    
+		 		if(isJ2) {
+		 		    for (Tile tileFromRack : rackPlayer2.tiles()) {
+		 		    	if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
+		 		    		rackPlayer2.tiles().remove(tileFromRack);
+		 		    	}
+		 		    }
+		 		}
+		 		else {
+		 			for (Tile tileFromRack : rackPlayer1.tiles()) {
+		 				if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
+		 		    		rackPlayer1.tiles().remove(tileFromRack);
+		 		    	}
+		 		    }
+		 		}
  		    }
  		   
  		    event.consume();
