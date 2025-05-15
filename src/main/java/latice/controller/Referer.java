@@ -61,4 +61,8 @@ public class Referer {
 		}
 		
 	}
+	
+	public boolean firstTileOnTheMoon(GridPane grid) {
+			return grid.getChildren().isEmpty();
+	}
 }

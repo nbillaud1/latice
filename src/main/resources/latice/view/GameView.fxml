@@ -16,7 +16,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="975.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="latice.controller.GameViewController">
    <children>
-      <Text fx:id="idNbTour" fill="WHITE" text="Tour  :" StackPane.alignment="BOTTOM_LEFT">
+      <Text fx:id="idTurnNumber" fill="WHITE" text="Tour  :" StackPane.alignment="BOTTOM_LEFT">
          <font>
             <Font name="Calibri Bold" size="23.0" />
          </font>

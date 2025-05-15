@@ -19,9 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import latice.model.Pool;
 import latice.model.Rack;
-import latice.model.Shape;
 import latice.model.Tile;
-import latice.model.Color;
 import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
@@ -77,7 +75,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Text idTxtPile;
 	
 	@FXML
-	private Text idNbTour;
+	private Text idTurnNumber;
 	
 	 @FXML
 	 private Text idErrTile;
@@ -91,11 +89,14 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Button idBtnExtraMove;
 	
+	private Referer referer = new Referer();
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
-	private boolean isJ2 = new Random().nextBoolean();
+	
 	private int roundCounter;
+	private boolean hasToPlayOnTheMoon = true;
+	private boolean isJ2 = new Random().nextBoolean();
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
@@ -143,7 +144,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     @FXML
 	public void initialize() {
     	roundCounter = 0;
-    	idNbTour.setText("Tour 1 :");
+    	idTurnNumber.setText("Tour 1 :");
     	
     	if (isJ2) {
     		this.idTxtPile.setText("Au tour de " + player2Name);
@@ -252,6 +253,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     }
 
 	private void dragTile(ImageView tile, Image imgTile) {
+		hasToPlayOnTheMoon = referer.firstTileOnTheMoon(idInvisibleGrid); //savoir si la grille a été remplie.
         Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(imgTile.toString());
@@ -276,13 +278,33 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        int squareHeight = 80;
  		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
  		        int row = (int)(event.getY()/ squareHeight);
- 		        if(!gridAlreadyFilled(col, row)) {
- 		        	idErrTile.setVisible(false);
- 		        	idInvisibleGrid.add(droppedTile, col, row);
- 		        	event.setDropCompleted(true);
+ 		        if(!hasToPlayOnTheMoon) {
+	 		        if(!gridAlreadyFilled(col, row)) {
+	 		        	idErrTile.setVisible(false);
+	 		        	idInvisibleGrid.add(droppedTile, col, row);
+	 		        	event.setDropCompleted(true);
+	 		        }
+	 		        else {
+	 		        	idErrTile.setVisible(true);
+	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici.");
+	 		        	event.setDropCompleted(false);
+	 		        }
+ 		        }
+ 		        else if(col == 4 && row == 4) {
+ 		        	if(!gridAlreadyFilled(col, row)) {
+	 		        	idErrTile.setVisible(false);
+	 		        	idInvisibleGrid.add(droppedTile, col, row);
+	 		        	event.setDropCompleted(true);
+	 		        }
+	 		        else {
+	 		        	idErrTile.setVisible(true);
+	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici.");
+	 		        	event.setDropCompleted(false);
+	 		        }
  		        }
  		        else {
  		        	idErrTile.setVisible(true);
+ 		        	idErrTile.setText("Vous devez poser la première tuile sur la Lune.");
  		        	event.setDropCompleted(false);
  		        }
  		    }
@@ -389,7 +411,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		isJ2 = !isJ2;
 		roundCounter ++;
-		idNbTour.setText("Tour " + Integer.toString(roundCounter/2 + 1) + " :");
+		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + " :");
 		
 		idRackInvisibleTile1.setMouseTransparent(false);
 		idRackInvisibleTile2.setMouseTransparent(false);
