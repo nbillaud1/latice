@@ -120,12 +120,23 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private Image imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
     private Image imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
     
+    private ArrayList<Integer> lstPlayer1PlayedTilesIndex = new ArrayList<>();
+    private ArrayList<Integer> lstPlayer2PlayedTilesIndex = new ArrayList<>();
+    
     public void setPlayer1Name(String name) {
         this.player1Name = name;
     }
 
     public void setPlayer2Name(String name) {
         this.player2Name = name;
+    }
+    
+    public void emptyLstPlayer1PlayedTilesIndex() {
+    	this.lstPlayer1PlayedTilesIndex = new ArrayList<Integer>();
+    }
+    
+    public void emptyLstPlayer2PlayedTilesIndex() {
+    	this.lstPlayer2PlayedTilesIndex = new ArrayList<Integer>();
     }
 	
 	@Override
@@ -285,18 +296,20 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		      ((ImageView) source).setOpacity(1);
 	 		      ((ImageView) source).setMouseTransparent(true);						// et de désactiver le drag and drop.
 	 		    }
-	 		    
+	 		//Ensuite on supprime la tuile du rack après l'avoir posée.
 		 		if(isJ2) {
 		 		    for (Tile tileFromRack : rackPlayer2.tiles()) {
 		 		    	if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
-		 		    		rackPlayer2.tiles().remove(tileFromRack);
+		 		    		lstPlayer2PlayedTilesIndex.add(rackPlayer2.tiles().indexOf(tileFromRack)); //utile pour compléter le rack.
+		 		    		rackPlayer2.tiles().set(rackPlayer2.tiles().indexOf(tileFromRack), null); //pour ne pas fausser les indices, on remplace l'ancienne tuile par null.
 		 		    	}
 		 		    }
 		 		}
 		 		else {
 		 			for (Tile tileFromRack : rackPlayer1.tiles()) {
 		 				if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
-		 		    		rackPlayer1.tiles().remove(tileFromRack);
+		 		    		lstPlayer1PlayedTilesIndex.add(rackPlayer1.tiles().indexOf(tileFromRack));
+		 		    		rackPlayer1.tiles().set(rackPlayer1.tiles().indexOf(tileFromRack), null);
 		 		    	}
 		 		    }
 		 		}
@@ -321,6 +334,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile5.setOpacity(0);
 		
 		if (isJ2) {
+			
+			player2.pass();
+		    player2.completeRack(lstPlayer2PlayedTilesIndex);
+		    emptyLstPlayer1PlayedTilesIndex();
+			
 			imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
@@ -333,7 +351,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackImageTile4.setImage(imageTile4p1);
 		    idRackImageTile5.setImage(imageTile5p1);
 		    
-		    player2.pass();
 		    idPilePlayer1.setVisible(true);
 		    idPilePlayer2.setVisible(false);
 		    this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
@@ -341,6 +358,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player1.resetMove();
 		}
 		else {
+			
+			player1.pass();
+		    player1.completeRack(lstPlayer1PlayedTilesIndex);
+		    emptyLstPlayer2PlayedTilesIndex();
+			
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
@@ -353,7 +375,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackImageTile4.setImage(imageTile4p2);
 		    idRackImageTile5.setImage(imageTile5p2);
 		    
-		    player1.pass();
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
 		    this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
