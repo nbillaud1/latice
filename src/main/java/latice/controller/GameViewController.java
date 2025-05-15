@@ -16,13 +16,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import latice.model.Game;
-import latice.model.MainPool;
 import latice.model.Pool;
 import latice.model.Rack;
+import latice.model.Shape;
 import latice.model.Tile;
+import latice.model.Color;
 import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
@@ -92,9 +91,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Button idBtnExtraMove;
 	
-	private Game game = new Game();
-	private MainPool mainPool = game.mainPool();
-
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
@@ -108,7 +104,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Player player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
 	private Player player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
 	
-	private Image imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
+	private Image imageTile1p1 = new Image((rackPlayer1.tiles().get(0).urlImg()));
     private Image imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
     private Image imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
     private Image imageTile4p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(3).urlImg()).toExternalForm());
@@ -139,7 +135,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idNbTour.setText("Tour 1 :");
     	
     	if (isJ2) {
-    		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+    		this.idTxtPile.setText("Au tour de " + player2Name);
         	idPilePlayer1.setVisible(false);
             idRackImageTile1.setImage(imageTile1p2);
             idRackImageTile2.setImage(imageTile2p2);
@@ -148,7 +144,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idRackImageTile5.setImage(imageTile5p2);
     	}
     	else {
-    		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+    		this.idTxtPile.setText("Au tour de " + player1Name);
         	idPilePlayer2.setVisible(false);
             idRackImageTile1.setImage(imageTile1p1);
             idRackImageTile2.setImage(imageTile2p1);
@@ -159,7 +155,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
       //Permet de changer entre le rack p1 et p2
         idBtnPass.setOnAction(e -> { 
-        	changeTiles();
+        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
+					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
         
         //Permet de changer son rack et passer son tour
@@ -172,11 +169,14 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		player1.switchRack();
         		rackPlayer1 = player1.rack();
         	}
-        	changeTiles();
+        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
+					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
         });
         
       //Permet d'acheter une action suplémentaire
     	idBtnExtraMove.setOnAction(e -> {
+    		System.out.println("p2 " + player2.points() + " " + player2.move() );
+    		System.out.println("p1 " + player1.points() + " " + player1.move() );
     		if (isJ2 && player2.points() >= 2 && player2.move() == 0) {
         		player2.setPoints(-2);
         		player2.resetMove();
@@ -256,7 +256,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
  	
  		idInvisibleGrid.setOnDragDropped(event -> {
  		    Dragboard db = event.getDragboard();
- 		    Boolean dropsuccess = false;
  		    if (db.hasString()) {
  		        ImageView droppedTile = new ImageView(imgTile);
  		        droppedTile.setFitWidth(80);
@@ -269,14 +268,16 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        if(!gridAlreadyFilled(col, row)) {
  		        	idErrTile.setVisible(false);
  		        	idInvisibleGrid.add(droppedTile, col, row);
- 		        	dropsuccess = true;
+ 		        	event.setDropCompleted(true);
  		        }
  		        else {
  		        	idErrTile.setVisible(true);
- 		        	dropsuccess = false;
+ 		        	event.setDropCompleted(false);
  		        }
  		    }
- 		    event.setDropCompleted(dropsuccess);
+ 		    else {
+ 		    	event.setDropCompleted(false);	    	
+ 		    }
  		   
  		    if (event.isDropCompleted()) {
 	 		    Object source = event.getGestureSource();
@@ -306,14 +307,69 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		});
 	}
 	
+	//Éteint le jeu
 	private void shutTheGame() {
 		if (roundCounter == 20) {
 			Platform.exit();
 		}
 	}
+	
+	
+	private String checkTile(ImageView imageGrid) {
+		Image img = imageGrid.getImage();
+		String urlImage = Tile.url(img);
+		return urlImage;
+	}
+	
+	private Shape checkShape(String url) {
+		String shape = url.substring(137,139);
+		if (shape.equals("fl")){
+			return Shape.FLOWER;
+		}
+		else if (shape.equals("ge")) {
+			return Shape.GECKO;
+		}
+		else if (shape.equals("bi")) {
+			return Shape.BIRD;
+		}
+		else if (shape.equals("tu")) {
+			return Shape.TURTLE;
+		}
+		else if (shape.equals("fe")) {
+			return Shape.FEATHER;
+		}
+		else {
+			return Shape.DOLPHIN;
+		}
+	}
+	
+	private Color checkColor(String url) {
+		String color = url.substring(url.length()-5, url.length()-4);
+		if (color.equals("y")){
+			return Color.YELLOW;
+		}
+		else if (color.equals("r")) {
+			return Color.RED;
+		}
+		else if (color.equals("t")) {
+			return Color.TEAL;
+		}
+		else if (color.equals("n")) {
+			return Color.NAVY;
+		}
+		else if (color.equals("g")) {
+			return Color.GREEN;
+		}
+		else {
+			return Color.MAGENTA;
+		}
+		
+	}
  	
 
-	private void changeTiles() {
+	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
+			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
+			Image imageTile5p2) {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
 		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
@@ -336,7 +392,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player2.pass();
 		    idPilePlayer1.setVisible(true);
 		    idPilePlayer2.setVisible(false);
-		    this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+		    this.idTxtPile.setText("Au tour de " + player1Name);
 		    
 		    player1.resetMove();
 		}
@@ -356,7 +412,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player1.pass();
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
-		    this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+		    this.idTxtPile.setText("Au tour de " + player2Name);
 		    
 		    player2.resetMove();
 		}
@@ -371,6 +427,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile5.setMouseTransparent(false);
 		
 		shutTheGame();
+		Shape a = checkColor(checkTile(idRackImageTile1));
 	}
 	
 	private Boolean gridAlreadyFilled(int col, int row) {
