@@ -147,7 +147,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idTurnNumber.setText("Tour 1 :");
     	
     	if (isJ2) {
-    		this.idTxtPile.setText("Au tour de " + player2Name);
+    		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
         	idPilePlayer1.setVisible(false);
             idRackImageTile1.setImage(imageTile1p2);
             idRackImageTile2.setImage(imageTile2p2);
@@ -156,7 +156,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idRackImageTile5.setImage(imageTile5p2);
     	}
     	else {
-    		this.idTxtPile.setText("Au tour de " + player1Name);
+    		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
         	idPilePlayer2.setVisible(false);
             idRackImageTile1.setImage(imageTile1p1);
             idRackImageTile2.setImage(imageTile2p1);
@@ -290,7 +290,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	event.setDropCompleted(false);
 	 		        }
  		        }
- 		        else if(col == 4 && row == 4) {
+ 		        else if(col == 4 && row == 4) { // position de la Lune.
  		        	if(!gridAlreadyFilled(col, row)) {
 	 		        	idErrTile.setVisible(false);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
@@ -381,7 +381,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    
 		    idPilePlayer1.setVisible(true);
 		    idPilePlayer2.setVisible(false);
-		    this.idTxtPile.setText("Au tour de " + player1Name);
+		    this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 		    
 		    player1.resetMove();
 		}
@@ -405,7 +405,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
-		    this.idTxtPile.setText("Au tour de " + player2Name);
+		    this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 		    
 		    player2.resetMove();
 		}
