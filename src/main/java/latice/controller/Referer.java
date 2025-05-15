@@ -62,18 +62,102 @@ public class Referer {
 		}
 	}
 	
-	public Boolean checkIfTileIsHer(GridPane gridPane, int col, int row) {
+	public Boolean checkIfTileIsHer(GridPane grid, int col, int row) {
 		Boolean isHer = false;
-		for (Node node : gridPane.getChildren()) {
+		for (Node node : grid.getChildren()) {
 	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-	            System.out.println("a");
 	            isHer = true;
 	        }
 	    }
 		return isHer;
 	}
 	
-	public Boolean checkAround() {
+	public int checkAround(GridPane grid, int col, int row, ImageView imageToPut) {
+		Boolean putIsNotPossible = false;
+		int nbrTiles = 0;
+		String urlImageToPut = checkTile(imageToPut);
+		Color colorImageToPut = checkColor(urlImageToPut);
+		Shape shapeImageToPut = checkShape(urlImageToPut);
+		//Regarde la tuile en haut
+		if (row > 0) {
+			if (checkIfTileIsHer(grid, col, row - 1)) {
+				for (Node node : grid.getChildren()) {
+			        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == (row - 1)) {
+			        	ImageView imageNextTo = (ImageView) node;
+			        	String urlImageNextTo = checkTile(imageNextTo);
+			        	Color colorImageNextTo = checkColor(urlImageNextTo);
+			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
+			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
+			        		nbrTiles ++;
+			        	}
+			        	else {
+			        		putIsNotPossible = true;
+			        	}
+			        }
+			    }
+			}
+		}
+		//Regarde la tuile du bas
+		if (row < 8) {
+			if (checkIfTileIsHer(grid, col, row + 1)) {
+				for (Node node : grid.getChildren()) {
+			        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == (row + 1)) {
+			        	ImageView imageNextTo = (ImageView) node;
+			        	String urlImageNextTo = checkTile(imageNextTo);
+			        	Color colorImageNextTo = checkColor(urlImageNextTo);
+			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
+			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
+			        		nbrTiles ++;
+			        	}
+			        	else {
+			        		putIsNotPossible = true;
+			        	}
+			        }
+			    }
+			}
+		}
+		//Regarde la tuile de gauche
+		if (col > 0) {
+			if (checkIfTileIsHer(grid, col - 1, row)) {
+				for (Node node : grid.getChildren()) {
+			        if (GridPane.getColumnIndex(node) == (col - 1) && GridPane.getRowIndex(node) == row) {
+			        	ImageView imageNextTo = (ImageView) node;
+			        	String urlImageNextTo = checkTile(imageNextTo);
+			        	Color colorImageNextTo = checkColor(urlImageNextTo);
+			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
+			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
+			        		nbrTiles ++;
+			        	}
+			        	else {
+			        		putIsNotPossible = true;
+			        	}
+			        }
+			    }
+			}
+		}
+		//Regarde la tuile à droite
+		if (col < 8) {
+			if (checkIfTileIsHer(grid, col + 1, row)) {
+				for (Node node : grid.getChildren()) {
+			        if (GridPane.getColumnIndex(node) == (col + 1) && GridPane.getRowIndex(node) == row) {
+			        	ImageView imageNextTo = (ImageView) node;
+			        	String urlImageNextTo = checkTile(imageNextTo);
+			        	Color colorImageNextTo = checkColor(urlImageNextTo);
+			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
+			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
+			        		nbrTiles ++;
+			        	}
+			        	else {
+			        		putIsNotPossible = true;
+			        	}
+			        }
+			    }
+			}
+		}
 		
+		if (putIsNotPossible) {
+			nbrTiles = -1;
+		}
+		return nbrTiles;
 	}
 }
