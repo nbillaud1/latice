@@ -150,6 +150,9 @@ public class LaticeAppSb extends Application{
 				else if(tfPlayer2Name.getText().equals(tfPlayer1Name.getText())) {
 					lblErrorStart.setText("Les noms doivent être différents");
 				}
+				else if(tfPlayer2Name.getLength() > 10 || tfPlayer1Name.getLength() > 10) {
+					lblErrorStart.setText("10 caractères maximum par noms");
+				}
 				else {
 					try {
 						lblErrorStart.setText("");
