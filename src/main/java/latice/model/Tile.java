@@ -1,5 +1,7 @@
 package latice.model;
 
+import javafx.scene.image.Image;
+
 public class Tile {
 	private Shape shape;
 	private Color color;
@@ -65,5 +67,9 @@ public class Tile {
 			break;
 		}
 		return url+".png";
+	}
+	
+	public static String url(Image img) {
+		return img.impl_getUrl();
 	}
 }
