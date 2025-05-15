@@ -145,6 +145,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	public void initialize() {
     	roundCounter = 0;
     	idTurnNumber.setText("Tour 1 :");
+    	idErrTile.setVisible(false);
     	
     	if (isJ2) {
     		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
@@ -167,8 +168,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
       //Permet de changer entre le rack p1 et p2
         idBtnPass.setOnAction(e -> { 
-        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
-					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
+        	changeTiles();
         });
         
         //Permet de changer son rack et passer son tour
@@ -181,8 +181,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		player1.switchRack();
         		rackPlayer1 = player1.rack();
         	}
-        	changeTiles(imageTile1p1, imageTile2p1, imageTile3p1, imageTile4p1, imageTile5p1, imageTile1p2,
-					imageTile2p2, imageTile3p2, imageTile4p2, imageTile5p2);
+        	changeTiles();
         });
         
       //Permet d'acheter une action suplémentaire
@@ -198,8 +197,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		player1.resetMove();
         	}
     	});
-    	
-    	idErrTile.setVisible(false);
        
         idRackInvisibleTile1.setOnDragDetected(event -> {
         	if(isJ2) {
@@ -254,6 +251,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 
 	private void dragTile(ImageView tile, Image imgTile) {
 		hasToPlayOnTheMoon = referer.firstTileOnTheMoon(idInvisibleGrid); //savoir si la grille a été remplie.
+		
         Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         content.putString(imgTile.toString());
@@ -278,20 +276,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        int squareHeight = 80;
  		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
  		        int row = (int)(event.getY()/ squareHeight);
- 		        if(!hasToPlayOnTheMoon) {
+ 		        if(!hasToPlayOnTheMoon || (col == 4 && row == 4)) {
 	 		        if(!gridAlreadyFilled(col, row)) {
-	 		        	idErrTile.setVisible(false);
-	 		        	idInvisibleGrid.add(droppedTile, col, row);
-	 		        	event.setDropCompleted(true);
-	 		        }
-	 		        else {
-	 		        	idErrTile.setVisible(true);
-	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici.");
-	 		        	event.setDropCompleted(false);
-	 		        }
- 		        }
- 		        else if(col == 4 && row == 4) { // position de la Lune.
- 		        	if(!gridAlreadyFilled(col, row)) {
 	 		        	idErrTile.setVisible(false);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
@@ -317,7 +303,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		    if (source instanceof ImageView) {										// ce bout de code sert à obtenir l'id
 	 		      ((ImageView) source).setImage(new Image("/latice/image/bg_sea.png"));// de la case Invisible, à remplacer son image nulle par le fond
 	 		      ((ImageView) source).setOpacity(1);
-	 		      ((ImageView) source).setMouseTransparent(true);						// et de désactiver le drag and drop.
+	 		      ((ImageView) source).setMouseTransparent(true);						// et à désactiver le drag and drop.
 	 		    }
 	 		//Ensuite on supprime la tuile du rack après l'avoir posée.
 		 		if(isJ2) {
@@ -337,7 +323,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		 		    }
 		 		}
  		    }
- 		   
  		    event.consume();
  		});
 	}
@@ -345,6 +330,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	//Éteint le jeu
 	private void shutTheGame() {
 		if (roundCounter == 20) {
+			// On pourra déclencher une "Alert" pour annoncer le vainqueur avt de quitter.
 			Platform.exit();
 		}
 	}
@@ -352,9 +338,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	
  	
 
-	private void changeTiles(Image imageTile1p1, Image imageTile2p1, Image imageTile3p1, Image imageTile4p1,
-			Image imageTile5p1, Image imageTile1p2, Image imageTile2p2, Image imageTile3p2, Image imageTile4p2,
-			Image imageTile5p2) {
+	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
 		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
