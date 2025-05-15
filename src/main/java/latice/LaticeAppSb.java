@@ -113,7 +113,7 @@ public class LaticeAppSb extends Application{
 		hBoxBottom.setAlignment(Pos.CENTER);
 		HBox.setMargin(vBoxBottom, new Insets(0, 0, 50, 0));
 		//BorderPane
-		BorderPane.setAlignment(title, javafx.geometry.Pos.CENTER);
+		BorderPane.setAlignment(title, Pos.CENTER);
 		BorderPane.setMargin(title, new Insets(20, 0, 0, 0));
 		//Root
 		BorderPane root = new BorderPane();
