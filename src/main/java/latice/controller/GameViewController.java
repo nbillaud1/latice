@@ -358,6 +358,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		});
 	}
 	
+	//TODO todo just pour repush
+	
 	//Éteint le jeu
 	private void shutTheGame() {
 		if (roundCounter == 20) {
