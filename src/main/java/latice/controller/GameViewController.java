@@ -202,8 +202,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idBtnExtraMove.setOnAction(e -> {
     		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
         		player2.buyExtraMove();
-        		idTxtPile.setText("Au tour de " + player2Name + " (" + player1.points() + " points)");
-	        	idMovesP1.setText("Actions restantes : " + player2.move());
+        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+	        	idMovesP2.setText("Actions restantes : " + player2.move());
         	}
         	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
         		player1.buyExtraMove();
@@ -421,6 +421,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackImageTile3.setImage(null);
 		    idRackImageTile4.setImage(null);
 		    idRackImageTile5.setImage(null);
+		    //Cache le nombre de tours, les action restantes
+		    idTurnNumber.setVisible(false);
+		    idMovesP1.setVisible(false);
+		    idMovesP2.setVisible(false);
 			//Pause de 5 secondes
 			PauseTransition pause = new PauseTransition(Duration.seconds(7));
 			pause.setOnFinished(event -> Platform.exit());
@@ -441,7 +445,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			player2.pass();
 			idMovesP2.setVisible(false);
 			idMovesP1.setVisible(true);
-        	idMovesP1.setText("Actions restantes : " + player1.move());
 		    player2.completeRack(lstPlayer2PlayedTilesIndex);
 		    emptyLstPlayer1PlayedTilesIndex();
 			
@@ -460,7 +463,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer1.setVisible(true);
 		    idPilePlayer2.setVisible(false);
 		    player1.Move(1);
-		    this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+		    idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+		    idMovesP1.setText("Actions restantes : " + player1.move());
 		    
 		}
 		else {
@@ -468,7 +472,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			player1.pass();
 			idMovesP1.setVisible(false);
 			idMovesP2.setVisible(true);
-        	idMovesP2.setText("Actions restantes : " + player2.move());
 		    player1.completeRack(lstPlayer1PlayedTilesIndex);
 		    emptyLstPlayer2PlayedTilesIndex();
 			
@@ -487,8 +490,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
 		    player2.Move(1);
-		    this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-		    
+		    idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+		    idMovesP2.setText("Actions restantes : " + player2.move());
 		}
 		isP2 = !isP2;
 		roundCounter ++;
