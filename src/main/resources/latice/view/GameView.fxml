@@ -760,5 +760,21 @@
             <Insets bottom="100.0" left="40.0" />
          </StackPane.margin>
       </Text>
+      <Text fx:id="idNbrTilesPoolP1" strokeType="OUTSIDE" strokeWidth="0.0" text="36" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets bottom="115.0" left="118.0" />
+         </StackPane.margin>
+         <font>
+            <Font name="Calibri Bold" size="48.0" />
+         </font>
+      </Text>
+      <Text fx:id="idNbrTilesPoolP2" strokeType="OUTSIDE" strokeWidth="0.0" text="36" StackPane.alignment="BOTTOM_RIGHT">
+         <font>
+            <Font name="Calibri Bold" size="48.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="115.0" right="118.0" />
+         </StackPane.margin>
+      </Text>
    </children>
 </StackPane>

@@ -78,6 +78,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Text idTxtPile;
 	
 	@FXML
+	private Text idNbrTilesPoolP1;
+	
+	@FXML
+	private Text idNbrTilesPoolP2;
+	
+	@FXML
 	private Text idTurnNumber;
 	
 	 @FXML
@@ -167,6 +173,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idRackImageTile3.setImage(imageTile3p2);
             idRackImageTile4.setImage(imageTile4p2);
             idRackImageTile5.setImage(imageTile5p2);
+            idNbrTilesPoolP1.setVisible(false);
+            idNbrTilesPoolP2.setVisible(true);
+            idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
     	}
     	else {
     		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
@@ -178,6 +187,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idRackImageTile3.setImage(imageTile3p1);
             idRackImageTile4.setImage(imageTile4p1);
             idRackImageTile5.setImage(imageTile5p1);
+            idNbrTilesPoolP2.setVisible(false);
+            idNbrTilesPoolP1.setVisible(true);
+            idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
     	}
         
       //Permet de changer entre le rack p1 et p2
@@ -425,6 +437,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idTurnNumber.setVisible(false);
 		    idMovesP1.setVisible(false);
 		    idMovesP2.setVisible(false);
+		    //Cache le nombre te tuiles des racks
+		    idNbrTilesPoolP1.setVisible(false);
+		    idNbrTilesPoolP2.setVisible(false);
 			//Pause de 5 secondes
 			PauseTransition pause = new PauseTransition(Duration.seconds(7));
 			pause.setOnFinished(event -> Platform.exit());
@@ -465,6 +480,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player1.Move(1);
 		    idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 		    idMovesP1.setText("Actions restantes : " + player1.move());
+		    idNbrTilesPoolP2.setVisible(false);
+		    idNbrTilesPoolP1.setVisible(true);
+            idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
 		    
 		}
 		else {
@@ -492,6 +510,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player2.Move(1);
 		    idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 		    idMovesP2.setText("Actions restantes : " + player2.move());
+		    idNbrTilesPoolP1.setVisible(false);
+		    idNbrTilesPoolP2.setVisible(true);
+            idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
 		}
 		isP2 = !isP2;
 		roundCounter ++;
@@ -503,8 +524,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile4.setMouseTransparent(false);
 		idRackInvisibleTile5.setMouseTransparent(false);
 		
-		shutTheGame();
 		idErrTile.setVisible(false);
+		shutTheGame();
 	}
 	
 	private Boolean gridAlreadyFilled(int col, int row) {
