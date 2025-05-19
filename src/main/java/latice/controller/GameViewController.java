@@ -366,11 +366,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		    event.consume();
 	 		});
 		}
+		else {
+			idErrTile.setText("Vous ne pouvez pas poser d'autres tuiles, vous n'avez plus de points");
+		}
 	}
-<<<<<<< HEAD
-	//TODO todo just pour repush et encore
-=======
->>>>>>> origin/master
 	
 	//Éteint le jeu
 	private void shutTheGame() {
