@@ -744,5 +744,21 @@
             <Insets bottom="210.0" />
          </StackPane.margin>
       </Text>
+      <Text fx:id="idMovesP1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Actions restantes :" StackPane.alignment="BOTTOM_RIGHT">
+         <font>
+            <Font name="Calibri Bold" size="23.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="100.0" right="40.0" />
+         </StackPane.margin>
+      </Text>
+      <Text fx:id="idMovesP2" fill="WHITE" layoutX="743.0" layoutY="879.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actions restantes :" StackPane.alignment="BOTTOM_LEFT">
+         <font>
+            <Font name="Calibri Bold" size="23.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="100.0" left="40.0" />
+         </StackPane.margin>
+      </Text>
    </children>
 </StackPane>
