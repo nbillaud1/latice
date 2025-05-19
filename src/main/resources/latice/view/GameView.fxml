@@ -776,5 +776,20 @@
             <Insets bottom="115.0" right="118.0" />
          </StackPane.margin>
       </Text>
+      <Button fx:id="idBtnQuit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER" wrapText="true" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="20.0" top="20.0" />
+         </StackPane.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/quitter.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </StackPane>

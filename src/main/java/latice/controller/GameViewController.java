@@ -69,6 +69,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Button idBtnChange;
 	
 	@FXML
+	private Button idBtnQuit;
+	
+	@FXML
 	private ImageView idPilePlayer1;
 	
 	@FXML
@@ -195,6 +198,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
       //Permet de changer entre le rack p1 et p2
         idBtnPass.setOnAction(e -> { 
         	changeTiles();
+        });
+        
+        idBtnQuit.setOnAction(e -> { 
+        	Platform.exit();
         });
         
         //Permet de changer son rack et passer son tour
