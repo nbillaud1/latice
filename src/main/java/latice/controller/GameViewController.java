@@ -200,15 +200,19 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
       //Permet d'acheter une action suplémentaire
     	idBtnExtraMove.setOnAction(e -> {
-    		System.out.println("p2 " + player2.points() + " " + player2.move() );
-    		System.out.println("p1 " + player1.points() + " " + player1.move() );
     		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
-        		player2.addPoints(-2);
-        		player2.Move(1);
+        		player2.buyExtraMove();
+        		idTxtPile.setText("Au tour de " + player2Name + " (" + player1.points() + " points)");
+	        	idMovesP1.setText("Actions restantes : " + player2.move());
         	}
         	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
-        		player1.addPoints(-2);
-        		player1.Move(1);
+        		player1.buyExtraMove();
+        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+	        	idMovesP1.setText("Actions restantes : " + player1.move());
+        	}
+        	else {
+        		idErrTile.setVisible(true);
+		        idErrTile.setText("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois");
         	}
     	});
        
@@ -313,7 +317,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        		else if (nbrOfTilesAround == 4) {
 	 		        			player2.addPoints(4);
 	 		        		}
-	 		        		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+	 		        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 	 		        		player2.Move(0);
 	 		        		idMovesP2.setText("Actions restantes : " + player2.move());
 	 		        	}
@@ -327,7 +331,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        		else if (nbrOfTilesAround == 4) {
 	 		        			player1.addPoints(4);
 	 		        		}
-	 		        		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+	 		        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 	 		        		player1.Move(0);
 	 		        		idMovesP1.setText("Actions restantes : " + player1.move());
 	 		        	}
@@ -497,6 +501,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile5.setMouseTransparent(false);
 		
 		shutTheGame();
+		idErrTile.setVisible(false);
 	}
 	
 	private Boolean gridAlreadyFilled(int col, int row) {

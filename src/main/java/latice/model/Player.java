@@ -15,20 +15,14 @@ public class Player {
 		this.rack = rack;
 		this.name = name;
 		this.points = 0; //Points du joueur
-		this.move = 1; //Permet de savoir si le joueur peut encore jouer ou non
-		this.tilePlayed = 0; //Permet de savoir le nombre de tuiles joués
-		
+		this.move = 1; //Permet de savoir si le joueur peut encore jouer ou non		
 	}
 	
 	public void buyExtraMove(){
-		if (points <= 1 && move == 0) {
+		if (points <= 2 && move == 0) {
 			points -= 2;
-			move += 1;
+			move = 1;
 		}
-	}
-	
-	public void playATile() {
-		tilePlayed += 1;
 	}
 	
 	//Permet de stocker les tuiles restantes du rack dans 
@@ -45,7 +39,6 @@ public class Player {
 	
 	public void pass() {
 		move = 0;
-		tilePlayed = 0;
 	}
 	
 	public void completeRack(ArrayList<Integer> index) {
