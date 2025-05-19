@@ -341,7 +341,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		 		    for (Tile tileFromRack : rackPlayer2.tiles()) {
 		 		    	if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
 		 		    		lstPlayer2PlayedTilesIndex.add(rackPlayer2.tiles().indexOf(tileFromRack)); //utile pour compléter le rack.
-		 		    		rackPlayer2.tiles().set(rackPlayer2.tiles().indexOf(tileFromRack), null); //pour ne pas fausser les indices, on remplace l'ancienne tuile par null.
 		 		    	}
 		 		    }
 		 		}
@@ -349,7 +348,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		 			for (Tile tileFromRack : rackPlayer1.tiles()) {
 		 				if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
 		 		    		lstPlayer1PlayedTilesIndex.add(rackPlayer1.tiles().indexOf(tileFromRack));
-		 		    		rackPlayer1.tiles().set(rackPlayer1.tiles().indexOf(tileFromRack), null);
 		 		    	}
 		 		    }
 		 		}
@@ -420,7 +418,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player2.completeRack(lstPlayer2PlayedTilesIndex);
 		    emptyLstPlayer1PlayedTilesIndex();
 			
-		    System.out.println(rackPlayer1.tiles());
 			imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
@@ -445,7 +442,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player1.completeRack(lstPlayer1PlayedTilesIndex);
 		    emptyLstPlayer2PlayedTilesIndex();
 			
-		    System.out.println(rackPlayer2.tiles());
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
