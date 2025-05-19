@@ -82,7 +82,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	
 	 @FXML
 	 private Text idErrTile;
-	
+	 
+	 @FXML
+	 private Text idMovesP1;
+	 
+	 @FXML
+	 private Text idMovesP2;
+	 
 	@FXML
 	private GridPane idGrid;
 	
@@ -154,6 +160,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	if (isP2) {
     		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
         	idPilePlayer1.setVisible(false);
+        	idMovesP1.setVisible(false);
+        	idMovesP2.setText("Actions restantes : " + player2.move());
             idRackImageTile1.setImage(imageTile1p2);
             idRackImageTile2.setImage(imageTile2p2);
             idRackImageTile3.setImage(imageTile3p2);
@@ -163,6 +171,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	else {
     		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
         	idPilePlayer2.setVisible(false);
+        	idMovesP2.setVisible(false);
+        	idMovesP1.setText("Actions restantes : " + player1.move());
             idRackImageTile1.setImage(imageTile1p1);
             idRackImageTile2.setImage(imageTile2p1);
             idRackImageTile3.setImage(imageTile3p1);
@@ -383,7 +393,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
 			}
 			else {
-				idTxtPile.setText("Égualité");
+				idTxtPile.setText("Égalité");
 			}
 			idTxtPile.setFont(Font.font("Bold",42));
 			//Désactive la vue des différentes piles
@@ -423,6 +433,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		if (isP2) {
 			
 			player2.pass();
+			idMovesP2.setVisible(false);
+			idMovesP1.setVisible(true);
+        	idMovesP1.setText("Actions restantes : " + player1.move());
 		    player2.completeRack(lstPlayer2PlayedTilesIndex);
 		    emptyLstPlayer1PlayedTilesIndex();
 			
@@ -447,6 +460,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		else {
 			
 			player1.pass();
+			idMovesP1.setVisible(false);
+			idMovesP2.setVisible(true);
+        	idMovesP2.setText("Actions restantes : " + player2.move());
 		    player1.completeRack(lstPlayer1PlayedTilesIndex);
 		    emptyLstPlayer2PlayedTilesIndex();
 			
