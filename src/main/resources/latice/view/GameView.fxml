@@ -557,6 +557,9 @@
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="idBtnChange" mnemonicParsing="false" prefHeight="32.0" prefWidth="171.0" text="Changer sa main">
                <font>
@@ -565,6 +568,9 @@
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="idBtnExtraMove" mnemonicParsing="false" prefHeight="33.0" prefWidth="277.0" text="Acheter une action supplémentaire">
                <font>
@@ -573,6 +579,9 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
          <StackPane.margin>
