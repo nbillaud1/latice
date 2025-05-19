@@ -356,8 +356,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		});
 	}
 	
-	//TODO todo just pour repush et encore
-	
 	//Éteint le jeu
 	private void shutTheGame() {
 		if (roundCounter == 20) {
@@ -400,11 +398,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	}
 	
 	
- 	/*
-	TODO durant des test le programme à bugué en utilisant changeTiles: L’erreur que tu vois est une NullPointerException,
-	ce qui signifie que tu essaies d'accéder à une variable qui vaut null (non initialisée). Ligne 418
-	Cela ce produit à chaque fois si le joueur 1/2 joue une tuile ou plus, puis on fais changer de main jusqu'au 7ème tour (apparition du bug)
-	*/
 	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
