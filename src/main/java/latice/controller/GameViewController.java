@@ -358,7 +358,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		});
 	}
 	
-	//TODO todo just pour repush
+	//TODO todo just pour repush et encore
 	
 	//Éteint le jeu
 	private void shutTheGame() {
@@ -420,6 +420,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player2.completeRack(lstPlayer2PlayedTilesIndex);
 		    emptyLstPlayer1PlayedTilesIndex();
 			
+		    System.out.println(rackPlayer1.tiles());
 			imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
@@ -444,6 +445,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player1.completeRack(lstPlayer1PlayedTilesIndex);
 		    emptyLstPlayer2PlayedTilesIndex();
 			
+		    System.out.println(rackPlayer2.tiles());
 			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
 		    imageTile2p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
 		    imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
