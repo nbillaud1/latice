@@ -329,8 +329,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        		else if (nbrOfTilesAround == 4) {
 	 		        			player2.addPoints(4);
 	 		        		}
-	 		        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 	 		        		player2.Move(0);
+	 		        		if (referer.isSunTile(col, row)) {
+								player2.addPoints(2);
+							}
+	 		        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 	 		        		idMovesP2.setText("Actions restantes : " + player2.move());
 	 		        	}
 	 		        	else {
@@ -343,9 +346,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        		else if (nbrOfTilesAround == 4) {
 	 		        			player1.addPoints(4);
 	 		        		}
-	 		        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 	 		        		player1.Move(0);
+	 		        		if (referer.isSunTile(col, row)) {
+								player1.addPoints(2);
+							}
+	 		        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 	 		        		idMovesP1.setText("Actions restantes : " + player1.move());
+	 		        		
 	 		        	}
 	 		        	
 	 		        }
