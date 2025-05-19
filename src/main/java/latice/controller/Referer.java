@@ -162,6 +162,34 @@ public class Referer {
 		return nbrTiles;
 	}
 	
+	public boolean isSunTile(int col, int row) {
+		boolean isSun = false;
+		String position = col + ":" + row;
+		
+		switch (position) {
+	    case "0:0":
+	    case "4:0":
+	    case "8:0":
+	    case "1:1":
+	    case "7:1":
+	    case "2:2":
+	    case "6:2":
+	    case "0:4":
+	    case "8:4":
+	    case "2:6":
+	    case "6:6":
+	    case "1:7":
+	    case "7:7":
+	    case "0:8":
+	    case "8:8":
+	        isSun = true;
+	        break;
+	    default:
+	        isSun = false;
+		}
+	return isSun;
+	}
+	
 	public boolean firstTileOnTheMoon(GridPane grid) {
 			return grid.getChildren().isEmpty();
 	}
