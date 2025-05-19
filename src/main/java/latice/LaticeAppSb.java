@@ -30,6 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import latice.audio.MusicManager;
 import latice.controller.GameViewController;
 
@@ -179,6 +180,7 @@ public class LaticeAppSb extends Application{
 		Stage stage = new Stage();
 		Scene scene = new Scene(root,1000,1000);
 		stage.setResizable(false);
+		//stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
 		
 		//Définit le background
       	Image image = new Image("/latice/image/fond.png");
