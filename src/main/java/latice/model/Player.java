@@ -67,8 +67,8 @@ public class Player {
 		return move;
 	}
 	
-	public void resetMove() {
-		this.move = 1;
+	public void Move(int nbr) {
+		this.move = nbr;
 	}
 	public int points() {
 		return points;
