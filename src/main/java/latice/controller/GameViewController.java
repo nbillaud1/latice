@@ -316,7 +316,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		 		        		}
 		 		        		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 		 		        		player2.Move(0);
-		 		        		
+		 		        		idMovesP2.setText("Actions restantes : " + player2.move());
 		 		        	}
 		 		        	else {
 		 		        		if (nbrOfTilesAround == 2) {
@@ -330,6 +330,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		 		        		}
 		 		        		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 		 		        		player1.Move(0);
+		 		        		idMovesP1.setText("Actions restantes : " + player1.move());
 		 		        	}
 		 		        	
 		 		        }
