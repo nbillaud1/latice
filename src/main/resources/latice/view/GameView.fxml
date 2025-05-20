@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -791,5 +793,58 @@
             </ImageView>
          </graphic>
       </Button>
+      <Text fx:id="idLatice" strokeType="OUTSIDE" strokeWidth="0.0" text="LATICE !" StackPane.alignment="CENTER">
+         <font>
+            <Font name="Britannic Bold" size="1.0" />
+         </font>
+         <fill>
+            <RadialGradient centerX="0.44886363636363635" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+               <stops>
+                  <Stop color="YELLOW" />
+                  <Stop color="RED" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill>
+         <StackPane.margin>
+            <Insets bottom="225.0" />
+         </StackPane.margin>
+      </Text>
+      <Text fx:id="idTrefoil" strokeType="OUTSIDE" strokeWidth="0.0" text="TREFOIL !" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="225.0" />
+         </StackPane.margin>
+         <font>
+            <Font name="Britannic Bold" size="1.0" />
+         </font>
+         <fill>
+            <RadialGradient centerX="0.44886363636363635" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+               <stops>
+                  <Stop color="#1bc900" />
+                  <Stop color="#1bc900" offset="0.010869565217391304" />
+                  <Stop color="#00fffe" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Text>
+      <Text fx:id="idDouble" strokeType="OUTSIDE" strokeWidth="0.0" text="DOUBLE !" StackPane.alignment="CENTER">
+         <font>
+            <Font size="1.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="225.0" />
+         </StackPane.margin>
+          <font>
+            <Font name="Britannic Bold" size="1.0" />
+         </font>
+         <fill>
+            <RadialGradient centerX="0.44886363636363635" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
+               <stops>
+                  <Stop color="#c500ff" />
+                  <Stop color="#c500ff" offset="0.007246376811594203" />
+                  <Stop color="#eecae6" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Text>
    </children>
 </StackPane>

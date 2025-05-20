@@ -98,6 +98,15 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 @FXML
 	 private Text idMovesP2;
 	 
+	 @FXML
+	 private Text idLatice;
+	 
+	 @FXML
+	 private Text idTrefoil;
+	 
+	 @FXML
+	 private Text idDouble;
+	 
 	@FXML
 	private GridPane idGrid;
 	

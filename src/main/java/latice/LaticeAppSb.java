@@ -180,7 +180,7 @@ public class LaticeAppSb extends Application{
 		Stage stage = new Stage();
 		Scene scene = new Scene(root,1000,1000);
 		stage.setResizable(false);
-		//stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
+		stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
 		
 		//Définit le background
       	Image image = new Image("/latice/image/fond.png");
