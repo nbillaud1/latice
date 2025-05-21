@@ -178,10 +178,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idErrTile.setVisible(false);
     	
     	if (isP2) {
-    		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
         	idPilePlayer1.setVisible(false);
         	idMovesP1.setVisible(false);
-        	idMovesP2.setText("Actions restantes : " + player2.move());
             idRackImageTile1.setImage(imageTile1p2);
             idRackImageTile2.setImage(imageTile2p2);
             idRackImageTile3.setImage(imageTile3p2);
@@ -190,12 +188,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idNbrTilesPoolP1.setVisible(false);
             idNbrTilesPoolP2.setVisible(true);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
+            referer.setPTurnAndAction(player2Name, player2, idTxtPile, idMovesP2, isP2);
     	}
     	else {
-    		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
         	idPilePlayer2.setVisible(false);
         	idMovesP2.setVisible(false);
-        	idMovesP1.setText("Actions restantes : " + player1.move());
             idRackImageTile1.setImage(imageTile1p1);
             idRackImageTile2.setImage(imageTile2p1);
             idRackImageTile3.setImage(imageTile3p1);
@@ -204,6 +201,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idNbrTilesPoolP2.setVisible(false);
             idNbrTilesPoolP1.setVisible(true);
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
+            referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1, isP2);
     	}
         
       //Permet de changer entre le rack p1 et p2
@@ -229,8 +227,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         		changeTiles();
         	}
         	else {
-        		idErrTile.setVisible(true);
-		        idErrTile.setText("Vous ne possédez plus d'actions restantes");
+        		referer.displayErrorMessage("Vous ne possédez plus d'actions restantes", idErrTile);
         	}
         	
         });
@@ -239,17 +236,14 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idBtnExtraMove.setOnAction(e -> {
     		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
         		player2.buyExtraMove();
-        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-	        	idMovesP2.setText("Actions restantes : " + player2.move());
+        		referer.setPTurnAndAction(player2Name, player2, idTxtPile, idMovesP2, isP2);
         	}
         	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
         		player1.buyExtraMove();
-        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
-	        	idMovesP1.setText("Actions restantes : " + player1.move());
+        		referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1, isP2);
         	}
         	else {
-        		idErrTile.setVisible(true);
-		        idErrTile.setText("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois");
+        		referer.displayErrorMessage("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois", idErrTile);
         	}
     	});
        
@@ -347,33 +341,25 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
 	 		        	if (isP2) {
-	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row);
-	 		        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-	 		        		idMovesP2.setText("Actions restantes : " + player2.move());
+	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player2Name);
 	 		        	}
 	 		        	else {
-	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row);
-	 		        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
-	 		        		idMovesP1.setText("Actions restantes : " + player1.move());
-	 		        		
+	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player1Name);    		
 	 		        	}
 	 		        	
 	 		        }
 	 		        else {
-	 		        	idErrTile.setVisible(true);
-	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici");
+	 		        	referer.displayErrorMessage("Vous ne pouvez pas poser une tuile ici", idErrTile);
 	 		        	event.setDropCompleted(false);
 	 		        }
 
  		        }
  		        else if (canPlay == 0) {
- 		        	idErrTile.setVisible(true);
- 		        	idErrTile.setText("Vous ne possédez plus d'actions restantes");
+ 		        	referer.displayErrorMessage("Vous ne possédez plus d'actions restantes", idErrTile);
  		        	event.setDropCompleted(false);
  		        }
  		        else {
- 		        	idErrTile.setVisible(true);
- 		        	idErrTile.setText("Vous devez poser la première tuile sur la Lune");
+ 		        	referer.displayErrorMessage("Vous devez poser la première tuile sur la Lune", idErrTile);
  		        	event.setDropCompleted(false);
  		        }
  		       
@@ -488,8 +474,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer1.setVisible(true);
 		    idPilePlayer2.setVisible(false);
 		    player1.Move(1);
-		    idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
-		    idMovesP1.setText("Actions restantes : " + player1.move());
+    		referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1, isP2);
+
 		    idNbrTilesPoolP2.setVisible(false);
 		    idNbrTilesPoolP1.setVisible(true);
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
@@ -518,8 +504,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idPilePlayer2.setVisible(true);
 		    idPilePlayer1.setVisible(false);
 		    player2.Move(1);
-		    idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-		    idMovesP2.setText("Actions restantes : " + player2.move());
+    		referer.setPTurnAndAction(player2Name, player2, idTxtPile, idMovesP2, isP2);
 		    idNbrTilesPoolP1.setVisible(false);
 		    idNbrTilesPoolP2.setVisible(true);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));

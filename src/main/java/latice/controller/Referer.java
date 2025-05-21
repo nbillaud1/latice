@@ -14,6 +14,17 @@ import latice.model.Tile;
 
 public class Referer {
 	
+	//Permet d'afficher le joueur qui dois jouer et son compteur d'action
+	public void setPTurnAndAction(String playerName, Player player, Text idTxtPile, Text idMoves, Boolean isP2){
+        idMoves.setText("Actions restantes : " + player.move());
+		idTxtPile.setText("Au tour de " + playerName + " (" + player.points() + " points)");
+	}
+	
+	//Permet d'afficher un message d'erreur
+	public void displayErrorMessage(String message, Text idErrTile) {
+		idErrTile.setVisible(true);
+     	idErrTile.setText(message);
+	}
 	
 	//Test pour poser une tuile
 	public String checkTile(ImageView imageGrid) {
@@ -23,7 +34,7 @@ public class Referer {
 	}
 	
 	//Gere le système de points celon les tuiles à côté
-	public void pointsManagement(int nbrOfTilesAround, Player player,Text idTxtLatice,Text idTxtTrefoil,Text idTxtDouble,int col,int row) {
+	public void pointsManagement(int nbrOfTilesAround, Player player, Text idTxtLatice, Text idTxtTrefoil, Text idTxtDouble, int col, int row, Text idTxtPile, Text idMovesP2, String playerName) {
 		AnimationTimer laticeAnimation = animateText(idTxtLatice);
     	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
         AnimationTimer doubleAnimation = animateText(idTxtDouble);
@@ -44,6 +55,8 @@ public class Referer {
  		if (isSunTile(col, row)) {
 			player.addPoints(2);
 		}
+ 		idTxtPile.setText("Au tour de " + playerName + " (" + player.points() + " points)");
+ 		idMovesP2.setText("Actions restantes : " + player.move());
 	}
 	
 	public Shape checkShape(String url) {
