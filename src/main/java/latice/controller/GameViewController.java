@@ -305,9 +305,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     }
 
 	private void dragTile(ImageView tile, Image imgTile) {
-		AnimationTimer laticeAnimation = animateText(idTxtLatice);
-    	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
-        AnimationTimer doubleAnimation = animateText(idTxtDouble);
+		
         
 		if (isP2) {
 			canPlay = player2.move();
@@ -349,42 +347,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
 	 		        	if (isP2) {
-	 		        		if (nbrOfTilesAround == 2) {
-		 		        		player2.addPoints(1);
-		 		        		doubleAnimation.start();
-		 		        	}
-	 		        		else if (nbrOfTilesAround == 3) {
-	 		        			player2.addPoints(2);
-	 		        			trefoilAnimation.start();
-	 		        		}
-	 		        		else if (nbrOfTilesAround == 4) {
-	 		        			player2.addPoints(4);
-	 		        			laticeAnimation.start();
-	 		        		}
-	 		        		player2.Move(0);
-	 		        		if (referer.isSunTile(col, row)) {
-								player2.addPoints(2);
-							}
+	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row);
 	 		        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
 	 		        		idMovesP2.setText("Actions restantes : " + player2.move());
 	 		        	}
 	 		        	else {
-	 		        		if (nbrOfTilesAround == 2) {
-		 		        		player1.addPoints(1);
-		 		        		doubleAnimation.start();
-		 		        	}
-	 		        		else if (nbrOfTilesAround == 3) {
-	 		        			player1.addPoints(2);
-	 		        			trefoilAnimation.start();
-	 		        		}
-	 		        		else if (nbrOfTilesAround == 4) {
-	 		        			player1.addPoints(4);
-	 		        			laticeAnimation.start();
-	 		        		}
-	 		        		player1.Move(0);
-	 		        		if (referer.isSunTile(col, row)) {
-								player1.addPoints(2);
-							}
+	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row);
 	 		        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
 	 		        		idMovesP1.setText("Actions restantes : " + player1.move());
 	 		        		
@@ -582,23 +550,5 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		return false;
 	}
 	
-	private AnimationTimer animateText (Text text) {
-        AnimationTimer anim = new AnimationTimer(){
-            @Override
-            public void handle(long now) {
-                if (text.getFont().getSize() < 96) {
-                	text.setOpacity(1);
-                    text.setFont(new Font(text.getFont().getName(), text.getFont().getSize()+1));
-                }
-                else if(text.getOpacity() > 0){
-                	text.setOpacity(text.getOpacity() - 0.01);
-                }
-                else{
-                	text.setFont(new Font(text.getFont().getName(), 1));
-                    stop();
-                }
-            }
-        };
-		return anim;
-    }
+	
 }

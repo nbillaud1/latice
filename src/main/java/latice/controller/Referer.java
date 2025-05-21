@@ -1,10 +1,14 @@
 package latice.controller;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import latice.model.Color;
+import latice.model.Player;
 import latice.model.Shape;
 import latice.model.Tile;
 
@@ -16,6 +20,30 @@ public class Referer {
 		Image img = imageGrid.getImage();
 		String urlImage = Tile.url(img);
 		return urlImage;
+	}
+	
+	//Gere le système de points celon les tuiles à côté
+	public void pointsManagement(int nbrOfTilesAround, Player player,Text idTxtLatice,Text idTxtTrefoil,Text idTxtDouble,int col,int row) {
+		AnimationTimer laticeAnimation = animateText(idTxtLatice);
+    	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
+        AnimationTimer doubleAnimation = animateText(idTxtDouble);
+		
+		if (nbrOfTilesAround == 2) {
+     		player.addPoints(1);
+     		doubleAnimation.start();
+     	}
+ 		else if (nbrOfTilesAround == 3) {
+ 			player.addPoints(2);
+ 			trefoilAnimation.start();
+ 		}
+ 		else if (nbrOfTilesAround == 4) {
+ 			player.addPoints(4);
+ 			laticeAnimation.start();
+ 		}
+ 		player.Move(0);
+ 		if (isSunTile(col, row)) {
+			player.addPoints(2);
+		}
 	}
 	
 	public Shape checkShape(String url) {
@@ -193,4 +221,24 @@ public class Referer {
 	public boolean firstTileOnTheMoon(GridPane grid) {
 			return grid.getChildren().isEmpty();
 	}
+	
+	private AnimationTimer animateText (Text text) {
+        AnimationTimer anim = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+                if (text.getFont().getSize() < 96) {
+                	text.setOpacity(1);
+                    text.setFont(new Font(text.getFont().getName(), text.getFont().getSize()+1));
+                }
+                else if(text.getOpacity() > 0){
+                	text.setOpacity(text.getOpacity() - 0.01);
+                }
+                else{
+                	text.setFont(new Font(text.getFont().getName(), 1));
+                    stop();
+                }
+            }
+        };
+		return anim;
+    }
 }
