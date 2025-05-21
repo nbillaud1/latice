@@ -793,9 +793,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="idLatice" strokeType="OUTSIDE" strokeWidth="0.0" text="LATICE !" StackPane.alignment="CENTER">
+      <Text fx:id="idTxtLatice" strokeType="OUTSIDE" strokeWidth="0.0" text="LATICE !" StackPane.alignment="CENTER">
          <font>
-            <Font name="Britannic Bold" size="1.0" />
+            <Font name="Britannic Bold" size="2.0" />
          </font>
          <fill>
             <RadialGradient centerX="0.44886363636363635" centerY="0.5" cycleMethod="REFLECT" radius="0.5">
@@ -809,7 +809,7 @@
             <Insets bottom="225.0" />
          </StackPane.margin>
       </Text>
-      <Text fx:id="idTrefoil" strokeType="OUTSIDE" strokeWidth="0.0" text="TREFOIL !" StackPane.alignment="CENTER">
+      <Text fx:id="idTxtTrefoil" strokeType="OUTSIDE" strokeWidth="0.0" text="TREFOIL !" StackPane.alignment="CENTER">
          <StackPane.margin>
             <Insets bottom="225.0" />
          </StackPane.margin>
@@ -826,7 +826,7 @@
             </RadialGradient>
          </fill>
       </Text>
-      <Text fx:id="idDouble" strokeType="OUTSIDE" strokeWidth="0.0" text="DOUBLE !" StackPane.alignment="CENTER">
+      <Text fx:id="idTxtDouble" strokeType="OUTSIDE" strokeWidth="0.0" text="DOUBLE !" StackPane.alignment="CENTER">
          <font>
             <Font size="1.0" />
          </font>

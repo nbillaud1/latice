@@ -3,6 +3,7 @@ package latice.controller;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -99,13 +100,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 private Text idMovesP2;
 	 
 	 @FXML
-	 private Text idLatice;
+	 private Text idTxtLatice;
 	 
 	 @FXML
-	 private Text idTrefoil;
+	 private Text idTxtTrefoil;
 	 
 	 @FXML
-	 private Text idDouble;
+	 private Text idTxtDouble;
 	 
 	@FXML
 	private GridPane idGrid;
@@ -171,6 +172,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
+        
     	roundCounter = 0;
     	idTurnNumber.setText("Tour 1 :");
     	idErrTile.setVisible(false);
@@ -296,6 +298,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
     }
 
 	private void dragTile(ImageView tile, Image imgTile) {
+		AnimationTimer laticeAnimation = animateText(idTxtLatice);
+    	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
+        AnimationTimer doubleAnimation = animateText(idTxtDouble);
+        
 		if (isP2) {
 			canPlay = player2.move();
 		}
@@ -344,6 +350,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        		}
 	 		        		else if (nbrOfTilesAround == 4) {
 	 		        			player2.addPoints(4);
+	 		        			laticeAnimation.start();
 	 		        		}
 	 		        		player2.Move(0);
 	 		        		if (referer.isSunTile(col, row)) {
@@ -562,5 +569,20 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		return false;
 	}
+	
+	private AnimationTimer animateText (Text text) {
+        AnimationTimer anim = new AnimationTimer(){
+            @Override
+            public void handle(long now) {
+                if (text.getFont().getSize() < 96) {
+                    text.setFont(new Font(text.getFont().getName(), text.getFont().getSize()+1));
+                }
+                else {
+                    stop();
+                }
+            }
+        };
+		return anim;
+    }
 	
 }
