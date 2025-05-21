@@ -172,7 +172,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
-        
+
     	roundCounter = 0;
     	idTurnNumber.setText("Tour 1 :");
     	idErrTile.setVisible(false);
@@ -587,14 +587,18 @@ public class GameViewController implements EventHandler<MouseEvent>{
             @Override
             public void handle(long now) {
                 if (text.getFont().getSize() < 96) {
+                	text.setOpacity(1);
                     text.setFont(new Font(text.getFont().getName(), text.getFont().getSize()+1));
                 }
-                else {
+                else if(text.getOpacity() > 0){
+                	text.setOpacity(text.getOpacity() - 0.01);
+                }
+                else{
+                	text.setFont(new Font(text.getFont().getName(), 1));
                     stop();
                 }
             }
         };
 		return anim;
     }
-	
 }
