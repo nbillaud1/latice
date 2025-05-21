@@ -351,9 +351,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	if (isP2) {
 	 		        		if (nbrOfTilesAround == 2) {
 		 		        		player2.addPoints(1);
+		 		        		doubleAnimation.start();
 		 		        	}
 	 		        		else if (nbrOfTilesAround == 3) {
 	 		        			player2.addPoints(2);
+	 		        			trefoilAnimation.start();
 	 		        		}
 	 		        		else if (nbrOfTilesAround == 4) {
 	 		        			player2.addPoints(4);
@@ -369,12 +371,15 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	else {
 	 		        		if (nbrOfTilesAround == 2) {
 		 		        		player1.addPoints(1);
+		 		        		doubleAnimation.start();
 		 		        	}
 	 		        		else if (nbrOfTilesAround == 3) {
 	 		        			player1.addPoints(2);
+	 		        			trefoilAnimation.start();
 	 		        		}
 	 		        		else if (nbrOfTilesAround == 4) {
 	 		        			player1.addPoints(4);
+	 		        			laticeAnimation.start();
 	 		        		}
 	 		        		player1.Move(0);
 	 		        		if (referer.isSunTile(col, row)) {
