@@ -215,15 +215,22 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
         //Permet de changer son rack et passer son tour
         idBtnChange.setOnAction(e -> {
-        	if (isP2) {
+        	
+        	if (isP2 && player2.move() == 1) {
         		player2.switchRack();
         		rackPlayer2 = player2.rack();
+        		changeTiles();
         	}
-        	else {
+        	else if (player1.move() == 1){
         		player1.switchRack();
         		rackPlayer1 = player1.rack();
+        		changeTiles();
         	}
-        	changeTiles();
+        	else {
+        		idErrTile.setVisible(true);
+		        idErrTile.setText("Vous ne possédez plus d'actions restantes");
+        	}
+        	
         });
         
       //Permet d'acheter une action suplémentaire
@@ -374,7 +381,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        }
 	 		        else {
 	 		        	idErrTile.setVisible(true);
-	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici.");
+	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici");
 	 		        	event.setDropCompleted(false);
 	 		        }
 
@@ -386,7 +393,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        }
  		        else {
  		        	idErrTile.setVisible(true);
- 		        	idErrTile.setText("Vous devez poser la première tuile sur la Lune.");
+ 		        	idErrTile.setText("Vous devez poser la première tuile sur la Lune");
  		        	event.setDropCompleted(false);
  		        }
  		       
