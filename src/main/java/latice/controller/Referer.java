@@ -34,7 +34,7 @@ public class Referer {
 	}
 	
 	//Gere le système de points celon les tuiles à côté
-	public void pointsManagement(int nbrOfTilesAround, Player player, Text idTxtLatice, Text idTxtTrefoil, Text idTxtDouble, int col, int row, Text idTxtPile, Text idMovesP2, String playerName) {
+	public void pointsManagement(int nbrOfTilesAround, Player player, Text idTxtLatice, Text idTxtTrefoil, Text idTxtDouble, int col, int row, Text idTxtPile, Text idMoves, String playerName, Boolean isP2) {
 		AnimationTimer laticeAnimation = animateText(idTxtLatice);
     	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
         AnimationTimer doubleAnimation = animateText(idTxtDouble);
@@ -55,8 +55,7 @@ public class Referer {
  		if (isSunTile(col, row)) {
 			player.addPoints(2);
 		}
- 		idTxtPile.setText("Au tour de " + playerName + " (" + player.points() + " points)");
- 		idMovesP2.setText("Actions restantes : " + player.move());
+ 		setPTurnAndAction(playerName, player, idTxtPile, idMoves, isP2);
 	}
 	
 	public Shape checkShape(String url) {

@@ -341,10 +341,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
 	 		        	if (isP2) {
-	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player2Name);
+	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player2Name, isP2);
 	 		        	}
 	 		        	else {
-	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player1Name);    		
+	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player1Name, isP2);    		
 	 		        	}
 	 		        	
 	 		        }
@@ -454,8 +454,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		if (isP2) {
 			
 			player2.pass();
-			idMovesP2.setVisible(false);
-			idMovesP1.setVisible(true);
 		    player2.completeRack(lstPlayer2PlayedTilesIndex);
 		    emptyLstPlayer1PlayedTilesIndex();
 			
@@ -471,21 +469,17 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackImageTile4.setImage(imageTile4p1);
 		    idRackImageTile5.setImage(imageTile5p1);
 		    
-		    idPilePlayer1.setVisible(true);
-		    idPilePlayer2.setVisible(false);
+			switchView(isP2);
+		    
 		    player1.Move(1);
     		referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1, isP2);
 
-		    idNbrTilesPoolP2.setVisible(false);
-		    idNbrTilesPoolP1.setVisible(true);
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
 		    
 		}
 		else {
 			
 			player1.pass();
-			idMovesP1.setVisible(false);
-			idMovesP2.setVisible(true);
 		    player1.completeRack(lstPlayer1PlayedTilesIndex);
 		    emptyLstPlayer2PlayedTilesIndex();
 			
@@ -501,12 +495,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    idRackImageTile4.setImage(imageTile4p2);
 		    idRackImageTile5.setImage(imageTile5p2);
 		    
-		    idPilePlayer2.setVisible(true);
-		    idPilePlayer1.setVisible(false);
+		    switchView(isP2);
+		    
 		    player2.Move(1);
     		referer.setPTurnAndAction(player2Name, player2, idTxtPile, idMovesP2, isP2);
-		    idNbrTilesPoolP1.setVisible(false);
-		    idNbrTilesPoolP2.setVisible(true);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
 		}
 		isP2 = !isP2;
@@ -521,6 +513,15 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		
 		idErrTile.setVisible(false);
 		shutTheGame();
+	}
+
+	private void switchView(Boolean isP2) {
+		idMovesP2.setVisible(!isP2);
+		idMovesP1.setVisible(isP2);
+		idNbrTilesPoolP2.setVisible(!isP2);
+		idNbrTilesPoolP1.setVisible(isP2);
+		idPilePlayer1.setVisible(isP2);
+		idPilePlayer2.setVisible(!isP2);
 	}
 	
 	private Boolean gridAlreadyFilled(int col, int row) {
