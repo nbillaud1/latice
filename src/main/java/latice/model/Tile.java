@@ -46,6 +46,7 @@ public class Tile {
 				url = url + "dolphin";
 				break;
 		}
+		
 		switch (this.color) {
 		case YELLOW:
 			url = url + "_y";
@@ -71,5 +72,9 @@ public class Tile {
 	
 	public static String url(Image img) {
 		return img.impl_getUrl();
+	}
+	
+	public String toString() {
+		return "|  " + this.shape().code() + "  ";
 	}
 }

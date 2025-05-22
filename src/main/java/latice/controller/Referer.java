@@ -1,5 +1,7 @@
 package latice.controller;
 
+import java.util.ArrayList;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -62,14 +64,14 @@ public class Referer {
 		}
 	}
 	
-	public Boolean checkIfTileIsHer(GridPane grid, int col, int row) {
-		Boolean isHer = false;
+	public Boolean checkIfTileIsHere(GridPane grid, int col, int row) {
+		Boolean isHere = false;
 		for (Node node : grid.getChildren()) {
 	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-	            isHer = true;
+	            isHere = true;
 	        }
 	    }
-		return isHer;
+		return isHere;
 	}
 	
 	//TODO voir si c'est possible de refactor car beaucoup de répétitions ;)
@@ -81,7 +83,7 @@ public class Referer {
 		Shape shapeImageToPut = checkShape(urlImageToPut);
 		//Regarde la tuile en haut
 		if (row > 0) {
-			if (checkIfTileIsHer(grid, col, row - 1)) {
+			if (checkIfTileIsHere(grid, col, row - 1)) {
 				for (Node node : grid.getChildren()) {
 			        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == (row - 1)) {
 			        	ImageView imageNextTo = (ImageView) node;
@@ -100,7 +102,7 @@ public class Referer {
 		}
 		//Regarde la tuile du bas
 		if (row < 8) {
-			if (checkIfTileIsHer(grid, col, row + 1)) {
+			if (checkIfTileIsHere(grid, col, row + 1)) {
 				for (Node node : grid.getChildren()) {
 			        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == (row + 1)) {
 			        	ImageView imageNextTo = (ImageView) node;
@@ -119,7 +121,7 @@ public class Referer {
 		}
 		//Regarde la tuile de gauche
 		if (col > 0) {
-			if (checkIfTileIsHer(grid, col - 1, row)) {
+			if (checkIfTileIsHere(grid, col - 1, row)) {
 				for (Node node : grid.getChildren()) {
 			        if (GridPane.getColumnIndex(node) == (col - 1) && GridPane.getRowIndex(node) == row) {
 			        	ImageView imageNextTo = (ImageView) node;
@@ -138,7 +140,7 @@ public class Referer {
 		}
 		//Regarde la tuile à droite
 		if (col < 8) {
-			if (checkIfTileIsHer(grid, col + 1, row)) {
+			if (checkIfTileIsHere(grid, col + 1, row)) {
 				for (Node node : grid.getChildren()) {
 			        if (GridPane.getColumnIndex(node) == (col + 1) && GridPane.getRowIndex(node) == row) {
 			        	ImageView imageNextTo = (ImageView) node;
@@ -192,5 +194,10 @@ public class Referer {
 	
 	public boolean firstTileOnTheMoon(GridPane grid) {
 			return grid.getChildren().isEmpty();
+	}
+	
+	public boolean canPut(ArrayList<ArrayList<String>> grid, int col, int row) {
+		
+		return true;
 	}
 }

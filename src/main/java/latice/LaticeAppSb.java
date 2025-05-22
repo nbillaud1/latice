@@ -49,7 +49,6 @@ public class LaticeAppSb extends Application{
 
 	@Override
 	public void start(Stage primaryStage){
-		Stage stage = new Stage();
         this.primaryStage = primaryStage;
         primaryStage.setResizable(false);
         

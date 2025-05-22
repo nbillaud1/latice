@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import latice.model.Pool;
 import latice.model.Rack;
 import latice.model.Tile;
+import latice.model.GameBoard;
 import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
@@ -117,6 +118,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Button idBtnExtraMove;
 	
+	private GameBoard gameBoard = new GameBoard();
 	private Referer referer = new Referer();
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
@@ -165,331 +167,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	this.lstPlayer2PlayedTilesIndex = new ArrayList<Integer>();
     }
 	
-	@Override
-	public void handle(MouseEvent event) {
-		//TODO
-    }
-    
-    @FXML
-	public void initialize() {
-
-    	roundCounter = 0;
-    	idTurnNumber.setText("Tour 1 :");
-    	idErrTile.setVisible(false);
-    	
-    	if (isP2) {
-    		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-        	idPilePlayer1.setVisible(false);
-        	idMovesP1.setVisible(false);
-        	idMovesP2.setText("Actions restantes : " + player2.move());
-            idRackImageTile1.setImage(imageTile1p2);
-            idRackImageTile2.setImage(imageTile2p2);
-            idRackImageTile3.setImage(imageTile3p2);
-            idRackImageTile4.setImage(imageTile4p2);
-            idRackImageTile5.setImage(imageTile5p2);
-            idNbrTilesPoolP1.setVisible(false);
-            idNbrTilesPoolP2.setVisible(true);
-            idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
-    	}
-    	else {
-    		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
-        	idPilePlayer2.setVisible(false);
-        	idMovesP2.setVisible(false);
-        	idMovesP1.setText("Actions restantes : " + player1.move());
-            idRackImageTile1.setImage(imageTile1p1);
-            idRackImageTile2.setImage(imageTile2p1);
-            idRackImageTile3.setImage(imageTile3p1);
-            idRackImageTile4.setImage(imageTile4p1);
-            idRackImageTile5.setImage(imageTile5p1);
-            idNbrTilesPoolP2.setVisible(false);
-            idNbrTilesPoolP1.setVisible(true);
-            idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
-    	}
-        
-      //Permet de changer entre le rack p1 et p2
-        idBtnPass.setOnAction(e -> { 
-        	changeTiles();
-        });
-        
-        idBtnQuit.setOnAction(e -> { 
-        	Platform.exit();
-        });
-        
-        //Permet de changer son rack et passer son tour
-        idBtnChange.setOnAction(e -> {
-        	
-        	if (isP2 && player2.move() == 1) {
-        		player2.switchRack();
-        		rackPlayer2 = player2.rack();
-        		changeTiles();
-        	}
-        	else if (player1.move() == 1){
-        		player1.switchRack();
-        		rackPlayer1 = player1.rack();
-        		changeTiles();
-        	}
-        	else {
-        		idErrTile.setVisible(true);
-		        idErrTile.setText("Vous ne possédez plus d'actions restantes");
-        	}
-        	
-        });
-        
-      //Permet d'acheter une action suplémentaire
-    	idBtnExtraMove.setOnAction(e -> {
-    		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
-        		player2.buyExtraMove();
-        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-	        	idMovesP2.setText("Actions restantes : " + player2.move());
-        	}
-        	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
-        		player1.buyExtraMove();
-        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
-	        	idMovesP1.setText("Actions restantes : " + player1.move());
-        	}
-        	else {
-        		idErrTile.setVisible(true);
-		        idErrTile.setText("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois");
-        	}
-    	});
-       
-        idRackInvisibleTile1.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile1, imageTile1p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile1, imageTile1p1);
-			}
-			event.consume();
-        });
-        
-        idRackInvisibleTile2.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile2, imageTile2p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile2, imageTile2p1);
-			}
-			event.consume();
-        });
-        
-        idRackInvisibleTile3.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile3, imageTile3p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile3, imageTile3p1);
-			}
-			event.consume();
-        });
-        
-        idRackInvisibleTile4.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile4, imageTile4p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile4, imageTile4p1);
-			}
-			event.consume();
-        });
-        
-        idRackInvisibleTile5.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile5, imageTile5p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile5, imageTile5p1);
-			}
-			event.consume();
-        });
-    }
-
-	private void dragTile(ImageView tile, Image imgTile) {
-		AnimationTimer laticeAnimation = animateText(idTxtLatice);
-    	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
-        AnimationTimer doubleAnimation = animateText(idTxtDouble);
-        
-		if (isP2) {
-			canPlay = player2.move();
-		}
-		else {
-			canPlay = player1.move();
-		}
-			hasToPlayOnTheMoon = referer.firstTileOnTheMoon(idInvisibleGrid); //savoir si la grille a été remplie.
-			
-	        Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
-	        ClipboardContent content = new ClipboardContent();
-	        content.putString(imgTile.toString());
-	        dragboard.setContent(content);
-	        dragboard.setDragView(imgTile, 50, 50);
-	 	
-	 		idInvisibleGrid.setOnDragOver(event -> {
-	 		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
-	 		        event.acceptTransferModes(TransferMode.MOVE);
-	 		    }
-	 		    event.consume();
-	 		});
-	 	
-	 		idInvisibleGrid.setOnDragDropped(event -> {
- 		    Dragboard db = event.getDragboard();
- 		    if (db.hasString()) {
- 		        ImageView droppedTile = new ImageView(imgTile);
- 		        droppedTile.setFitWidth(80);
- 		        droppedTile.setFitHeight(80);
- 		    // On veut connaitre les coordonnées de la case où on a drop :
- 		        int squareWidth = 80;
- 		        int squareHeight = 80;
- 		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
- 		        int row = (int)(event.getY()/ squareHeight);
- 		        int nbrOfTilesAround = referer.checkAround(idInvisibleGrid, col, row, droppedTile);
-
- 		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canPlay == 1) {
-	 		        if(!gridAlreadyFilled(col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
-	 		        	idErrTile.setVisible(false);
-	 		        	idInvisibleGrid.add(droppedTile, col, row);
-	 		        	event.setDropCompleted(true);
-	 		        	if (isP2) {
-	 		        		if (nbrOfTilesAround == 2) {
-		 		        		player2.addPoints(1);
-		 		        		doubleAnimation.start();
-		 		        	}
-	 		        		else if (nbrOfTilesAround == 3) {
-	 		        			player2.addPoints(2);
-	 		        			trefoilAnimation.start();
-	 		        		}
-	 		        		else if (nbrOfTilesAround == 4) {
-	 		        			player2.addPoints(4);
-	 		        			laticeAnimation.start();
-	 		        		}
-	 		        		player2.Move(0);
-	 		        		if (referer.isSunTile(col, row)) {
-								player2.addPoints(2);
-							}
-	 		        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-	 		        		idMovesP2.setText("Actions restantes : " + player2.move());
-	 		        	}
-	 		        	else {
-	 		        		if (nbrOfTilesAround == 2) {
-		 		        		player1.addPoints(1);
-		 		        		doubleAnimation.start();
-		 		        	}
-	 		        		else if (nbrOfTilesAround == 3) {
-	 		        			player1.addPoints(2);
-	 		        			trefoilAnimation.start();
-	 		        		}
-	 		        		else if (nbrOfTilesAround == 4) {
-	 		        			player1.addPoints(4);
-	 		        			laticeAnimation.start();
-	 		        		}
-	 		        		player1.Move(0);
-	 		        		if (referer.isSunTile(col, row)) {
-								player1.addPoints(2);
-							}
-	 		        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
-	 		        		idMovesP1.setText("Actions restantes : " + player1.move());
-	 		        		
-	 		        	}
-	 		        	
-	 		        }
-	 		        else {
-	 		        	idErrTile.setVisible(true);
-	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici");
-	 		        	event.setDropCompleted(false);
-	 		        }
-
- 		        }
- 		        else if (canPlay == 0) {
- 		        	idErrTile.setVisible(true);
- 		        	idErrTile.setText("Vous ne possédez plus d'actions restantes");
- 		        	event.setDropCompleted(false);
- 		        }
- 		        else {
- 		        	idErrTile.setVisible(true);
- 		        	idErrTile.setText("Vous devez poser la première tuile sur la Lune");
- 		        	event.setDropCompleted(false);
- 		        }
- 		       
- 		    }
- 		    else {
- 		    	event.setDropCompleted(false);	    	
- 		    }
- 		   
- 		    if (event.isDropCompleted()) {
-	 		    Object source = event.getGestureSource();
-	 		    if (source instanceof ImageView) {										// ce bout de code sert à obtenir l'id
-	 		      ((ImageView) source).setImage(new Image("/latice/image/bg_sea.png"));// de la case Invisible, à remplacer son image nulle par le fond
-	 		      ((ImageView) source).setOpacity(1);
-	 		      ((ImageView) source).setMouseTransparent(true);						// et à désactiver le drag and drop.
-	 		    }
-	 		//Ensuite on supprime la tuile du rack après l'avoir posée.
-		 		if(isP2) {
-		 		    for (Tile tileFromRack : rackPlayer2.tiles()) {
-		 		    	if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
-		 		    		lstPlayer2PlayedTilesIndex.add(rackPlayer2.tiles().indexOf(tileFromRack)); //utile pour compléter le rack.
-		 		    	}
-		 		    }
-		 		}
-		 		else {
-		 			for (Tile tileFromRack : rackPlayer1.tiles()) {
-		 				if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
-		 		    		lstPlayer1PlayedTilesIndex.add(rackPlayer1.tiles().indexOf(tileFromRack));
-		 		    	}
-		 		    }
-		 		}
- 		    }
- 		    event.consume();
- 		});
+	@FXML
+	void quit() {
+	    	Platform.exit();
 	}
 	
-	//Éteint le jeu
-	private void shutTheGame() {
-		if (roundCounter == 20) {
-			int nbrTilesLeftP1 = poolPlayer1.size();
-			int nbrTilesLeftP2 = poolPlayer2.size();
-			if (nbrTilesLeftP1 < nbrTilesLeftP2) {
-				idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
-			}
-			else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
-				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
-			}
-			else {
-				idTxtPile.setText("Égalité");
-			}
-			idTxtPile.setFont(Font.font("Bold",42));
-			//Désactive la vue des différentes piles
-			idPilePlayer1.setVisible(false);
-			idPilePlayer2.setVisible(false);
-			//Désactive les boutons
-			idBtnChange.setDisable(true);
-			idBtnExtraMove.setDisable(true);
-			idBtnPass.setDisable(true);
-			//Désactive le fait de pouvoir attraper des tuiles
-			idRackInvisibleTile1.setMouseTransparent(true);
-			idRackInvisibleTile2.setMouseTransparent(true);
-			idRackInvisibleTile3.setMouseTransparent(true);
-			idRackInvisibleTile4.setMouseTransparent(true);
-			idRackInvisibleTile5.setMouseTransparent(true);
-			//Désactive les images du rack
-			idRackImageTile1.setImage(null);
-		    idRackImageTile2.setImage(null);
-		    idRackImageTile3.setImage(null);
-		    idRackImageTile4.setImage(null);
-		    idRackImageTile5.setImage(null);
-		    //Cache le nombre de tours, les action restantes
-		    idTurnNumber.setVisible(false);
-		    idMovesP1.setVisible(false);
-		    idMovesP2.setVisible(false);
-		    //Cache le nombre te tuiles des racks
-		    idNbrTilesPoolP1.setVisible(false);
-		    idNbrTilesPoolP2.setVisible(false);
-			//Pause de 5 secondes
-			PauseTransition pause = new PauseTransition(Duration.seconds(7));
-			pause.setOnFinished(event -> Platform.exit());
-			pause.play();
-		}
-	}
-	
-	
+	@FXML
 	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
@@ -570,6 +253,316 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		shutTheGame();
 	}
 	
+	@FXML
+ 	public void buyExtraMove() {
+ 		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
+     		player2.buyExtraMove();
+     		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+	        	idMovesP2.setText("Actions restantes : " + player2.move());
+     	}
+     	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
+     		player1.buyExtraMove();
+     		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+	        	idMovesP1.setText("Actions restantes : " + player1.move());
+     	}
+     	else {
+     		idErrTile.setVisible(true);
+		        idErrTile.setText("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois");
+     	}
+ 	}
+    
+    @FXML
+	public void initialize() {
+
+    	roundCounter = 0;
+    	idTurnNumber.setText("Tour 1 :");
+    	idErrTile.setVisible(false);
+    	
+    	if (isP2) {
+    		this.idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+        	idPilePlayer1.setVisible(false);
+        	idMovesP1.setVisible(false);
+        	idMovesP2.setText("Actions restantes : " + player2.move());
+            idRackImageTile1.setImage(imageTile1p2);
+            idRackImageTile2.setImage(imageTile2p2);
+            idRackImageTile3.setImage(imageTile3p2);
+            idRackImageTile4.setImage(imageTile4p2);
+            idRackImageTile5.setImage(imageTile5p2);
+            idNbrTilesPoolP1.setVisible(false);
+            idNbrTilesPoolP2.setVisible(true);
+            idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
+    	}
+    	else {
+    		this.idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+        	idPilePlayer2.setVisible(false);
+        	idMovesP2.setVisible(false);
+        	idMovesP1.setText("Actions restantes : " + player1.move());
+            idRackImageTile1.setImage(imageTile1p1);
+            idRackImageTile2.setImage(imageTile2p1);
+            idRackImageTile3.setImage(imageTile3p1);
+            idRackImageTile4.setImage(imageTile4p1);
+            idRackImageTile5.setImage(imageTile5p1);
+            idNbrTilesPoolP2.setVisible(false);
+            idNbrTilesPoolP1.setVisible(true);
+            idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
+    	}
+        
+        //Permet de changer son rack et passer son tour
+        idBtnChange.setOnAction(e -> {
+        	if (isP2 && player2.move() == 1) {
+        		player2.switchRack();
+        		rackPlayer2 = player2.rack();
+        		changeTiles();
+        	}
+        	else if (player1.move() == 1){
+        		player1.switchRack();
+        		rackPlayer1 = player1.rack();
+        		changeTiles();
+        	}
+        	else {
+        		idErrTile.setVisible(true);
+		        idErrTile.setText("Vous ne possédez plus d'actions restantes");
+        	}
+        });
+            
+        idRackInvisibleTile1.setOnDragDetected(event -> {
+        	if(isP2) {
+			    dragTile(idRackInvisibleTile1, imageTile1p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile1, imageTile1p1);
+			}
+			event.consume();
+        });
+        
+        idRackInvisibleTile2.setOnDragDetected(event -> {
+        	if(isP2) {
+			    dragTile(idRackInvisibleTile2, imageTile2p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile2, imageTile2p1);
+			}
+			event.consume();
+        });
+        
+        idRackInvisibleTile3.setOnDragDetected(event -> {
+        	if(isP2) {
+			    dragTile(idRackInvisibleTile3, imageTile3p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile3, imageTile3p1);
+			}
+			event.consume();
+        });
+        
+        idRackInvisibleTile4.setOnDragDetected(event -> {
+        	if(isP2) {
+			    dragTile(idRackInvisibleTile4, imageTile4p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile4, imageTile4p1);
+			}
+			event.consume();
+        });
+        
+        idRackInvisibleTile5.setOnDragDetected(event -> {
+        	if(isP2) {
+			    dragTile(idRackInvisibleTile5, imageTile5p2);
+        	}
+			else {
+				dragTile(idRackInvisibleTile5, imageTile5p1);
+			}
+			event.consume();
+        });
+    }
+
+	private void dragTile(ImageView tile, Image imgTile) {
+		AnimationTimer laticeAnimation = animateText(idTxtLatice);
+    	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
+        AnimationTimer doubleAnimation = animateText(idTxtDouble);
+        
+		if (isP2) {
+			canPlay = player2.move();
+		}
+		else {
+			canPlay = player1.move();
+		}
+		hasToPlayOnTheMoon = referer.firstTileOnTheMoon(idInvisibleGrid); //savoir si la grille a été remplie.
+		
+        Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(imgTile.toString());
+        dragboard.setContent(content);
+        dragboard.setDragView(imgTile, 50, 50);
+ 	
+ 		idInvisibleGrid.setOnDragOver(event -> {
+ 		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
+ 		        event.acceptTransferModes(TransferMode.MOVE);
+ 		    }
+ 		    event.consume();
+ 		});
+	 	
+ 		idInvisibleGrid.setOnDragDropped(event -> {
+ 			Dragboard db = event.getDragboard();
+ 			if (db.hasString()) {
+ 				ImageView droppedTile = new ImageView(imgTile);
+ 				droppedTile.setFitWidth(80);
+ 				droppedTile.setFitHeight(80);
+ 			// On veut connaitre les coordonnées de la case où on a drop :
+ 		        int squareWidth = 80;
+ 		        int squareHeight = 80;
+ 		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
+ 		        int row = (int)(event.getY()/ squareHeight);
+ 		        int nbrOfTilesAround = referer.checkAround(idInvisibleGrid, col, row, droppedTile);
+ 		        
+ 		        gameBoard.addBoard(row, col, new Tile(referer.checkShape(Tile.url(droppedTile.getImage())), referer.checkColor(Tile.url(droppedTile.getImage())))); // normalement ça doit ajouter un tile à la liste en console.
+ 		        gameBoard.printGameBoard();
+ 		        
+ 		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canPlay == 1) {
+	 		        if(!gridAlreadyFilled(col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
+	 		        	idErrTile.setVisible(false);
+	 		        	idInvisibleGrid.add(droppedTile, col, row);
+	 		        	event.setDropCompleted(true);
+	 		        	if (isP2) {
+	 		        		if (nbrOfTilesAround == 2) {
+		 		        		player2.addPoints(1);
+		 		        		doubleAnimation.start();
+		 		        	}
+	 		        		else if (nbrOfTilesAround == 3) {
+	 		        			player2.addPoints(2);
+	 		        			trefoilAnimation.start();
+	 		        		}
+	 		        		else if (nbrOfTilesAround == 4) {
+	 		        			player2.addPoints(4);
+	 		        			laticeAnimation.start();
+	 		        		}
+	 		        		player2.Move(0);
+	 		        		if (referer.isSunTile(col, row)) {
+								player2.addPoints(2);
+							}
+	 		        		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+	 		        		idMovesP2.setText("Actions restantes : " + player2.move());
+	 		        	}
+	 		        	else {
+	 		        		if (nbrOfTilesAround == 2) {
+		 		        		player1.addPoints(1);
+		 		        		doubleAnimation.start();
+		 		        	}
+	 		        		else if (nbrOfTilesAround == 3) {
+	 		        			player1.addPoints(2);
+	 		        			trefoilAnimation.start();
+	 		        		}
+	 		        		else if (nbrOfTilesAround == 4) {
+	 		        			player1.addPoints(4);
+	 		        			laticeAnimation.start();
+	 		        		}
+	 		        		player1.Move(0);
+	 		        		if (referer.isSunTile(col, row)) {
+								player1.addPoints(2);
+							}
+	 		        		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+	 		        		idMovesP1.setText("Actions restantes : " + player1.move());
+	 		        		
+	 		        	}
+	 		        	
+	 		        }
+	 		        else {
+	 		        	idErrTile.setVisible(true);
+	 		        	idErrTile.setText("Vous ne pouvez pas poser une tuile ici");
+	 		        	event.setDropCompleted(false);
+	 		        }
+	
+ 		        }
+ 		        else if (canPlay == 0) {
+ 		        	idErrTile.setVisible(true);
+ 		        	idErrTile.setText("Vous ne possédez plus d'actions restantes");
+ 		        	event.setDropCompleted(false);
+ 		        }
+ 		        else {
+ 		        	idErrTile.setVisible(true);
+ 		        	idErrTile.setText("Vous devez poser la première tuile sur la Lune");
+ 		        	event.setDropCompleted(false);
+ 		        }
+ 			}
+ 		    else {
+ 		    	event.setDropCompleted(false);	    	
+ 		    }
+ 		   
+ 		    if (event.isDropCompleted()) {
+	 		    Object source = event.getGestureSource();
+	 		    if (source instanceof ImageView) {										// ce bout de code sert à obtenir l'id
+	 		      ((ImageView) source).setImage(new Image("/latice/image/bg_sea.png"));// de la case Invisible, à remplacer son image nulle par le fond
+	 		      ((ImageView) source).setOpacity(1);
+	 		      ((ImageView) source).setMouseTransparent(true);						// et à désactiver le drag and drop.
+	 		    }
+	 		//Ensuite on supprime la tuile du rack après l'avoir posée.
+		 		if(isP2) {
+		 		    for (Tile tileFromRack : rackPlayer2.tiles()) {
+		 		    	if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
+		 		    		lstPlayer2PlayedTilesIndex.add(rackPlayer2.tiles().indexOf(tileFromRack)); //utile pour compléter le rack.
+		 		    	}
+		 		    }
+		 		}
+		 		else {
+		 			for (Tile tileFromRack : rackPlayer1.tiles()) {
+		 				if (Tile.url(new Image(getClass().getResource(tileFromRack.urlImg()).toExternalForm())).equals(Tile.url(imgTile))) {
+		 		    		lstPlayer1PlayedTilesIndex.add(rackPlayer1.tiles().indexOf(tileFromRack));
+		 		    	}
+		 		    }
+		 		}
+ 		    }
+ 		    event.consume();
+ 		});
+	}
+	
+	//Éteint le jeu
+	private void shutTheGame() {
+		if (roundCounter == 20) {
+			int nbrTilesLeftP1 = poolPlayer1.size();
+			int nbrTilesLeftP2 = poolPlayer2.size();
+			if (nbrTilesLeftP1 < nbrTilesLeftP2) {
+				idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
+			}
+			else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
+				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
+			}
+			else {
+				idTxtPile.setText("Égalité");
+			}
+			idTxtPile.setFont(Font.font("Bold",42));
+			//Désactive la vue des différentes piles
+			idPilePlayer1.setVisible(false);
+			idPilePlayer2.setVisible(false);
+			//Désactive les boutons
+			idBtnChange.setDisable(true);
+			idBtnExtraMove.setDisable(true);
+			idBtnPass.setDisable(true);
+			//Désactive le fait de pouvoir attraper des tuiles
+			idRackInvisibleTile1.setMouseTransparent(true);
+			idRackInvisibleTile2.setMouseTransparent(true);
+			idRackInvisibleTile3.setMouseTransparent(true);
+			idRackInvisibleTile4.setMouseTransparent(true);
+			idRackInvisibleTile5.setMouseTransparent(true);
+			//Désactive les images du rack
+			idRackImageTile1.setImage(null);
+		    idRackImageTile2.setImage(null);
+		    idRackImageTile3.setImage(null);
+		    idRackImageTile4.setImage(null);
+		    idRackImageTile5.setImage(null);
+		    //Cache le nombre de tours, les action restantes
+		    idTurnNumber.setVisible(false);
+		    idMovesP1.setVisible(false);
+		    idMovesP2.setVisible(false);
+		    //Cache le nombre te tuiles des racks
+		    idNbrTilesPoolP1.setVisible(false);
+		    idNbrTilesPoolP2.setVisible(false);
+			//Pause de 5 secondes
+			PauseTransition pause = new PauseTransition(Duration.seconds(7));
+			pause.setOnFinished(event -> Platform.exit());
+			pause.play();
+		}
+	}
+	
 	private Boolean gridAlreadyFilled(int col, int row) {
 		for (Node img : idInvisibleGrid.getChildren()) {
 			Integer imgCol = GridPane.getColumnIndex(img);
@@ -601,4 +594,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
         };
 		return anim;
     }
+
+	@Override
+	public void handle(MouseEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 }

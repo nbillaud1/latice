@@ -552,7 +552,7 @@
       </Text>
       <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" maxWidth="1000.0" StackPane.alignment="BOTTOM_LEFT">
          <children>
-            <Button fx:id="idBtnPass" mnemonicParsing="false" prefHeight="33.0" prefWidth="137.0" text="Passer son tour" textAlignment="CENTER">
+            <Button fx:id="idBtnPass" mnemonicParsing="false" onAction="#changeTiles" prefHeight="33.0" prefWidth="137.0" text="Passer son tour" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>
@@ -574,7 +574,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="idBtnExtraMove" mnemonicParsing="false" prefHeight="33.0" prefWidth="277.0" text="Acheter une action supplémentaire">
+            <Button fx:id="idBtnExtraMove" mnemonicParsing="false" onAction="#buyExtraMove" prefHeight="33.0" prefWidth="277.0" text="Acheter une action supplémentaire">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>
@@ -778,7 +778,7 @@
             <Insets bottom="115.0" right="118.0" />
          </StackPane.margin>
       </Text>
-      <Button fx:id="idBtnQuit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER" wrapText="true" StackPane.alignment="TOP_RIGHT">
+      <Button fx:id="idBtnQuit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#quit" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER" wrapText="true" StackPane.alignment="TOP_RIGHT">
          <StackPane.margin>
             <Insets right="20.0" top="20.0" />
          </StackPane.margin>
