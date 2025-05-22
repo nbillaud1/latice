@@ -15,7 +15,7 @@ import latice.model.Tile;
 public class Referer {
 	
 	//Permet d'afficher le joueur qui dois jouer et son compteur d'action
-	public void setPTurnAndAction(String playerName, Player player, Text idTxtPile, Text idMoves, Boolean isP2){
+	public void setPTurnAndAction(String playerName, Player player, Text idTxtPile, Text idMoves){
         idMoves.setText("Actions restantes : " + player.move());
 		idTxtPile.setText("Au tour de " + playerName + " (" + player.points() + " points)");
 	}
@@ -55,7 +55,7 @@ public class Referer {
  		if (isSunTile(col, row)) {
 			player.addPoints(2);
 		}
- 		setPTurnAndAction(playerName, player, idTxtPile, idMoves, isP2);
+ 		setPTurnAndAction(playerName, player, idTxtPile, idMoves);
 	}
 	
 	public Shape checkShape(String url) {
