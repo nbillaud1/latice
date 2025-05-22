@@ -270,10 +270,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 
 	private void dragP1OrP2Tile(MouseEvent event, Boolean isP2, Image imageTilep2, Image imageTileP1, ImageView idRackInvisibleTile) {
 		if(isP2) {
-		    dragTile(idRackInvisibleTile, imageTile1p2);
+		    dragTile(idRackInvisibleTile, imageTilep2);
 		}
 		else {
-			dragTile(idRackInvisibleTile, imageTile1p1);
+			dragTile(idRackInvisibleTile, imageTileP1);
 		}
 		event.consume();
 	}
