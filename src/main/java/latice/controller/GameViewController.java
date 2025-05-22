@@ -248,59 +248,37 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	});
        
         idRackInvisibleTile1.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile1, imageTile1p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile1, imageTile1p1);
-			}
-			event.consume();
+        	dragP1OrP2Tile(event,isP2,imageTile1p2,imageTile1p1,idRackInvisibleTile1);
         });
         
         idRackInvisibleTile2.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile2, imageTile2p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile2, imageTile2p1);
-			}
-			event.consume();
+        	dragP1OrP2Tile(event,isP2,imageTile2p2,imageTile2p1,idRackInvisibleTile2);
         });
         
         idRackInvisibleTile3.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile3, imageTile3p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile3, imageTile3p1);
-			}
-			event.consume();
+        	dragP1OrP2Tile(event,isP2,imageTile3p2,imageTile3p1,idRackInvisibleTile3);
         });
         
         idRackInvisibleTile4.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile4, imageTile4p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile4, imageTile4p1);
-			}
-			event.consume();
+        	dragP1OrP2Tile(event,isP2,imageTile4p2,imageTile4p1,idRackInvisibleTile4);
         });
         
         idRackInvisibleTile5.setOnDragDetected(event -> {
-        	if(isP2) {
-			    dragTile(idRackInvisibleTile5, imageTile5p2);
-        	}
-			else {
-				dragTile(idRackInvisibleTile5, imageTile5p1);
-			}
-			event.consume();
+        	dragP1OrP2Tile(event,isP2,imageTile5p2,imageTile5p1,idRackInvisibleTile5);
         });
     }
 
+	private void dragP1OrP2Tile(MouseEvent event, Boolean isP2, Image imageTilep2, Image imageTileP1, ImageView idRackInvisibleTile) {
+		if(isP2) {
+		    dragTile(idRackInvisibleTile, imageTile1p2);
+		}
+		else {
+			dragTile(idRackInvisibleTile, imageTile1p1);
+		}
+		event.consume();
+	}
+
 	private void dragTile(ImageView tile, Image imgTile) {
-		
-        
 		if (isP2) {
 			canPlay = player2.move();
 		}
@@ -371,7 +349,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    if (event.isDropCompleted()) {
 	 		    Object source = event.getGestureSource();
 	 		    if (source instanceof ImageView) {										// ce bout de code sert à obtenir l'id
-	 		      ((ImageView) source).setImage(new Image("/latice/image/bg_sea.png"));// de la case Invisible, à remplacer son image nulle par le fond
+	 		      ((ImageView) source).setImage(new Image("/latice/image/bg_sea.png")); // de la case Invisible, à remplacer son image nulle par le fond
 	 		      ((ImageView) source).setOpacity(1);
 	 		      ((ImageView) source).setMouseTransparent(true);						// et à désactiver le drag and drop.
 	 		    }
@@ -456,21 +434,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			player2.pass();
 		    player2.completeRack(lstPlayer2PlayedTilesIndex);
 		    emptyLstPlayer1PlayedTilesIndex();
-			
-			imageTile1p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(0).urlImg()).toExternalForm());
-		    imageTile2p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(1).urlImg()).toExternalForm());
-		    imageTile3p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(2).urlImg()).toExternalForm());
-		    imageTile4p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(3).urlImg()).toExternalForm());
-		    imageTile5p1 = new Image(getClass().getResource(rackPlayer1.tiles().get(4).urlImg()).toExternalForm());
-
-			idRackImageTile1.setImage(imageTile1p1);
-		    idRackImageTile2.setImage(imageTile2p1);
-		    idRackImageTile3.setImage(imageTile3p1);
-		    idRackImageTile4.setImage(imageTile4p1);
-		    idRackImageTile5.setImage(imageTile5p1);
+			createAndSwitchTiles(imageTile1p1,imageTile2p1,imageTile3p1,imageTile4p1,imageTile5p1,rackPlayer1);
 		    
 			switchView(isP2);
-		    
 		    player1.Move(1);
     		referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1, isP2);
 
@@ -483,18 +449,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player1.completeRack(lstPlayer1PlayedTilesIndex);
 		    emptyLstPlayer2PlayedTilesIndex();
 			
-			imageTile1p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(0).urlImg()).toExternalForm());
-		    imageTile2p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(1).urlImg()).toExternalForm());
-		    imageTile3p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(2).urlImg()).toExternalForm());
-		    imageTile4p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(3).urlImg()).toExternalForm());
-		    imageTile5p2 = new Image(getClass().getResource(rackPlayer2.tiles().get(4).urlImg()).toExternalForm());
-		    
-		    idRackImageTile1.setImage(imageTile1p2);
-		    idRackImageTile2.setImage(imageTile2p2);
-		    idRackImageTile3.setImage(imageTile3p2);
-		    idRackImageTile4.setImage(imageTile4p2);
-		    idRackImageTile5.setImage(imageTile5p2);
-		    
+			createAndSwitchTiles(imageTile1p2,imageTile2p2,imageTile3p2,imageTile4p2,imageTile5p2,rackPlayer2);
 		    switchView(isP2);
 		    
 		    player2.Move(1);
@@ -513,6 +468,20 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		
 		idErrTile.setVisible(false);
 		shutTheGame();
+	}
+
+	private void createAndSwitchTiles(Image imageTile1, Image imageTile2, Image imageTile3, Image imageTile4, Image imageTile5, Rack rack) {
+		imageTile1 = new Image(getClass().getResource(rack.tiles().get(0).urlImg()).toExternalForm());
+		imageTile2 = new Image(getClass().getResource(rack.tiles().get(1).urlImg()).toExternalForm());
+		imageTile3 = new Image(getClass().getResource(rack.tiles().get(2).urlImg()).toExternalForm());
+		imageTile4 = new Image(getClass().getResource(rack.tiles().get(3).urlImg()).toExternalForm());
+		imageTile5 = new Image(getClass().getResource(rack.tiles().get(4).urlImg()).toExternalForm());
+
+		idRackImageTile1.setImage(imageTile1);
+		idRackImageTile2.setImage(imageTile2);
+		idRackImageTile3.setImage(imageTile3);
+		idRackImageTile4.setImage(imageTile4);
+		idRackImageTile5.setImage(imageTile5);
 	}
 
 	private void switchView(Boolean isP2) {
