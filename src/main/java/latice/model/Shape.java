@@ -7,7 +7,10 @@ public enum Shape {
 	TURTLE("\uD83D\uDC22"),
 	FLOWER("\uD83C\uDF3A"),
 	GECKO("\uD83E\uDD8E"),
-	DOLPHIN("\uD83D\uDC2C");
+	DOLPHIN("\uD83D\uDC2C"),
+	SUN("\u2600"),
+	MOON("\uD83C\uDF19"),
+	EMPTY("  ");
 	
 	private String code;
 	

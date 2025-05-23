@@ -7,7 +7,6 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +22,7 @@ import javafx.util.Duration;
 import latice.model.Pool;
 import latice.model.Rack;
 import latice.model.Tile;
+import latice.model.GameBoard;
 import latice.model.Player;
 
 public class GameViewController implements EventHandler<MouseEvent>{
@@ -116,13 +116,15 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	private Button idBtnExtraMove;
 	
+	private GameBoard gameBoard = new GameBoard();
 	private Referer referer = new Referer();
+	
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
 	
 	private int roundCounter;
-	private int canPlay;
+	private int canContinue;
 	private boolean hasToPlayOnTheMoon = true;
 	private boolean isP2 = new Random().nextBoolean();
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
@@ -156,11 +158,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     public void emptyLstPlayer2PlayedTilesIndex() {
     	this.lstPlayer2PlayedTilesIndex = new ArrayList<Integer>();
-    }
-	
-	@Override
-	public void handle(MouseEvent event) {
-		//TODO
     }
     
     @FXML
@@ -260,12 +257,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
 
 	private void dragTile(ImageView tile, Image imgTile) {
 		if (isP2) {
-			canPlay = player2.move();
+			canContinue = player2.move();
 		}
 		else {
-			canPlay = player1.move();
+			canContinue = player1.move();
 		}
-			hasToPlayOnTheMoon = referer.firstTileOnTheMoon(idInvisibleGrid); //savoir si la grille a été remplie.
+			hasToPlayOnTheMoon = referer.firstTileNotPuttedOnTheMoon(gameBoard.board()); //savoir si la grille a été remplie.
 			
 	        Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
 	        ClipboardContent content = new ClipboardContent();
@@ -291,18 +288,20 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        int squareHeight = 80;
  		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
  		        int row = (int)(event.getY()/ squareHeight);
- 		        int nbrOfTilesAround = referer.checkAround(idInvisibleGrid, col, row, droppedTile);
+ 		        Tile tileToAddOnGameBoard = new Tile(referer.findShape(Tile.url(imgTile)), referer.findColor(Tile.url(imgTile)));
+ 		        int nbrOfTilesAround = referer.checkAround(gameBoard, col, row, tileToAddOnGameBoard);
 
- 		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canPlay == 1) {
-	 		        if(!gridAlreadyFilled(col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
+ 		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canContinue == 1) {
+	 		        if(!referer.gridAlreadyFilled(gameBoard.board(), col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
 	 		        	idErrTile.setVisible(false);
+	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
 	 		        	if (isP2) {
-	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player2Name, isP2);
+	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player2Name);
 	 		        	}
 	 		        	else {
-	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player1Name, isP2);    		
+	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP1, player1Name);    		
 	 		        	}
 	 		        	
 	 		        }
@@ -312,7 +311,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        }
 
  		        }
- 		        else if (canPlay == 0) {
+ 		        else if (canContinue == 0) {
  		        	referer.displayErrorMessage("Vous ne possédez plus d'actions restantes", idErrTile);
  		        	event.setDropCompleted(false);
  		        }
@@ -352,56 +351,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		    event.consume();
  		});
 	}
-	
-	//Éteint le jeu
-	private void shutTheGame() {
-		if (roundCounter == 20) {
-			int nbrTilesLeftP1 = poolPlayer1.size();
-			int nbrTilesLeftP2 = poolPlayer2.size();
-			if (nbrTilesLeftP1 < nbrTilesLeftP2) {
-				idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
-			}
-			else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
-				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
-			}
-			else {
-				idTxtPile.setText("Égalité");
-			}
-			idTxtPile.setFont(Font.font("Bold",42));
-			//Désactive la vue des différentes piles
-			idPilePlayer1.setVisible(false);
-			idPilePlayer2.setVisible(false);
-			//Désactive les boutons
-			idBtnChange.setDisable(true);
-			idBtnExtraMove.setDisable(true);
-			idBtnPass.setDisable(true);
-			//Désactive le fait de pouvoir attraper des tuiles
-			idRackInvisibleTile1.setMouseTransparent(true);
-			idRackInvisibleTile2.setMouseTransparent(true);
-			idRackInvisibleTile3.setMouseTransparent(true);
-			idRackInvisibleTile4.setMouseTransparent(true);
-			idRackInvisibleTile5.setMouseTransparent(true);
-			//Désactive les images du rack
-			idRackImageTile1.setImage(null);
-		    idRackImageTile2.setImage(null);
-		    idRackImageTile3.setImage(null);
-		    idRackImageTile4.setImage(null);
-		    idRackImageTile5.setImage(null);
-		    //Cache le nombre de tours, les action restantes
-		    idTurnNumber.setVisible(false);
-		    idMovesP1.setVisible(false);
-		    idMovesP2.setVisible(false);
-		    //Cache le nombre te tuiles des racks
-		    idNbrTilesPoolP1.setVisible(false);
-		    idNbrTilesPoolP2.setVisible(false);
-			//Pause de 5 secondes
-			PauseTransition pause = new PauseTransition(Duration.seconds(7));
-			pause.setOnFinished(event -> Platform.exit());
-			pause.play();
-		}
+
+	@FXML
+	void quit() {
+	    	Platform.exit();
 	}
 	
-	
+	@FXML
 	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
@@ -473,17 +429,76 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idPilePlayer2.setVisible(!isP2);
 	}
 	
-	private Boolean gridAlreadyFilled(int col, int row) {
-		for (Node img : idInvisibleGrid.getChildren()) {
-			Integer imgCol = GridPane.getColumnIndex(img);
-	        Integer imgRow = GridPane.getRowIndex(img);
-	        
-	        if ((imgCol != null && imgRow != null) && (imgCol == col && imgRow == row)) {
-	        	return true;
-	        }
+	@FXML
+ 	public void buyExtraMove() {
+ 		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
+     		player2.buyExtraMove();
+     		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
+	        	idMovesP2.setText("Actions restantes : " + player2.move());
+     	}
+     	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
+     		player1.buyExtraMove();
+     		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
+	        	idMovesP1.setText("Actions restantes : " + player1.move());
+     	}
+     	else {
+     		idErrTile.setVisible(true);
+		        idErrTile.setText("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois");
+     	}
+ 	}
+
+	
+	//Éteint le jeu
+	private void shutTheGame() {
+		if (roundCounter == 20) {
+			int nbrTilesLeftP1 = poolPlayer1.size();
+			int nbrTilesLeftP2 = poolPlayer2.size();
+			if (nbrTilesLeftP1 < nbrTilesLeftP2) {
+				idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
+			}
+			else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
+				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
+			}
+			else {
+				idTxtPile.setText("Égalité");
+			}
+			idTxtPile.setFont(Font.font("Bold",42));
+			//Désactive la vue des différentes piles
+			idPilePlayer1.setVisible(false);
+			idPilePlayer2.setVisible(false);
+			//Désactive les boutons
+			idBtnChange.setDisable(true);
+			idBtnExtraMove.setDisable(true);
+			idBtnPass.setDisable(true);
+			//Désactive le fait de pouvoir attraper des tuiles
+			idRackInvisibleTile1.setMouseTransparent(true);
+			idRackInvisibleTile2.setMouseTransparent(true);
+			idRackInvisibleTile3.setMouseTransparent(true);
+			idRackInvisibleTile4.setMouseTransparent(true);
+			idRackInvisibleTile5.setMouseTransparent(true);
+			//Désactive les images du rack
+			idRackImageTile1.setImage(null);
+		    idRackImageTile2.setImage(null);
+		    idRackImageTile3.setImage(null);
+		    idRackImageTile4.setImage(null);
+		    idRackImageTile5.setImage(null);
+		    //Cache le nombre de tours, les action restantes
+		    idTurnNumber.setVisible(false);
+		    idMovesP1.setVisible(false);
+		    idMovesP2.setVisible(false);
+		    //Cache le nombre te tuiles des racks
+		    idNbrTilesPoolP1.setVisible(false);
+		    idNbrTilesPoolP2.setVisible(false);
+			//Pause de 5 secondes
+			PauseTransition pause = new PauseTransition(Duration.seconds(7));
+			pause.setOnFinished(event -> Platform.exit());
+			pause.play();
 		}
-		return false;
 	}
-	
-	
+
+	@Override
+	public void handle(MouseEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 }

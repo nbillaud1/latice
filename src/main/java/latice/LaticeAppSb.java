@@ -1,8 +1,5 @@
 package latice;
 
-import java.io.File;
-import java.net.URL;
-
 import javafx.application.Application;
 
 import javafx.event.EventHandler;
@@ -24,8 +21,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -49,7 +44,6 @@ public class LaticeAppSb extends Application{
 
 	@Override
 	public void start(Stage primaryStage){
-		Stage stage = new Stage();
         this.primaryStage = primaryStage;
         primaryStage.setResizable(false);
         

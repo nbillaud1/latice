@@ -1,52 +1,65 @@
 package latice.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameBoard {
-	public final static String BOARD_X = "----------------------------------------------------------------";
-	public final static String BOARD_Y = "|      |      |      |      |      |      |      |      |      |";
-	public final static String SUN = "\u2600";
-	public final static String MOUN = "\uD83C\uDF19";
+	public final static String INTERLINE = "----------------------------------------------------------------";
 	
-	private ArrayList<String> board;
+	private ArrayList<ArrayList<Tile>> board;
 	
 	public GameBoard() {
-		this.board = new ArrayList<String>();
-		final String space = "  ";
-		final String separation = "  |  ";
-		final String borderLeft = "|  ";
-		final String borderRight = "  |";
+		this.board = new ArrayList<>();
 		
-		for (int e = 0; e < 9; e++) {
-			this.board.add(borderLeft);
-			for(int i = 0; i<8 ; i++) {
-				this.board.add(space);
-				this.board.add(separation);
+		for(int i=0; i<9; i++) {
+			ArrayList<Tile> line = new ArrayList<>();
+			for(int y=0; y<9; y++) {
+				line.add(new Tile(Shape.EMPTY, Color.WHITE));
 			}
-			this.board.add(space);
-			this.board.add(borderRight);
-			
+			this.board.add(line);
 		}
+
+		this.board.get(0).set(0, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(0).set(4, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(0).set(8,  new Tile(Shape.SUN, Color.WHITE));
 		
+		this.board.get(1).set(1, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(1).set(7, new Tile(Shape.SUN, Color.WHITE));
 		
-		this.board.set(1,SUN);
-		this.board.set(9,SUN);
-		this.board.set(17,SUN);
-		this.board.set(22,SUN);
-		this.board.set(34,SUN);
-		this.board.set(43,SUN);
-		this.board.set(51,SUN);
-		this.board.set(85,MOUN);
-		this.board.set(119,SUN);
-		this.board.set(127,SUN);
-		this.board.set(136,SUN);
-		this.board.set(148,SUN);
-		this.board.set(153,SUN);
-		this.board.set(161,SUN);
-		this.board.set(169,SUN);
+		this.board.get(2).set(2, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(2).set(6, new Tile(Shape.SUN, Color.WHITE));
+		
+		this.board.get(4).set(4, new Tile(Shape.MOON, Color.WHITE));
+		this.board.get(4).set(8, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(4).set(0, new Tile(Shape.SUN, Color.WHITE));
+		
+		this.board.get(6).set(6, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(6).set(2, new Tile(Shape.SUN, Color.WHITE));
+		
+		this.board.get(7).set(7, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(7).set(1, new Tile(Shape.SUN, Color.WHITE));
+		
+		this.board.get(8).set(0, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(8).set(4, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(8).set(8, new Tile(Shape.SUN, Color.WHITE));
 	}
-		
-	public ArrayList<String> board(){
+	
+	public void printGameBoard() {	
+		System.out.println(GameBoard.INTERLINE);
+		for(ArrayList<Tile> line: this.board()) {
+			for(Tile tile : line) {
+				System.out.print("|  " + tile.afficher() + "  ");
+			}
+			System.out.println("|");
+			System.out.println(GameBoard.INTERLINE);
+		}
+	}
+	
+	public ArrayList<ArrayList<Tile>> board(){
 		return this.board;
+	}
+	
+	public void addBoard(int row, int col, Tile tile) {
+		this.board().get(row-1).set(col-1, tile);
 	}
 }
