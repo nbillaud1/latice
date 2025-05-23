@@ -1,6 +1,6 @@
 package latice.model;
 
-public enum Color {
+public enum Colors {
 	
 	YELLOW("\u001B[33m"),
 	NAVY("\u001B[34m"),
@@ -12,7 +12,7 @@ public enum Color {
 	
 	private String nom;
 
-	private Color(String nom) {
+	private Colors(String nom) {
 		this.nom = nom;
 	}
 

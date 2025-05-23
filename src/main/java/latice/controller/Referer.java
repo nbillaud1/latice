@@ -3,11 +3,13 @@ package latice.controller;
 import javafx.animation.AnimationTimer;
 import java.util.ArrayList;
 
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import latice.model.Color;
+import latice.model.Colors;
+import javafx.scene.paint.Color;
 import latice.model.Player;
 import latice.model.GameBoard;
 import latice.model.Shape;
@@ -82,25 +84,25 @@ public class Referer {
 		}
 	}
 	
-	public Color findColor(String url) {
+	public Colors findColor(String url) {
 		String color = url.substring(url.length()-5, url.length()-4);
 		if (color.equals("y")){
-			return Color.YELLOW;
+			return Colors.YELLOW;
 		}
 		else if (color.equals("r")) {
-			return Color.RED;
+			return Colors.RED;
 		}
 		else if (color.equals("t")) {
-			return Color.TEAL;
+			return Colors.TEAL;
 		}
 		else if (color.equals("n")) {
-			return Color.NAVY;
+			return Colors.NAVY;
 		}
 		else if (color.equals("g")) {
-			return Color.GREEN;
+			return Colors.GREEN;
 		}
 		else {
-			return Color.MAGENTA;
+			return Colors.MAGENTA;
 		}
 	}
 	
@@ -108,13 +110,13 @@ public class Referer {
 	public int checkAround(GameBoard gameBoard, int col, int row, Tile tile) {
 		Boolean putIsNotPossible = false;
 		int nbrTilesAround = 0;
-		Color colorTileToPut = tile.color();
+		Colors colorTileToPut = tile.color();
 		Shape shapeTileToPut = tile.shape();
 		//Regarde la tuile en haut
 		if (row > 0) {
 			if (gridAlreadyFilled(gameBoard.board(), col, row - 1)) {
 	        	Tile tileNextTo = gameBoard.board().get(row - 1).get(col);
-	        	Color colorTileNextTo = tileNextTo.color();
+	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
 	        		nbrTilesAround ++;
@@ -128,7 +130,7 @@ public class Referer {
 		if (row < 8) {
 			if (gridAlreadyFilled(gameBoard.board(), col, row + 1)) {
 	        	Tile tileNextTo = gameBoard.board().get(row + 1).get(col);
-	        	Color colorTileNextTo = tileNextTo.color();
+	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
 	        		nbrTilesAround ++;
@@ -142,7 +144,7 @@ public class Referer {
 		if (col > 0) {
 			if (gridAlreadyFilled(gameBoard.board(), col - 1, row)) {
 				Tile tileNextTo = gameBoard.board().get(row).get(col - 1);
-	        	Color colorTileNextTo = tileNextTo.color();
+	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
 	        		nbrTilesAround ++;
@@ -156,7 +158,7 @@ public class Referer {
 		if (col < 8) {
 			if (gridAlreadyFilled(gameBoard.board(), col + 1, row)) {
 				Tile tileNextTo = gameBoard.board().get(row).get(col + 1);
-	        	Color colorTileNextTo = tileNextTo.color();
+	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
 	        		nbrTilesAround ++;
@@ -198,6 +200,15 @@ public class Referer {
         AnimationTimer anim = new AnimationTimer(){
             @Override
             public void handle(long now) {
+            	DropShadow outline = new DropShadow();
+                outline.setOffsetX(0);
+                outline.setOffsetY(0);
+                outline.setColor(Color.WHITE);
+                outline.setRadius(3);
+                outline.setSpread(1);					// contours pour les animations.
+
+                text.setEffect(outline);
+                
                 if (text.getFont().getSize() < 96) {
                 	text.setOpacity(1);
                     text.setFont(new Font(text.getFont().getName(), text.getFont().getSize()+1));

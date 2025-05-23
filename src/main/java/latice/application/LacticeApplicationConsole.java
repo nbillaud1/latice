@@ -32,8 +32,8 @@ public class LacticeApplicationConsole {
 	}
 
 	private static void putSomeTiles() {
-		Tile tileFeather = new Tile(Shape.FEATHER, Color.GREEN);
-		Tile tileTurtle = new Tile(Shape.TURTLE, Color.GREEN);
+		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
+		Tile tileTurtle = new Tile(Shape.TURTLE, Colors.GREEN);
 		/*try {
 			checkAndPutTile(0, 0, tileFeather); //test ailleurs qu'au milieu
 		}

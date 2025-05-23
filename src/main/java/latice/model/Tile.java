@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 
 public class Tile {
 	private Shape shape;
-	private Color color;
+	private Colors color;
 	
-	public Tile(Shape shape, Color color) {
+	public Tile(Shape shape, Colors color) {
 		this.shape = shape;
 		this.color = color;
 	}
@@ -15,7 +15,7 @@ public class Tile {
 		return this.shape;
 	}
 	
-	public Color color() {
+	public Colors color() {
 		return this.color;
 	}
 	

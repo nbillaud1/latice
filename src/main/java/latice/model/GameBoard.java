@@ -14,34 +14,34 @@ public class GameBoard {
 		for(int i=0; i<9; i++) {
 			ArrayList<Tile> line = new ArrayList<>();
 			for(int y=0; y<9; y++) {
-				line.add(new Tile(Shape.EMPTY, Color.WHITE));
+				line.add(new Tile(Shape.EMPTY, Colors.WHITE));
 			}
 			this.board.add(line);
 		}
 
-		this.board.get(0).set(0, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(0).set(4, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(0).set(8,  new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(0).set(0, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(0).set(4, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(0).set(8,  new Tile(Shape.SUN, Colors.WHITE));
 		
-		this.board.get(1).set(1, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(1).set(7, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(1).set(1, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(1).set(7, new Tile(Shape.SUN, Colors.WHITE));
 		
-		this.board.get(2).set(2, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(2).set(6, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(2).set(2, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(2).set(6, new Tile(Shape.SUN, Colors.WHITE));
 		
-		this.board.get(4).set(4, new Tile(Shape.MOON, Color.WHITE));
-		this.board.get(4).set(8, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(4).set(0, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(4).set(4, new Tile(Shape.MOON, Colors.WHITE));
+		this.board.get(4).set(8, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(4).set(0, new Tile(Shape.SUN, Colors.WHITE));
 		
-		this.board.get(6).set(6, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(6).set(2, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(6).set(6, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(6).set(2, new Tile(Shape.SUN, Colors.WHITE));
 		
-		this.board.get(7).set(7, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(7).set(1, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(7).set(7, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(7).set(1, new Tile(Shape.SUN, Colors.WHITE));
 		
-		this.board.get(8).set(0, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(8).set(4, new Tile(Shape.SUN, Color.WHITE));
-		this.board.get(8).set(8, new Tile(Shape.SUN, Color.WHITE));
+		this.board.get(8).set(0, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(8).set(4, new Tile(Shape.SUN, Colors.WHITE));
+		this.board.get(8).set(8, new Tile(Shape.SUN, Colors.WHITE));
 	}
 	
 	public void printGameBoard() {	

@@ -11,122 +11,122 @@ public class MainPool {
 		this.tiles = new ArrayList<Tile>();
 		
 		//Feather tiles
-		this.tiles.add(new Tile(Shape.FEATHER, Color.YELLOW));
-		this.tiles.add(new Tile(Shape.FEATHER, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.YELLOW));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.YELLOW));
 		
-		this.tiles.add(new Tile(Shape.FEATHER, Color.NAVY));
-		this.tiles.add(new Tile(Shape.FEATHER, Color.NAVY));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.NAVY));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.NAVY));
 		
-		this.tiles.add(new Tile(Shape.FEATHER, Color.MAGENTA));
-		this.tiles.add(new Tile(Shape.FEATHER, Color.MAGENTA));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.MAGENTA));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.MAGENTA));
 		
-		this.tiles.add(new Tile(Shape.FEATHER, Color.RED));
-		this.tiles.add(new Tile(Shape.FEATHER, Color.RED));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.RED));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.RED));
 		
-		this.tiles.add(new Tile(Shape.FEATHER, Color.GREEN));
-		this.tiles.add(new Tile(Shape.FEATHER, Color.GREEN));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.GREEN));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.GREEN));
 		
-		this.tiles.add(new Tile(Shape.FEATHER, Color.TEAL));
-		this.tiles.add(new Tile(Shape.FEATHER, Color.TEAL));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.TEAL));
+		this.tiles.add(new Tile(Shape.FEATHER, Colors.TEAL));
 		
 		
 		//Bird tiles
-		this.tiles.add(new Tile(Shape.BIRD, Color.YELLOW));
-		this.tiles.add(new Tile(Shape.BIRD, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.YELLOW));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.YELLOW));
 		
-		this.tiles.add(new Tile(Shape.BIRD, Color.NAVY));
-		this.tiles.add(new Tile(Shape.BIRD, Color.NAVY));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.NAVY));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.NAVY));
 		
-		this.tiles.add(new Tile(Shape.BIRD, Color.MAGENTA));
-		this.tiles.add(new Tile(Shape.BIRD, Color.MAGENTA));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.MAGENTA));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.MAGENTA));
 		
-		this.tiles.add(new Tile(Shape.BIRD, Color.RED));
-		this.tiles.add(new Tile(Shape.BIRD, Color.RED));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.RED));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.RED));
 		
-		this.tiles.add(new Tile(Shape.BIRD, Color.GREEN));
-		this.tiles.add(new Tile(Shape.BIRD, Color.GREEN));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.GREEN));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.GREEN));
 		
-		this.tiles.add(new Tile(Shape.BIRD, Color.TEAL));
-		this.tiles.add(new Tile(Shape.BIRD, Color.TEAL));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.TEAL));
+		this.tiles.add(new Tile(Shape.BIRD, Colors.TEAL));
 		
 		
 		//Turtle tiles
-		this.tiles.add(new Tile(Shape.TURTLE, Color.YELLOW));
-		this.tiles.add(new Tile(Shape.TURTLE, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.YELLOW));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.YELLOW));
 		
-		this.tiles.add(new Tile(Shape.TURTLE, Color.NAVY));
-		this.tiles.add(new Tile(Shape.TURTLE, Color.NAVY));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.NAVY));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.NAVY));
 		
-		this.tiles.add(new Tile(Shape.TURTLE, Color.MAGENTA));
-		this.tiles.add(new Tile(Shape.TURTLE, Color.MAGENTA));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.MAGENTA));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.MAGENTA));
 		
-		this.tiles.add(new Tile(Shape.TURTLE, Color.RED));
-		this.tiles.add(new Tile(Shape.TURTLE, Color.RED));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.RED));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.RED));
 		
-		this.tiles.add(new Tile(Shape.TURTLE, Color.GREEN));
-		this.tiles.add(new Tile(Shape.TURTLE, Color.GREEN));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.GREEN));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.GREEN));
 		
-		this.tiles.add(new Tile(Shape.TURTLE, Color.TEAL));
-		this.tiles.add(new Tile(Shape.TURTLE, Color.TEAL));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.TEAL));
+		this.tiles.add(new Tile(Shape.TURTLE, Colors.TEAL));
 		
 		
 		//Flower tiles
-		this.tiles.add(new Tile(Shape.FLOWER, Color.YELLOW));
-		this.tiles.add(new Tile(Shape.FLOWER, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.YELLOW));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.YELLOW));
 		
-		this.tiles.add(new Tile(Shape.FLOWER, Color.NAVY));
-		this.tiles.add(new Tile(Shape.FLOWER, Color.NAVY));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.NAVY));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.NAVY));
 		
-		this.tiles.add(new Tile(Shape.FLOWER, Color.MAGENTA));
-		this.tiles.add(new Tile(Shape.FLOWER, Color.MAGENTA));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.MAGENTA));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.MAGENTA));
 		
-		this.tiles.add(new Tile(Shape.FLOWER, Color.RED));
-		this.tiles.add(new Tile(Shape.FLOWER, Color.RED));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.RED));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.RED));
 		
-		this.tiles.add(new Tile(Shape.FLOWER, Color.GREEN));
-		this.tiles.add(new Tile(Shape.FLOWER, Color.GREEN));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.GREEN));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.GREEN));
 		
-		this.tiles.add(new Tile(Shape.FLOWER, Color.TEAL));
-		this.tiles.add(new Tile(Shape.FLOWER, Color.TEAL));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.TEAL));
+		this.tiles.add(new Tile(Shape.FLOWER, Colors.TEAL));
 		
 		//Gecko tiles
-		this.tiles.add(new Tile(Shape.GECKO, Color.YELLOW));
-		this.tiles.add(new Tile(Shape.GECKO, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.YELLOW));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.YELLOW));
 		
-		this.tiles.add(new Tile(Shape.GECKO, Color.NAVY));
-		this.tiles.add(new Tile(Shape.GECKO, Color.NAVY));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.NAVY));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.NAVY));
 		
-		this.tiles.add(new Tile(Shape.GECKO, Color.MAGENTA));
-		this.tiles.add(new Tile(Shape.GECKO, Color.MAGENTA));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.MAGENTA));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.MAGENTA));
 		
-		this.tiles.add(new Tile(Shape.GECKO, Color.RED));
-		this.tiles.add(new Tile(Shape.GECKO, Color.RED));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.RED));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.RED));
 		
-		this.tiles.add(new Tile(Shape.GECKO, Color.GREEN));
-		this.tiles.add(new Tile(Shape.GECKO, Color.GREEN));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.GREEN));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.GREEN));
 		
-		this.tiles.add(new Tile(Shape.GECKO, Color.TEAL));
-		this.tiles.add(new Tile(Shape.GECKO, Color.TEAL));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.TEAL));
+		this.tiles.add(new Tile(Shape.GECKO, Colors.TEAL));
 		
 		
 		//Dolphin tiles
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.YELLOW));
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.YELLOW));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.YELLOW));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.YELLOW));
 		
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.NAVY));
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.NAVY));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.NAVY));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.NAVY));
 		
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.MAGENTA));
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.MAGENTA));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.MAGENTA));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.MAGENTA));
 		
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.RED));
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.RED));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.RED));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.RED));
 		
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.GREEN));
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.GREEN));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.GREEN));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.GREEN));
 		
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.TEAL));
-		this.tiles.add(new Tile(Shape.DOLPHIN, Color.TEAL));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.TEAL));
+		this.tiles.add(new Tile(Shape.DOLPHIN, Colors.TEAL));
 		
 		
 	}

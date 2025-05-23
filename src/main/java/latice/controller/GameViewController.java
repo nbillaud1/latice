@@ -8,7 +8,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -17,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -165,17 +163,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
-
-    	DropShadow outline = new DropShadow();
-        outline.setOffsetX(0);
-        outline.setOffsetY(0);
-        outline.setColor(Color.WHITE);
-        outline.setRadius(3);
-        outline.setSpread(1);					// contours pour les animations.
-
-        idTxtLatice.setEffect(outline);
-        idTxtDouble.setEffect(outline);
-        idTxtTrefoil.setEffect(outline);
     	
     	roundCounter = 0;
     	idTurnNumber.setText("Tour 1 :");
