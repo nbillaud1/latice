@@ -307,15 +307,15 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canContinue == 1) {
 	 		        if(!referer.gridAlreadyFilled(gameBoard.board(), col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
 	 		        	idErrTile.setVisible(false);
-	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
-	 		        	idInvisibleGrid.add(droppedTile, col, row);
-	 		        	event.setDropCompleted(true);
 	 		        	if (isP2) {
 	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player2Name, gameBoard.board());
 	 		        	}
 	 		        	else {
 	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP1, player1Name, gameBoard.board());    		
 	 		        	}
+	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
+	 		        	idInvisibleGrid.add(droppedTile, col, row);
+	 		        	event.setDropCompleted(true);
 	 		        	
 	 		        }
 	 		        else {
