@@ -2,10 +2,8 @@ package latice.controller;
 
 import java.util.ArrayList;
 
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import latice.model.Color;
 import latice.model.GameBoard;
 import latice.model.Shape;
@@ -63,20 +61,6 @@ public class Referer {
 			return Color.MAGENTA;
 		}
 	}
-	
-	/*public Boolean tileIsHere(ArrayList<ArrayList<Tile>> grid, int col, int row) {
-		Boolean isHere = false;
-		if (grid.get(row).get(col).toString().equals("|  [0m☀[0m  ")){
-			isAlreadyFilled = false;
-		}
-		if (grid.get(row).get(col).toString().equals("|  [0m  [0m  ")){
-			isAlreadyFilled = false;
-		}
-		if (grid.get(row).get(col).toString().equals("|  [0m🌙[0m  ")){
-			isAlreadyFilled = false;
-		}
-		return grid.get(row).get(col).;
-	}*/
 	
 	//TODO voir si c'est possible de refactor car beaucoup de répétitions ;)
 	public int checkAround(GameBoard gameBoard, int col, int row, Tile tile) {

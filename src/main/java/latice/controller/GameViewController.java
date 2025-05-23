@@ -8,7 +8,6 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -422,7 +421,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canContinue == 1) {
 	 		        if(!referer.gridAlreadyFilled(gameBoard.board(), col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
 	 		        	idErrTile.setVisible(false);
-	 		        	gameBoard.addBoard(row, col, tileToAddOnGameBoard); // normalement ça doit ajouter un tuile à la liste en console.
+	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard); // normalement ça doit ajouter un tuile à la liste en console.
 	 	 		        gameBoard.printGameBoard(); // test.
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
