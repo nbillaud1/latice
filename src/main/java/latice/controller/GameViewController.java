@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import latice.model.Pool;
 import latice.model.Rack;
 import latice.model.Tile;
+import latice.audio.MusicManager;
 import latice.model.GameBoard;
 import latice.model.Player;
 
@@ -315,8 +316,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	}
 	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
+	 		        	MusicManager.play("/latice/sound/Pop.aup3");
 	 		        	event.setDropCompleted(true);
-	 		        	
+
 	 		        }
 	 		        else {
 	 		        	referer.displayErrorMessage("Vous ne pouvez pas poser une tuile ici", idErrTile);
