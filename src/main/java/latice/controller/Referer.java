@@ -36,7 +36,7 @@ public class Referer {
 	}
 	
 	//Gere le système de points celon les tuiles à côté
-	public void pointsManagement(int nbrOfTilesAround, Player player, Text idTxtLatice, Text idTxtTrefoil, Text idTxtDouble, int col, int row, Text idTxtPile, Text idMoves, String playerName) {
+	public void pointsManagement(int nbrOfTilesAround, Player player, Text idTxtLatice, Text idTxtTrefoil, Text idTxtDouble, int col, int row, Text idTxtPile, Text idMoves, String playerName, ArrayList<ArrayList<Tile>> grid) {
 		AnimationTimer laticeAnimation = animateText(idTxtLatice);
     	AnimationTimer trefoilAnimation = animateText(idTxtTrefoil);
         AnimationTimer doubleAnimation = animateText(idTxtDouble);
@@ -53,7 +53,7 @@ public class Referer {
  			player.addPoints(4);
  			laticeAnimation.start();
  		}
- 		if (isSunTile(col, row)) {
+ 		if (isSunTile(grid, col, row)) {
 			player.addPoints(2);
 		}
  		player.Move(0);
@@ -172,32 +172,8 @@ public class Referer {
 		return nbrTilesAround;
 	}
 	
-	public boolean isSunTile(int col, int row) {
-		boolean isSun = false;
-		String position = col + ":" + row;
-		
-		switch (position) {
-	    case "0:0":
-	    case "4:0":
-	    case "8:0":
-	    case "1:1":
-	    case "7:1":
-	    case "2:2":
-	    case "6:2":
-	    case "0:4":
-	    case "8:4":
-	    case "2:6":
-	    case "6:6":
-	    case "1:7":
-	    case "7:7":
-	    case "0:8":
-	    case "8:8":
-	        isSun = true;
-	        break;
-	    default:
-	        isSun = false;
-		}
-	return isSun;
+	public boolean isSunTile(ArrayList<ArrayList<Tile>> grid, int col, int row) {
+		return grid.get(row).get(col).toString().equals("|  [0m☀[0m  ");
 	}
 	
 	public boolean firstTileNotPuttedOnTheMoon(ArrayList<ArrayList<Tile>> grid) {
