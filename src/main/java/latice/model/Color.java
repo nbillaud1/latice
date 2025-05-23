@@ -7,7 +7,8 @@ public enum Color {
 	MAGENTA("\u001B[35m"),
 	RED("\u001B[31m"),
 	GREEN("\u001B[32m"),
-	TEAL("\u001B[36m");
+	TEAL("\u001B[36m"),
+	WHITE("\u001B[0m");
 	
 	private String nom;
 

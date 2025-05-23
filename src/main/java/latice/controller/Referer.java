@@ -7,20 +7,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import latice.model.Color;
+import latice.model.GameBoard;
 import latice.model.Shape;
 import latice.model.Tile;
 
 public class Referer {
-	
-	
+
 	//Test pour poser une tuile
-	public String checkTile(ImageView imageGrid) {
+	public String findTile(ImageView imageGrid) {
 		Image img = imageGrid.getImage();
 		String urlImage = Tile.url(img);
 		return urlImage;
 	}
 	
-	public Shape checkShape(String url) {
+	public Shape findShape(String url) {
 		String shape = url.substring(137,139);
 		if (shape.equals("fl")){
 			return Shape.FLOWER;
@@ -42,7 +42,7 @@ public class Referer {
 		}
 	}
 	
-	public Color checkColor(String url) {
+	public Color findColor(String url) {
 		String color = url.substring(url.length()-5, url.length()-4);
 		if (color.equals("y")){
 			return Color.YELLOW;
@@ -64,104 +64,86 @@ public class Referer {
 		}
 	}
 	
-	public Boolean checkIfTileIsHere(GridPane grid, int col, int row) {
+	/*public Boolean tileIsHere(ArrayList<ArrayList<Tile>> grid, int col, int row) {
 		Boolean isHere = false;
-		for (Node node : grid.getChildren()) {
-	        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-	            isHere = true;
-	        }
-	    }
-		return isHere;
-	}
+		if (grid.get(row).get(col).toString().equals("|  [0m☀[0m  ")){
+			isAlreadyFilled = false;
+		}
+		if (grid.get(row).get(col).toString().equals("|  [0m  [0m  ")){
+			isAlreadyFilled = false;
+		}
+		if (grid.get(row).get(col).toString().equals("|  [0m🌙[0m  ")){
+			isAlreadyFilled = false;
+		}
+		return grid.get(row).get(col).;
+	}*/
 	
 	//TODO voir si c'est possible de refactor car beaucoup de répétitions ;)
-	public int checkAround(GridPane grid, int col, int row, ImageView imageToPut) {
+	public int checkAround(GameBoard gameBoard, int col, int row, Tile tile) {
 		Boolean putIsNotPossible = false;
-		int nbrTiles = 0;
-		String urlImageToPut = checkTile(imageToPut);
-		Color colorImageToPut = checkColor(urlImageToPut);
-		Shape shapeImageToPut = checkShape(urlImageToPut);
+		int nbrTilesAround = 0;
+		Color colorTileToPut = tile.color();
+		Shape shapeTileToPut = tile.shape();
 		//Regarde la tuile en haut
 		if (row > 0) {
-			if (checkIfTileIsHere(grid, col, row - 1)) {
-				for (Node node : grid.getChildren()) {
-			        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == (row - 1)) {
-			        	ImageView imageNextTo = (ImageView) node;
-			        	String urlImageNextTo = checkTile(imageNextTo);
-			        	Color colorImageNextTo = checkColor(urlImageNextTo);
-			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
-			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
-			        		nbrTiles ++;
-			        	}
-			        	else {
-			        		putIsNotPossible = true;
-			        	}
-			        }
-			    }
+			if (gridAlreadyFilled(gameBoard.board(), col, row - 1)) {
+	        	Tile tileNextTo = gameBoard.board().get(row - 1).get(col);
+	        	Color colorTileNextTo = tileNextTo.color();
+	        	Shape shapeTileNextTo = tileNextTo.shape();
+	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
+	        		nbrTilesAround ++;
+	        	}
+	        	else {
+	        		putIsNotPossible = true;
+	        	}
 			}
 		}
 		//Regarde la tuile du bas
 		if (row < 8) {
-			if (checkIfTileIsHere(grid, col, row + 1)) {
-				for (Node node : grid.getChildren()) {
-			        if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == (row + 1)) {
-			        	ImageView imageNextTo = (ImageView) node;
-			        	String urlImageNextTo = checkTile(imageNextTo);
-			        	Color colorImageNextTo = checkColor(urlImageNextTo);
-			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
-			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
-			        		nbrTiles ++;
-			        	}
-			        	else {
-			        		putIsNotPossible = true;
-			        	}
-			        }
-			    }
+			if (gridAlreadyFilled(gameBoard.board(), col, row + 1)) {
+	        	Tile tileNextTo = gameBoard.board().get(row + 1).get(col);
+	        	Color colorTileNextTo = tileNextTo.color();
+	        	Shape shapeTileNextTo = tileNextTo.shape();
+	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
+	        		nbrTilesAround ++;
+	        	}
+	        	else {
+	        		putIsNotPossible = true;
+	        	}
 			}
 		}
 		//Regarde la tuile de gauche
 		if (col > 0) {
-			if (checkIfTileIsHere(grid, col - 1, row)) {
-				for (Node node : grid.getChildren()) {
-			        if (GridPane.getColumnIndex(node) == (col - 1) && GridPane.getRowIndex(node) == row) {
-			        	ImageView imageNextTo = (ImageView) node;
-			        	String urlImageNextTo = checkTile(imageNextTo);
-			        	Color colorImageNextTo = checkColor(urlImageNextTo);
-			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
-			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
-			        		nbrTiles ++;
-			        	}
-			        	else {
-			        		putIsNotPossible = true;
-			        	}
-			        }
-			    }
+			if (gridAlreadyFilled(gameBoard.board(), col - 1, row)) {
+				Tile tileNextTo = gameBoard.board().get(row).get(col - 1);
+	        	Color colorTileNextTo = tileNextTo.color();
+	        	Shape shapeTileNextTo = tileNextTo.shape();
+	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
+	        		nbrTilesAround ++;
+	        	}
+	        	else {
+	        		putIsNotPossible = true;
+	        	}
 			}
 		}
 		//Regarde la tuile à droite
 		if (col < 8) {
-			if (checkIfTileIsHere(grid, col + 1, row)) {
-				for (Node node : grid.getChildren()) {
-			        if (GridPane.getColumnIndex(node) == (col + 1) && GridPane.getRowIndex(node) == row) {
-			        	ImageView imageNextTo = (ImageView) node;
-			        	String urlImageNextTo = checkTile(imageNextTo);
-			        	Color colorImageNextTo = checkColor(urlImageNextTo);
-			        	Shape shapeImageNextTo = checkShape(urlImageNextTo);
-			        	if (colorImageToPut.equals(colorImageNextTo) || shapeImageToPut.equals(shapeImageNextTo)) {
-			        		nbrTiles ++;
-			        	}
-			        	else {
-			        		putIsNotPossible = true;
-			        	}
-			        }
-			    }
+			if (gridAlreadyFilled(gameBoard.board(), col + 1, row)) {
+				Tile tileNextTo = gameBoard.board().get(row).get(col + 1);
+	        	Color colorTileNextTo = tileNextTo.color();
+	        	Shape shapeTileNextTo = tileNextTo.shape();
+	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
+	        		nbrTilesAround ++;
+	        	}
+	        	else {
+	        		putIsNotPossible = true;
+	        	}
 			}
 		}
-		
 		if (putIsNotPossible) {
-			nbrTiles = -1;
+			nbrTilesAround = -1;
 		}
-		return nbrTiles;
+		return nbrTilesAround;
 	}
 	
 	public boolean isSunTile(int col, int row) {
@@ -192,12 +174,21 @@ public class Referer {
 	return isSun;
 	}
 	
-	public boolean firstTileOnTheMoon(GridPane grid) {
-			return grid.getChildren().isEmpty();
+	public boolean firstTileNotPuttedOnTheMoon(ArrayList<ArrayList<Tile>> grid) {
+		return "|  [0m🌙[0m  ".equals(grid.get(4).get(4).toString());
 	}
 	
-	public boolean canPut(ArrayList<ArrayList<String>> grid, int col, int row) {
-		
-		return true;
+	public Boolean gridAlreadyFilled(ArrayList<ArrayList<Tile>> grid, int col, int row) {
+		Boolean isAlreadyFilled = true;
+		if (grid.get(row).get(col).toString().equals("|  [0m☀[0m  ")){
+			isAlreadyFilled = false;
+		}
+		if (grid.get(row).get(col).toString().equals("|  [0m  [0m  ")){
+			isAlreadyFilled = false;
+		}
+		if (grid.get(row).get(col).toString().equals("|  [0m🌙[0m  ")){
+			isAlreadyFilled = false;
+		}
+		return isAlreadyFilled;
 	}
 }

@@ -75,6 +75,6 @@ public class Tile {
 	}
 	
 	public String toString() {
-		return "|  " + this.shape().code() + "  ";
+		return "|  " + color.nom(shape.code()) + "  ";
 	}
 }

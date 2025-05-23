@@ -20,7 +20,7 @@ public class LaticeJeuxEssais {
 		int tilesCounter = 0;
 		for(Tile tile : mainPool.tiles()) {
 			tilesCounter++;
-			System.out.println(tilesCounter + " Forme + couleur : " + tile.afficher() + " | URL : " + tile.urlImg());
+			System.out.println(tilesCounter + " Forme + couleur : " + tile.toString() + " | URL : " + tile.urlImg());
 		}
 	}
 	
@@ -37,7 +37,7 @@ public class LaticeJeuxEssais {
 		int tilesCounter = 0;
 		for(Tile tile : poolPlayer1) {
 			tilesCounter++;
-			System.out.println(tilesCounter+ " " + tile.afficher());
+			System.out.println(tilesCounter+ " " + tile.toString());
 		}
 		
 		System.out.println("\n");
@@ -50,7 +50,7 @@ public class LaticeJeuxEssais {
 		tilesCounter = 0;
 		for(Tile tile : poolPlayer2) {
 			tilesCounter++;
-			System.out.println(tilesCounter+ " " + tile.afficher());
+			System.out.println(tilesCounter+ " " + tile.toString());
 		}
 		
 		System.out.println(LIGNE);
@@ -63,7 +63,7 @@ public class LaticeJeuxEssais {
 		tilesCounter = 0;
 		for(Tile tile : rackPlayer1.tiles()) {
 			tilesCounter++;
-			System.out.println(tilesCounter + tile.afficher());
+			System.out.println(tilesCounter + tile.toString());
 		}
 		
 		System.out.println("\n");
@@ -75,7 +75,7 @@ public class LaticeJeuxEssais {
 		tilesCounter = 0;
 		for(Tile tile : rackPlayer2.tiles()) {
 			tilesCounter++;
-			System.out.println(tilesCounter + " " + tile.afficher());
+			System.out.println(tilesCounter + " " + tile.toString());
 		}
 		
 		System.out.println("\n");
@@ -86,7 +86,7 @@ public class LaticeJeuxEssais {
 		tilesCounter = 0;
 		for(Tile tile : poolPlayer1) {
 			tilesCounter++;
-			System.out.println(tilesCounter+ " " + tile.afficher());
+			System.out.println(tilesCounter+ " " + tile.toString());
 		}
 		
 		System.out.println("\n");
@@ -97,7 +97,7 @@ public class LaticeJeuxEssais {
 		tilesCounter = 0;
 		for(Tile tile : poolPlayer2) {
 			tilesCounter++;
-			System.out.println(tilesCounter+ " " + tile.afficher());
+			System.out.println(tilesCounter+ " " + tile.toString());
 		}
 		//TODO vérifier que le joueur ne peux pas avoir de points négatifs
 		

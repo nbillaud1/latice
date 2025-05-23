@@ -120,12 +120,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	
 	private GameBoard gameBoard = new GameBoard();
 	private Referer referer = new Referer();
+	
 	private Pool pools = new Pool();
 	private ArrayList<Tile> poolPlayer1 = pools.tiles().get(0);
 	private ArrayList<Tile> poolPlayer2 = pools.tiles().get(1);
 	
 	private int roundCounter;
-	private int canPlay;
+	private int canContinue;
 	private boolean hasToPlayOnTheMoon = true;
 	private boolean isP2 = new Random().nextBoolean();
 	private Rack rackPlayer1 = new Rack(poolPlayer1);
@@ -382,12 +383,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
         AnimationTimer doubleAnimation = animateText(idTxtDouble);
         
 		if (isP2) {
-			canPlay = player2.move();
+			canContinue = player2.move();
 		}
 		else {
-			canPlay = player1.move();
+			canContinue = player1.move();
 		}
-		hasToPlayOnTheMoon = referer.firstTileOnTheMoon(idInvisibleGrid); //savoir si la grille a été remplie.
+		hasToPlayOnTheMoon = referer.firstTileNotPuttedOnTheMoon(gameBoard.board()); //savoir si la grille a été remplie.
 		
         Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
@@ -413,14 +414,16 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        int squareHeight = 80;
  		        int col = (int)(event.getX()/ squareWidth); // (int) est fait pour arrondir à un entier.
  		        int row = (int)(event.getY()/ squareHeight);
- 		        int nbrOfTilesAround = referer.checkAround(idInvisibleGrid, col, row, droppedTile);
  		        
- 		        gameBoard.addBoard(row, col, new Tile(referer.checkShape(Tile.url(droppedTile.getImage())), referer.checkColor(Tile.url(droppedTile.getImage())))); // normalement ça doit ajouter un tile à la liste en console.
- 		        gameBoard.printGameBoard();
+ 		        Tile tileToAddOnGameBoard = new Tile(referer.findShape(Tile.url(imgTile)), referer.findColor(Tile.url(imgTile))); // On récupère la Tile à poser.
  		        
- 		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canPlay == 1) {
-	 		        if(!gridAlreadyFilled(col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
+ 		        int nbrOfTilesAround = referer.checkAround(gameBoard, col, row, tileToAddOnGameBoard);
+ 		        
+ 		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canContinue == 1) {
+	 		        if(!referer.gridAlreadyFilled(gameBoard.board(), col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
 	 		        	idErrTile.setVisible(false);
+	 		        	gameBoard.addBoard(row, col, tileToAddOnGameBoard); // normalement ça doit ajouter un tuile à la liste en console.
+	 	 		        gameBoard.printGameBoard(); // test.
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
 	 		        	event.setDropCompleted(true);
 	 		        	if (isP2) {
@@ -473,7 +476,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        }
 	
  		        }
- 		        else if (canPlay == 0) {
+ 		        else if (canContinue == 0) {
  		        	idErrTile.setVisible(true);
  		        	idErrTile.setText("Vous ne possédez plus d'actions restantes");
  		        	event.setDropCompleted(false);
@@ -561,18 +564,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			pause.setOnFinished(event -> Platform.exit());
 			pause.play();
 		}
-	}
-	
-	private Boolean gridAlreadyFilled(int col, int row) {
-		for (Node img : idInvisibleGrid.getChildren()) {
-			Integer imgCol = GridPane.getColumnIndex(img);
-	        Integer imgRow = GridPane.getRowIndex(img);
-	        
-	        if ((imgCol != null && imgRow != null) && (imgCol == col && imgRow == row)) {
-	        	return true;
-	        }
-		}
-		return false;
 	}
 	
 	private AnimationTimer animateText (Text text) {
