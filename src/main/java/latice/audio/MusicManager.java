@@ -2,11 +2,13 @@ package latice.audio;
 
 import java.net.URL;
 
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class MusicManager {
     private static MediaPlayer currentPlayer;
+    public static final AudioClip DROPSOUND = new AudioClip("/latice/sound/Pop.aup3");
 
     public static void play(String resourcePath) {
         stop();
