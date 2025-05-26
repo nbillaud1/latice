@@ -17,7 +17,7 @@ public class MusicManager {
         Media media = new Media(music.toExternalForm());
         currentPlayer = new MediaPlayer(media);
         currentPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        currentPlayer.setVolume(0.3);
+        currentPlayer.setVolume(0.2);
         currentPlayer.setOnReady(() -> currentPlayer.play());
     }
 

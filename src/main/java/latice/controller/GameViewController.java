@@ -16,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -201,7 +200,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
         idBtnChange.setOnAction(e -> {
         	
         	if (isP2 && player2.move() == 1) {
-        		System.out.println(player2.move());
         		player2.switchRack();
         		rackPlayer2 = player2.rack();
         		changeTiles();
