@@ -192,7 +192,6 @@ public class LaticeAppSb extends Application{
 		primaryStage.close();
     }
 	
-	//TODO faire qu'on utilise Player.name
 	public String player1Name() {
 		return this.tfPlayer1Name.getText();
 	}
