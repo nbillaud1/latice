@@ -124,7 +124,7 @@ public class LaticeAppSb extends Application{
         root.setBackground(background);
         
         //Music du lobby
-        MusicManager.play("/latice/sound/Lobby_music.mp3");
+        MusicManager.play("/latice/sound/Lobby_music.wav");
         
         primaryStage.setScene(new Scene(root, 1000,1000));
         primaryStage.setTitle("Choix du nom des joueurs");
@@ -187,7 +187,7 @@ public class LaticeAppSb extends Application{
 		stage.show();
 		
 		//Music du plateau
-		MusicManager.play("/latice/sound/Latice_theme.mp3");
+		MusicManager.play("/latice/sound/Latice_theme.wav");
 		
 		primaryStage.close();
     }
