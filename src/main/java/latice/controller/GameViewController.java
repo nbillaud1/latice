@@ -200,11 +200,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
         idBtnChange.setOnAction(e -> {
         	
         	if (isP2 && player2.move() == 1) {
+        		System.out.println(player2.move());
         		player2.switchRack();
         		rackPlayer2 = player2.rack();
         		changeTiles();
         	}
-        	else if (player1.move() == 1){
+        	else if (!isP2 && player1.move() == 1){
         		player1.switchRack();
         		rackPlayer1 = player1.rack();
         		changeTiles();
@@ -303,7 +304,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	}
 	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
-	 		        	MusicManager.play("/latice/sound/Pop.aup3");
+	 		        	//MusicManager.play("/latice/sound/Pop.aup3");
 	 		        	event.setDropCompleted(true);
 
 	 		        }
