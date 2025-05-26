@@ -19,9 +19,9 @@ public class Referer {
 
 	
 	//Permet d'afficher le joueur qui dois jouer et son compteur d'action
-	public void setPTurnAndAction(String playerName, Player player, Text idTxtPile, Text idMoves){
+	public void setPTurnAndAction(Player player, Text idTxtPile, Text idMoves){
         idMoves.setText("Actions restantes : " + player.move());
-		idTxtPile.setText("Au tour de " + playerName + " (" + player.points() + " points)");
+		idTxtPile.setText("Au tour de " + player.name() + " (" + player.points() + " points)");
 	}
 	
 	//Permet d'afficher un message d'erreur
@@ -66,7 +66,7 @@ public class Referer {
 			player.addPoints(2);
 		}
  		player.Move(0);
- 		setPTurnAndAction(playerName, player, idTxtPile, idMoves);
+ 		setPTurnAndAction(player, idTxtPile, idMoves);
 	}
 	
 	public Shape findShape(String url) {

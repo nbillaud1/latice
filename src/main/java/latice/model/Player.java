@@ -62,7 +62,12 @@ public class Player {
 	public void Move(int nbr) {
 		this.move = nbr;
 	}
+	
 	public int points() {
 		return points;
+	}
+	
+	public String name() {
+		return this.name;
 	}
 }

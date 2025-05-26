@@ -22,6 +22,7 @@ import javafx.util.Duration;
 import latice.model.Pool;
 import latice.model.Rack;
 import latice.model.Tile;
+import latice.LaticeAppSb;
 import latice.audio.MusicManager;
 import latice.model.GameBoard;
 import latice.model.Player;
@@ -132,7 +133,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Rack rackPlayer2 = new Rack(poolPlayer2);
 	private String player1Name;
 	private String player2Name;
-	
+
 	private Player player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
 	private Player player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
 	
@@ -175,7 +176,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idNbrTilesPoolP1.setVisible(false);
             idNbrTilesPoolP2.setVisible(true);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
-            referer.setPTurnAndAction(player2Name, player2, idTxtPile, idMovesP2);
+            referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
     	}
     	else {
         	idPilePlayer2.setVisible(false);
@@ -184,7 +185,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idNbrTilesPoolP2.setVisible(false);
             idNbrTilesPoolP1.setVisible(true);
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
-            referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1);
+            referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
     	}
         
       //Permet de changer entre le rack p1 et p2
@@ -219,11 +220,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idBtnExtraMove.setOnAction(e -> {
     		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
         		player2.buyExtraMove();
-        		referer.setPTurnAndAction(player2Name, player2, idTxtPile, idMovesP2);
+        		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
         	}
         	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
         		player1.buyExtraMove();
-        		referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1);
+        		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
         	}
         	else {
         		referer.displayErrorMessage("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois", idErrTile);
@@ -377,7 +378,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    
 			switchView(isP2);
 		    player1.Move(1);
-    		referer.setPTurnAndAction(player1Name, player1, idTxtPile, idMovesP1);
+    		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
 
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
 		    
@@ -392,7 +393,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    switchView(isP2);
 		    
 		    player2.Move(1);
-    		referer.setPTurnAndAction(player2Name, player2, idTxtPile, idMovesP2);
+    		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
 		}
 		isP2 = !isP2;

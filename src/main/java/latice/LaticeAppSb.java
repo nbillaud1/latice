@@ -167,7 +167,7 @@ public class LaticeAppSb extends Application{
 		root.getChildren().add(loader.load());
 		
 		GameViewController controller = loader.getController(); 
-	    controller.setPlayer1Name(this.player1Name()); // fournir les noms des joueurs au controller.
+	    controller.setPlayer1Name(this.player1Name()); // on fournit les noms des joueurs au controller.
 	    controller.setPlayer2Name(this.player2Name());
 	    controller.initialize();
 	    
