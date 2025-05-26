@@ -134,8 +134,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private String player1Name;
 	private String player2Name;
 
-	private Player player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
-	private Player player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
+	private Player player1;
+	private Player player2;
 	
 	private Image imageTile1;
 	private Image imageTile2;
@@ -164,7 +164,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
-    	
+    	player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
+    	player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
     	roundCounter = 0;
     	idTurnNumber.setText("Tour 1 :");
     	idErrTile.setVisible(false);
