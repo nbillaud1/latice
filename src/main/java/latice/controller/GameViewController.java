@@ -305,6 +305,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	}
 	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
+
 	 		        	MusicManager.DROPSOUND.play();
 	 		        	event.setDropCompleted(true);
 
