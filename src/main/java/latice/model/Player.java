@@ -8,7 +8,6 @@ public class Player {
 	private int points;
 	private String name;
 	private int move;
-	private int tilePlayed;
 	
 	public Player(ArrayList<Tile> pool, Rack rack, String name) {
 		this.pool = pool;
@@ -19,7 +18,7 @@ public class Player {
 	}
 	
 	public void buyExtraMove(){
-		if (points <= 2 && move == 0) {
+		if (points >= 2 && move == 0) {
 			points -= 2;
 			move = 1;
 		}
