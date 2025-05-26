@@ -23,7 +23,7 @@
             <Font name="Calibri Bold" size="23.0" />
          </font>
          <StackPane.margin>
-            <Insets bottom="200.0" left="30.0" />
+            <Insets bottom="180.0" left="30.0" />
          </StackPane.margin>
       </Text>
       <GridPane fx:id="idGrid" gridLinesVisible="true" maxHeight="720.0" maxWidth="720.0" StackPane.alignment="TOP_CENTER">
@@ -547,8 +547,11 @@
       </GridPane>
       <Text fx:id="idTxtPile" strokeType="OUTSIDE" strokeWidth="0.0" text="Au tour de" StackPane.alignment="BOTTOM_CENTER">
          <StackPane.margin>
-            <Insets bottom="190.0" />
+            <Insets bottom="180.0" />
          </StackPane.margin>
+         <font>
+            <Font name="Calibri" size="29.0" />
+         </font>
       </Text>
       <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" maxWidth="1000.0" StackPane.alignment="BOTTOM_LEFT">
          <children>
