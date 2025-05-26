@@ -19,7 +19,7 @@ public class Player {
 	}
 	
 	public void buyExtraMove(){
-		if (points <= 2 && move == 0) {
+		if (points >= 2 && move == 0) {
 			points -= 2;
 			move = 1;
 		}
