@@ -8,7 +8,6 @@ public class Player {
 	private int points;
 	private String name;
 	private int move;
-	private int tilePlayed;
 	
 	public Player(ArrayList<Tile> pool, Rack rack, String name) {
 		this.pool = pool;
