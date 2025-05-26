@@ -265,7 +265,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		else {
 			canContinue = player1.move();
 		}
-			hasToPlayOnTheMoon = referer.firstTileNotPuttedOnTheMoon(gameBoard.board()); //savoir si la grille a été remplie.
+			hasToPlayOnTheMoon = referer.firstTileNotPutOnTheMoon(gameBoard.board()); //savoir si la grille a été remplie.
 			
 	        Dragboard dragboard = tile.startDragAndDrop(TransferMode.MOVE);
 	        ClipboardContent content = new ClipboardContent();

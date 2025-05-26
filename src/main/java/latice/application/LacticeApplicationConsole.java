@@ -67,7 +67,7 @@ public class LacticeApplicationConsole {
 	}
 	
 	private static void checkAndPutTile(int row, int col, Tile tileToAdd) throws CannotPutATileException{
-		Boolean hasToPlayOnTheMoon = referer.firstTileNotPuttedOnTheMoon(gameBoard.board());
+		Boolean hasToPlayOnTheMoon = referer.firstTileNotPutOnTheMoon(gameBoard.board());
 		if(!hasToPlayOnTheMoon || (col == 4 && row == 4)) {
 	        if(referer.gridAlreadyFilled(gameBoard.board(), col, row)) {
 	        	throw new CannotPutATileException("Il y'a déjà une tuile ici !");

@@ -116,7 +116,7 @@ public class Referer {
 	//TODO voir si c'est possible de refactor car beaucoup de répétitions ;)
 	public int checkAround(GameBoard gameBoard, int col, int row, Tile tile) {
 		Boolean putIsNotPossible = false;
-		int nbrTilesAround = 0;
+		int nbrOfTilesAround = 0;
 		Colors colorTileToPut = tile.color();
 		Shape shapeTileToPut = tile.shape();
 		//Regarde la tuile en haut
@@ -126,7 +126,7 @@ public class Referer {
 	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrTilesAround ++;
+	        		nbrOfTilesAround ++;
 	        	}
 	        	else {
 	        		putIsNotPossible = true;
@@ -140,7 +140,7 @@ public class Referer {
 	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrTilesAround ++;
+	        		nbrOfTilesAround ++;
 	        	}
 	        	else {
 	        		putIsNotPossible = true;
@@ -154,7 +154,7 @@ public class Referer {
 	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrTilesAround ++;
+	        		nbrOfTilesAround ++;
 	        	}
 	        	else {
 	        		putIsNotPossible = true;
@@ -168,7 +168,7 @@ public class Referer {
 	        	Colors colorTileNextTo = tileNextTo.color();
 	        	Shape shapeTileNextTo = tileNextTo.shape();
 	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrTilesAround ++;
+	        		nbrOfTilesAround ++;
 	        	}
 	        	else {
 	        		putIsNotPossible = true;
@@ -176,16 +176,16 @@ public class Referer {
 			}
 		}
 		if (putIsNotPossible) {
-			nbrTilesAround = -1;
+			nbrOfTilesAround = -1;
 		}
-		return nbrTilesAround;
+		return nbrOfTilesAround;
 	}
 	
 	public boolean isSunTile(ArrayList<ArrayList<Tile>> grid, int col, int row) {
 		return grid.get(row).get(col).toString().equals("|  [0m☀[0m  ");
 	}
 	
-	public boolean firstTileNotPuttedOnTheMoon(ArrayList<ArrayList<Tile>> grid) {
+	public boolean firstTileNotPutOnTheMoon(ArrayList<ArrayList<Tile>> grid) {
 		return "|  [0m🌙[0m  ".equals(grid.get(4).get(4).toString());
 	}
 	
