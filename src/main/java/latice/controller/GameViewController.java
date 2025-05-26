@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -304,7 +305,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	}
 	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
-	 		        	//MusicManager.play("/latice/sound/Pop.aup3");
+	 		        	MusicManager.DROPSOUND.play();
 	 		        	event.setDropCompleted(true);
 
 	 		        }

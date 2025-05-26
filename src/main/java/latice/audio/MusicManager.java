@@ -8,7 +8,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class MusicManager {
     private static MediaPlayer currentPlayer;
-    public static final AudioClip DROPSOUND = new AudioClip("/latice/sound/Pop.aup3");
+    public static final AudioClip DROPSOUND = new AudioClip(MusicManager.class.getResource("/latice/sound/Pop.wav").toExternalForm());
 
     public static void play(String resourcePath) {
         stop();
