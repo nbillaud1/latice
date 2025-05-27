@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import latice.audio.MusicManager;
@@ -131,9 +132,14 @@ public class LaticeAppSb extends Application{
 		hBoxNames.setPadding(new Insets(20));
 		hBoxNames.getChildren().addAll(vBoxName1,vBoxName2);
 		
+		//Bouton pour afficher les règles
+		Button btnRules = new Button("Règles");
+		btnRules.setOnAction(e -> showRules());
+		
 		//VBox du millieu
 		VBox vbMiddle = new VBox();
-		vbMiddle.getChildren().addAll(hBoxNames, vbBg);
+		vbMiddle.setAlignment(Pos.CENTER);
+		vbMiddle.getChildren().addAll(hBoxNames, vbBg, btnRules);
 		vbMiddle.setSpacing(40);
 		vbMiddle.setPadding(new Insets(250, 0, 0, 0));
 		
@@ -172,6 +178,26 @@ public class LaticeAppSb extends Application{
         primaryStage.show();
 	}
 
+	private void showRules() {
+        Stage rulesWindow = new Stage();
+        rulesWindow.initModality(Modality.APPLICATION_MODAL); // Bloque la fenêtre principale
+        rulesWindow.setTitle("Règles du jeu");
+
+        Label rules = new Label("Voici les règles de ton jeu :\n\n"
+                + "1. Règle 1\n"
+                + "2. Règle 2\n"
+                + "3. Règle 3\n");
+
+        Button btnClose = new Button("Fermer");
+        btnClose.setOnAction(e -> rulesWindow.close());
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(rules, btnClose);
+
+        Scene scene = new Scene(layout, 500, 500);
+        rulesWindow.setScene(scene);
+        rulesWindow.showAndWait(); // Affiche la fenêtre et attend sa fermeture
+    }
 
 	private class ButtonListener implements EventHandler<MouseEvent>{
 		@Override
