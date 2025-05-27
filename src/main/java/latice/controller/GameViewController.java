@@ -22,7 +22,6 @@ import javafx.util.Duration;
 import latice.model.Pool;
 import latice.model.Rack;
 import latice.model.Tile;
-import latice.LaticeAppSb;
 import latice.audio.MusicManager;
 import latice.model.GameBoard;
 import latice.model.Player;

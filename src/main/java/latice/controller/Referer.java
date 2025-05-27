@@ -122,57 +122,45 @@ public class Referer {
 		//Regarde la tuile en haut
 		if (row > 0) {
 			if (gridAlreadyFilled(gameBoard.board(), col, row - 1)) {
-	        	Tile tileNextTo = gameBoard.board().get(row - 1).get(col);
-	        	Colors colorTileNextTo = tileNextTo.color();
-	        	Shape shapeTileNextTo = tileNextTo.shape();
-	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrOfTilesAround ++;
-	        	}
-	        	else {
-	        		putIsNotPossible = true;
-	        	}
+				if(canPutHere(gameBoard, col, row - 1, colorTileToPut, shapeTileToPut)) {
+					nbrOfTilesAround ++;
+				}
+				else {
+					putIsNotPossible = true;
+				}
 			}
 		}
 		//Regarde la tuile du bas
 		if (row < 8) {
 			if (gridAlreadyFilled(gameBoard.board(), col, row + 1)) {
-	        	Tile tileNextTo = gameBoard.board().get(row + 1).get(col);
-	        	Colors colorTileNextTo = tileNextTo.color();
-	        	Shape shapeTileNextTo = tileNextTo.shape();
-	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrOfTilesAround ++;
-	        	}
-	        	else {
-	        		putIsNotPossible = true;
-	        	}
+				if(canPutHere(gameBoard, col , row + 1, colorTileToPut, shapeTileToPut)) {
+					nbrOfTilesAround ++;
+				}
+				else {
+					putIsNotPossible = true;
+				}
 			}
 		}
 		//Regarde la tuile de gauche
 		if (col > 0) {
 			if (gridAlreadyFilled(gameBoard.board(), col - 1, row)) {
-				Tile tileNextTo = gameBoard.board().get(row).get(col - 1);
-	        	Colors colorTileNextTo = tileNextTo.color();
-	        	Shape shapeTileNextTo = tileNextTo.shape();
-	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrOfTilesAround ++;
-	        	}
-	        	else {
-	        		putIsNotPossible = true;
-	        	}
+				if(canPutHere(gameBoard, col - 1, row, colorTileToPut, shapeTileToPut)) {
+					nbrOfTilesAround ++;
+				}
+				else {
+					putIsNotPossible = true;
+				}
 			}
 		}
 		//Regarde la tuile à droite
 		if (col < 8) {
 			if (gridAlreadyFilled(gameBoard.board(), col + 1, row)) {
-				Tile tileNextTo = gameBoard.board().get(row).get(col + 1);
-	        	Colors colorTileNextTo = tileNextTo.color();
-	        	Shape shapeTileNextTo = tileNextTo.shape();
-	        	if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
-	        		nbrOfTilesAround ++;
-	        	}
-	        	else {
-	        		putIsNotPossible = true;
-	        	}
+				if(canPutHere(gameBoard, col + 1, row, colorTileToPut, shapeTileToPut)) {
+					nbrOfTilesAround ++;
+				}
+				else {
+					putIsNotPossible = true;
+				}
 			}
 		}
 		if (putIsNotPossible) {
@@ -180,6 +168,22 @@ public class Referer {
 		}
 		return nbrOfTilesAround;
 	}
+
+	private Boolean canPutHere(GameBoard gameBoard, int col, int row, Colors colorTileToPut, Shape shapeTileToPut) {
+		Boolean putIsNotPossible;
+		Tile tileNextTo = gameBoard.board().get(row).get(col);
+		Colors colorTileNextTo = tileNextTo.color();
+		Shape shapeTileNextTo = tileNextTo.shape();
+		if (colorTileToPut.equals(colorTileNextTo) || shapeTileToPut.equals(shapeTileNextTo)) {
+			putIsNotPossible = true;
+		}
+		else {
+			putIsNotPossible = false;
+		}
+		return putIsNotPossible;
+	}
+	
+	
 	
 	public boolean isSunTile(ArrayList<ArrayList<Tile>> grid, int col, int row) {
 		return grid.get(row).get(col).toString().equals("|  [0m☀[0m  ");
