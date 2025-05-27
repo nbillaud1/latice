@@ -58,36 +58,61 @@ class RefererTest {
 	}
 	
 	@Test
-	void test_check_if_tile_can_be_put() {
+	void test_check_if_tile_cannot_be_put() {
+		GameBoard gameBoard = new GameBoard();
+		Referer referer = new Referer();
+		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
+		Tile tileRedGecko = new Tile(Shape.GECKO, Colors.RED);
+		gameBoard.addBoard(1, 1, tileFeather);
+		gameBoard.printGameBoard();
+		
+		int noTileNext = referer.checkAround(gameBoard, 4, 4, tileFeather);
+		int notCompatibleNext = referer.checkAround(gameBoard, 0, 1, tileRedGecko);
+		
+		assertTrue(noTileNext == 0);
+		assertTrue(notCompatibleNext == -1);
+		
+	}
+	
+	@Test
+	void test_double() {
 		GameBoard gameBoard = new GameBoard();
 		Referer referer = new Referer();
 		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
 		Tile tileTurtle = new Tile(Shape.TURTLE, Colors.GREEN);
-		Tile tileRedGecko = new Tile(Shape.GECKO, Colors.RED);
-		Tile tileGreenGecko = new Tile(Shape.GECKO, Colors.GREEN);
-		gameBoard.addBoard(1, 1, tileFeather);
-		
+
 		gameBoard.addBoard(5, 5, tileTurtle);
 		gameBoard.addBoard(4, 4, tileFeather);
+		
+		int twoNext = referer.checkAround(gameBoard, 3, 4, tileTurtle);
+		assertTrue(twoNext == 2);
+	}
+	
+	@Test
+	void test_trefoil() {
+		GameBoard gameBoard = new GameBoard();
+		Referer referer = new Referer();
+		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
+		Tile tileTurtle = new Tile(Shape.TURTLE, Colors.GREEN);
+		Tile tileGreenGecko = new Tile(Shape.GECKO, Colors.GREEN);
 		
 		gameBoard.addBoard(6, 6, tileFeather);
 		gameBoard.addBoard(7, 7, tileGreenGecko);
 		gameBoard.addBoard(6, 8, tileTurtle);
-		
-		
-		gameBoard.printGameBoard();
-		
-		int noNext = referer.checkAround(gameBoard, 4, 4, tileFeather);
-		int notCompatibleNext = referer.checkAround(gameBoard, 0, 1, tileRedGecko);
-		int twoNext = referer.checkAround(gameBoard, 3, 4, tileTurtle);
 		int threeNext = referer.checkAround(gameBoard, 5, 6, tileTurtle);
-		int fourNext = referer.checkAround(gameBoard, 1, 1, tileGreenGecko);
 		
-		assertTrue(noNext == 0);
-		assertTrue(notCompatibleNext == -1);
-		assertTrue(twoNext == 2);
 		//assertTrue(threeNext == 3);
-		//assertTrue(fourNext == 4);
+	}
+	
+	@Test
+	void test_latice() {
+		GameBoard gameBoard = new GameBoard();
+		Referer referer = new Referer();
+		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
+		Tile tileTurtle = new Tile(Shape.TURTLE, Colors.GREEN);
+		Tile tileGreenGecko = new Tile(Shape.GECKO, Colors.GREEN);
+		int fourNext = referer.checkAround(gameBoard, 1, 1, tileGreenGecko);
+		//TODO assertTrue(fourNext == 4);
 	}
 
 }
