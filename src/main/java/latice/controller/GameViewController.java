@@ -441,7 +441,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
      	else {
      		idErrTile.setVisible(true);
      		//TODO afficher lui et celui en bas avec des contours blanc
-		        idErrTile.setText("Il faut au moins 2 demi-pierres pour acheter une action, et une seule action peut être disponible à la fois");
+		    referer.displayErrorMessage("Il faut au moins 2 demi-pierres pour acheter une action, et une seule action peut être disponible à la fois", idErrTile);
      	}
  	}
 	
@@ -458,7 +458,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
      	}
      	else {
      		idErrTile.setVisible(true);
-		        idErrTile.setText("Il faut au moins une pierre soleil pour acheter une action, et une seule action peut être disponible à la fois");
+		        referer.displayErrorMessage("Il faut au moins une pierre soleil pour acheter une action, et une seule action peut être disponible à la fois", idErrTile);;
      	}
  	}
 	

@@ -228,6 +228,7 @@ public class LaticeAppSb extends Application{
 		Scene scene = new Scene(root,1000,1000);
 		stage.setResizable(false);
 		stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
 		
 		//Définit le background
       	Image image = new Image(urlBackground);

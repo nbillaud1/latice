@@ -545,12 +545,12 @@
             </ImageView>
          </children>
       </GridPane>
-      <Text fx:id="idTxtPile" strokeType="OUTSIDE" strokeWidth="0.0" text="Au tour de" StackPane.alignment="BOTTOM_CENTER">
+      <Text fx:id="idTxtPile" fill="#fffafa" strokeType="OUTSIDE" strokeWidth="0.0" text="Au tour de" StackPane.alignment="BOTTOM_CENTER">
          <StackPane.margin>
             <Insets bottom="180.0" />
          </StackPane.margin>
          <font>
-            <Font name="Calibri" size="29.0" />
+            <Font name="Calibri Bold" size="29.0" />
          </font>
       </Text>
       <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" maxWidth="1000.0" StackPane.alignment="BOTTOM_LEFT">
