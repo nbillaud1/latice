@@ -30,7 +30,7 @@ public class Referer {
         outline.setOffsetX(0);
         outline.setOffsetY(0);
         outline.setColor(Color.WHITE);
-        outline.setRadius(3);
+        outline.setRadius(2);
         outline.setSpread(1);
         idErrTile.setEffect(outline);
 		idErrTile.setVisible(true);

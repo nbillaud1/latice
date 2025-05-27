@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -56,6 +57,13 @@ public class LaticeAppSb extends Application{
         this.lblErrorStart = new Label();
 		this.lblErrorStart.setTextFill(Color.RED);
 	    this.lblErrorStart.setFont(Font.font(null, FontWeight.BOLD, 18));
+	    DropShadow outline = new DropShadow();
+        outline.setOffsetX(0);
+        outline.setOffsetY(0);
+        outline.setColor(Color.WHITE);
+        outline.setRadius(2);
+        outline.setSpread(1);
+        lblErrorStart.setEffect(outline);
 	    lblErrorStart.setMaxWidth(Double.MAX_VALUE);
 
 		//Vbox j1
