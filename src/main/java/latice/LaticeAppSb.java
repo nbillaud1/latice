@@ -1,20 +1,20 @@
 package latice;
 
 import java.io.File;
-import java.net.MalformedURLException;
-
 import javafx.application.Application;
-
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -38,6 +38,7 @@ public class LaticeAppSb extends Application{
 	
 	private Button btnStart;
 	private Button btnBackground;
+	private ImageView btnQuit;
 	private Label lblPlayer1Name;
 	private Label lblPlayer2Name;
 	private Label lblErrorStart;
@@ -55,11 +56,19 @@ public class LaticeAppSb extends Application{
         this.primaryStage = primaryStage;
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         
-        //Titre
+        //Titre + btnQuit
         Label title = new Label("Bienvenue dans notre jeu Latice");
         title.setTextFill(Color.WHITE);
         title.setFont(Font.font(null, FontWeight.BOLD, 50));
+        ButtonListener lstnBtn = new ButtonListener();
+        btnQuit = new ImageView(new Image(getClass().getResourceAsStream("/latice/image/quitter.png")));
+		btnQuit.setOnMouseClicked(lstnBtn);
+		btnQuit.setCursor(Cursor.HAND);
+		HBox hbTop = new HBox();
+		hbTop.getChildren().addAll(title, btnQuit);
+		hbTop.setSpacing(50);
         
         //Erreur au start
         this.lblErrorStart = new Label();
@@ -102,11 +111,12 @@ public class LaticeAppSb extends Application{
 		
 		//Bouton pour commencer
 		this.btnStart = new Button("Commencer la partie !");
-        ButtonListener lstnBtn = new ButtonListener();
 		this.btnStart.setOnMouseClicked(lstnBtn);
 		
 		//VBox background chooser
 	    this.lblBackgPath = new Label("URL du fond d'écran de la partie : " + urlBackground);
+	    lblBackgPath.setTextFill(Color.WHITE);
+	    lblBackgPath.setFont(Font.font(null, FontWeight.BOLD, 15));
 		this.btnBackground = new Button("Changer le fond");
 		this.btnBackground.setOnMouseClicked(lstnBtn);
 		VBox vbBg = new VBox();
@@ -124,6 +134,7 @@ public class LaticeAppSb extends Application{
 		//VBox du millieu
 		VBox vbMiddle = new VBox();
 		vbMiddle.getChildren().addAll(hBoxNames, vbBg);
+		vbMiddle.setSpacing(40);
 		vbMiddle.setPadding(new Insets(250, 0, 0, 0));
 		
 		//VBox et HBox du bas
@@ -138,11 +149,11 @@ public class LaticeAppSb extends Application{
 		hBoxBottom.setAlignment(Pos.CENTER);
 		HBox.setMargin(vBoxBottom, new Insets(0, 0, 50, 0));
 		//BorderPane
-		BorderPane.setAlignment(title, Pos.CENTER);
-		BorderPane.setMargin(title, new Insets(20, 0, 0, 0));
+		BorderPane.setAlignment(hbTop, Pos.CENTER);
+		BorderPane.setMargin(hbTop, new Insets(40, 0, 0, 90));
 		//Root
 		BorderPane root = new BorderPane();
-		root.setTop(title);
+		root.setTop(hbTop);
         root.setCenter(vbMiddle);
         root.setBottom(hBoxBottom);
         
@@ -195,6 +206,9 @@ public class LaticeAppSb extends Application{
 			        urlBackground = "/latice/image/" + selectedFile.getName();
 			        lblBackgPath.setText("URL du fond d'écran de la partie : " + urlBackground);
 			      }
+			}
+			else if(event.getSource() == btnQuit) {
+				Platform.exit();
 			}
 		}
 	}
