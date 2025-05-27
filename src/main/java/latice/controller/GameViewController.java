@@ -189,15 +189,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
             referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
     	}
         
-      //Permet de changer entre le rack p1 et p2
-        idBtnPass.setOnAction(e -> { 
-        	changeTiles();
-        });
-        
-        idBtnQuit.setOnAction(e -> { 
-        	Platform.exit();
-        });
-        
         //Permet de changer son rack et passer son tour
         idBtnChange.setOnAction(e -> {
         	

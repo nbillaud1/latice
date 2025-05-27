@@ -118,7 +118,6 @@ class RefererTest {
 		gameBoard.addBoard(4, 4, tileFeather);
 		gameBoard.addBoard(4, 6, tileGecko);
 		gameBoard.addBoard(3, 5, tileBird);
-		gameBoard.printGameBoard();
 		int fourNext = referer.checkAround(gameBoard, 4, 3, tileFlower);
 		
 		assertEquals(fourNext, 4);
