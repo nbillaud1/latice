@@ -47,7 +47,7 @@ public class LaticeAppSb extends Application{
 	private TextField tfPlayer1Name;
 	private TextField tfPlayer2Name;
 	private Stage primaryStage;
-	private String urlBackground = "/latice/image/fond.png";
+	private String imgBackground = "fond.png";
 	
 	
 
@@ -115,7 +115,7 @@ public class LaticeAppSb extends Application{
 		this.btnStart.setOnMouseClicked(lstnBtn);
 		
 		//VBox background chooser
-	    this.lblBackgPath = new Label("URL du fond d'écran de la partie : " + urlBackground);
+	    this.lblBackgPath = new Label("Fond d'écran de la partie : " + imgBackground);
 	    lblBackgPath.setTextFill(Color.WHITE);
 	    lblBackgPath.setFont(Font.font(null, FontWeight.BOLD, 15));
 		this.btnBackground = new Button("Changer le fond");
@@ -164,7 +164,7 @@ public class LaticeAppSb extends Application{
         root.setBottom(hBoxBottom);
         
         //Définit le background
-      	Image image = new Image(urlBackground);
+      	Image image = new Image("/latice/image/" + imgBackground);
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
@@ -216,8 +216,8 @@ public class LaticeAppSb extends Application{
 					lblErrorStart.setText("10 caractères maximum par noms");
 				}
 				else {
+					lblErrorStart.setText("");
 					try {
-						lblErrorStart.setText("");
 						startTheGame(primaryStage);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -226,11 +226,11 @@ public class LaticeAppSb extends Application{
 			}
 			else if(event.getSource() == btnBackground) {
 				FileChooser fileChooser = new FileChooser();
-			      fileChooser.setTitle("Choisir un fond :");
+			      fileChooser.setTitle("Choisir une image provenant de : latice/image/ ");
 			      File selectedFile = fileChooser.showOpenDialog(primaryStage);
 			      if (selectedFile != null) {
-			        urlBackground = "/latice/image/" + selectedFile.getName();
-			        lblBackgPath.setText("URL du fond d'écran de la partie : " + urlBackground);
+			        imgBackground = selectedFile.getName();
+			        lblBackgPath.setText("Fond d'écran de la partie : " + imgBackground);
 			      }
 			}
 			else if(event.getSource() == btnQuit) {
@@ -254,21 +254,28 @@ public class LaticeAppSb extends Application{
 		Scene scene = new Scene(root,1000,1000);
 		stage.setResizable(false);
 		stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
 		
 		//Définit le background
-      	Image image = new Image(urlBackground);
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        Background background = new Background(backgroundImage);
-        root.setBackground(background);
-		stage.setScene(scene);
-		stage.setTitle("Jeu du Latice");
-		stage.show();
-		
-		//Music du plateau
-		MusicManager.play("/latice/sound/Latice_theme.wav");
-		
-		primaryStage.close();
+		try {
+	      	Image image = new Image("/latice/image/" + imgBackground);
+	        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+	        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+	        Background background = new Background(backgroundImage);
+	        root.setBackground(background);
+	        stage.setScene(scene);
+			stage.setTitle("Jeu du Latice");
+			stage.show();
+			
+			//Music du plateau
+			MusicManager.play("/latice/sound/Latice_theme.wav");
+			
+			primaryStage.close();
+		}
+		catch(IllegalArgumentException e) {
+			lblErrorStart.setText("L'image selectionnée n'est pas valide.");
+		}
+			
     }
 	
 	public String player1Name() {
