@@ -181,9 +181,11 @@ public class LaticeAppSb extends Application{
 	private void showRules() {
         Stage rulesWindow = new Stage();
         rulesWindow.initModality(Modality.APPLICATION_MODAL); // Bloque la fenêtre principale
+        rulesWindow.setResizable(false);
+        rulesWindow.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
         rulesWindow.setTitle("Règles du jeu");
-
-        Label rules = new Label("Voici les règles de ton jeu :\n\n"
+        //TODO faire les règles
+        Label rules = new Label("Voici les règles du jeu :\n\n"
                 + "1. Règle 1\n"
                 + "2. Règle 2\n"
                 + "3. Règle 3\n");
