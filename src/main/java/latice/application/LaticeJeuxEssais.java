@@ -99,8 +99,6 @@ public class LaticeJeuxEssais {
 			tilesCounter++;
 			System.out.println(tilesCounter+ " " + tile.toString());
 		}
-		//TODO vérifier que le joueur ne peux pas avoir de points négatifs
-		
 	}
 
 	

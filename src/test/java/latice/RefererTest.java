@@ -122,5 +122,10 @@ class RefererTest {
 		
 		assertEquals(fourNext, 4);
 	}
+	
+	//TODO vérifier que le joueur ne peux pas avoir de points (pierres) négatifs
+	
+	//TODO vérifier que le joueur à 3 sunStones si il en avais 4 à la fin de son tour
+	
 
 }
