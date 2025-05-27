@@ -1,5 +1,8 @@
 package latice;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import javafx.application.Application;
 
 import javafx.event.EventHandler;
@@ -25,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import latice.audio.MusicManager;
@@ -33,12 +37,15 @@ import latice.controller.GameViewController;
 public class LaticeAppSb extends Application{
 	
 	private Button btnStart;
+	private Button btnBackground;
 	private Label lblPlayer1Name;
 	private Label lblPlayer2Name;
 	private Label lblErrorStart;
+	private Label lblBackgPath;
 	private TextField tfPlayer1Name;
 	private TextField tfPlayer2Name;
 	private Stage primaryStage;
+	private String urlBackground = "/latice/image/fond.png";
 	
 	
 
@@ -47,6 +54,7 @@ public class LaticeAppSb extends Application{
 	public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
         
         //Titre
         Label title = new Label("Bienvenue dans notre jeu Latice");
@@ -97,19 +105,33 @@ public class LaticeAppSb extends Application{
         ButtonListener lstnBtn = new ButtonListener();
 		this.btnStart.setOnMouseClicked(lstnBtn);
 		
-	//Configure l'empilage
-		//HBox du milieu
-		HBox hBoxMidle = new HBox();
-		hBoxMidle.setAlignment(Pos.CENTER);
-		hBoxMidle.setSpacing(50);
-		hBoxMidle.setPadding(new Insets(20));
-		hBoxMidle.getChildren().addAll(vBoxName1,vBoxName2);
+		//VBox background chooser
+	    this.lblBackgPath = new Label("URL du fond d'écran de la partie : " + urlBackground);
+		this.btnBackground = new Button("Changer le fond");
+		this.btnBackground.setOnMouseClicked(lstnBtn);
+		VBox vbBg = new VBox();
+		vbBg.getChildren().addAll(btnBackground, lblBackgPath);
+		vbBg.setAlignment(Pos.CENTER);
+		vbBg.setSpacing(10);
+		
+		//HBox des deux noms
+		HBox hBoxNames = new HBox();
+		hBoxNames.setAlignment(Pos.CENTER);
+		hBoxNames.setSpacing(50);
+		hBoxNames.setPadding(new Insets(20));
+		hBoxNames.getChildren().addAll(vBoxName1,vBoxName2);
+		
+		//VBox du millieu
+		VBox vbMiddle = new VBox();
+		vbMiddle.getChildren().addAll(hBoxNames, vbBg);
+		vbMiddle.setPadding(new Insets(250, 0, 0, 0));
+		
 		//VBox et HBox du bas
 		VBox vBoxBottom = new VBox();
 		vBoxBottom.setMaxWidth(500);
         vBoxBottom.setMaxHeight(500);
 		vBoxBottom.setSpacing(100);
-		vBoxBottom.getChildren().addAll(this.lblErrorStart,btnStart);
+		vBoxBottom.getChildren().addAll(this.lblErrorStart, btnStart);
 		vBoxBottom.setAlignment(Pos.CENTER);
 		
 		HBox hBoxBottom = new HBox(vBoxBottom);
@@ -121,11 +143,11 @@ public class LaticeAppSb extends Application{
 		//Root
 		BorderPane root = new BorderPane();
 		root.setTop(title);
-        root.setCenter(hBoxMidle);
+        root.setCenter(vbMiddle);
         root.setBottom(hBoxBottom);
         
         //Définit le background
-      	Image image = new Image("/latice/image/fond.png");
+      	Image image = new Image(urlBackground);
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
@@ -165,6 +187,15 @@ public class LaticeAppSb extends Application{
 					}
 				}
 			}
+			else if(event.getSource() == btnBackground) {
+				FileChooser fileChooser = new FileChooser();
+			      fileChooser.setTitle("Choisir un fond :");
+			      File selectedFile = fileChooser.showOpenDialog(primaryStage);
+			      if (selectedFile != null) {
+			        urlBackground = "/latice/image/" + selectedFile.getName();
+			        lblBackgPath.setText("URL du fond d'écran de la partie : " + urlBackground);
+			      }
+			}
 		}
 	}
 	
@@ -185,7 +216,7 @@ public class LaticeAppSb extends Application{
 		stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
 		
 		//Définit le background
-      	Image image = new Image("/latice/image/fond.png");
+      	Image image = new Image(urlBackground);
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
