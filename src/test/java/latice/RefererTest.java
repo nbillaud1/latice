@@ -62,15 +62,14 @@ class RefererTest {
 		GameBoard gameBoard = new GameBoard();
 		Referer referer = new Referer();
 		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
-		Tile tileRedGecko = new Tile(Shape.GECKO, Colors.RED);
+		Tile tileGecko = new Tile(Shape.GECKO, Colors.RED);
+		
 		gameBoard.addBoard(1, 1, tileFeather);
-		gameBoard.printGameBoard();
-		
 		int noTileNext = referer.checkAround(gameBoard, 4, 4, tileFeather);
-		int notCompatibleNext = referer.checkAround(gameBoard, 0, 1, tileRedGecko);
+		int notCompatibleNext = referer.checkAround(gameBoard, 0, 1, tileGecko);
 		
-		assertTrue(noTileNext == 0);
-		assertTrue(notCompatibleNext == -1);
+		assertEquals(noTileNext, 0);
+		assertEquals(notCompatibleNext, -1);
 		
 	}
 	
@@ -83,9 +82,9 @@ class RefererTest {
 
 		gameBoard.addBoard(5, 5, tileTurtle);
 		gameBoard.addBoard(4, 4, tileFeather);
+		int twoNext = referer.checkAround(gameBoard, 4, 3, tileTurtle);
 		
-		int twoNext = referer.checkAround(gameBoard, 3, 4, tileTurtle);
-		assertTrue(twoNext == 2);
+		assertEquals(twoNext, 2);
 	}
 	
 	@Test
@@ -94,14 +93,15 @@ class RefererTest {
 		Referer referer = new Referer();
 		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
 		Tile tileTurtle = new Tile(Shape.TURTLE, Colors.GREEN);
-		Tile tileGreenGecko = new Tile(Shape.GECKO, Colors.GREEN);
+		Tile tileGecko = new Tile(Shape.GECKO, Colors.GREEN);
+		Tile tileBird = new Tile(Shape.BIRD, Colors.GREEN);
 		
-		gameBoard.addBoard(6, 6, tileFeather);
-		gameBoard.addBoard(7, 7, tileGreenGecko);
-		gameBoard.addBoard(6, 8, tileTurtle);
-		int threeNext = referer.checkAround(gameBoard, 5, 6, tileTurtle);
+		gameBoard.addBoard(5, 5, tileTurtle);
+		gameBoard.addBoard(4, 4, tileFeather);
+		gameBoard.addBoard(4, 6, tileGecko);
+		int threeNext = referer.checkAround(gameBoard, 4, 3, tileBird);
 		
-		//assertTrue(threeNext == 3);
+		assertEquals(threeNext, 3);
 	}
 	
 	@Test
@@ -110,9 +110,18 @@ class RefererTest {
 		Referer referer = new Referer();
 		Tile tileFeather = new Tile(Shape.FEATHER, Colors.GREEN);
 		Tile tileTurtle = new Tile(Shape.TURTLE, Colors.GREEN);
-		Tile tileGreenGecko = new Tile(Shape.GECKO, Colors.GREEN);
-		int fourNext = referer.checkAround(gameBoard, 1, 1, tileGreenGecko);
-		//TODO assertTrue(fourNext == 4);
+		Tile tileGecko = new Tile(Shape.GECKO, Colors.GREEN);
+		Tile tileBird = new Tile(Shape.BIRD, Colors.GREEN);
+		Tile tileFlower = new Tile(Shape.FLOWER, Colors.GREEN);
+		
+		gameBoard.addBoard(5, 5, tileTurtle);
+		gameBoard.addBoard(4, 4, tileFeather);
+		gameBoard.addBoard(4, 6, tileGecko);
+		gameBoard.addBoard(3, 5, tileBird);
+		gameBoard.printGameBoard();
+		int fourNext = referer.checkAround(gameBoard, 4, 3, tileFlower);
+		
+		assertEquals(fourNext, 4);
 	}
 
 }
