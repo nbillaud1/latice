@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Player {
 	private ArrayList<Tile> pool;
 	private Rack rack;
-	private int points;
+	private int halfStone;
+	private int sunStone;
 	private String name;
 	private int move;
 	
@@ -13,15 +14,21 @@ public class Player {
 		this.pool = pool;
 		this.rack = rack;
 		this.name = name;
-		this.points = 0; //Points du joueur
+		this.halfStone = 0;
+		this.sunStone = 0;
 		this.move = 1; //Permet de savoir si le joueur peut encore jouer ou non		
 	}
 	
-	public void buyExtraMove(){
-		if (points >= 2 && move == 0) {
-			points -= 2;
+	public void buyExtraMoveWithHalfStones(){
+		if (halfStone >= 2 && move == 0) {
+			halfStone -= 2;
 			move = 1;
 		}
+	}
+	
+	public void buyExtraMoveWithSunStones(){
+		sunStone -= 1;
+		move = 1;
 	}
 	
 	//Permet de stocker les tuiles restantes du rack dans 
@@ -47,8 +54,16 @@ public class Player {
 		}	
 	}
 	
-	public void addPoints(int points) {
-		this.points += points;
+	public void addHalfStones() {
+		this.halfStone += 1;
+	}
+	
+	public void addSunStones(int sunStone) {
+		this.sunStone += sunStone;
+	}
+	
+	public void threeSunStones() {
+		sunStone = 3;
 	}
 
 	public Rack rack() {
@@ -63,8 +78,11 @@ public class Player {
 		this.move = nbr;
 	}
 	
-	public int points() {
-		return points;
+	public int halfStone() {
+		return halfStone;
+	}
+	public int sunStone() {
+		return sunStone;
 	}
 	
 	public String name() {

@@ -21,7 +21,7 @@ public class Referer {
 	//Permet d'afficher le joueur qui dois jouer et son compteur d'action
 	public void setPTurnAndAction(Player player, Text idTxtPile, Text idMoves){
         idMoves.setText("Actions restantes : " + player.move());
-		idTxtPile.setText("Au tour de " + player.name() + " (" + player.points() + " points)");
+		idTxtPile.setText("Au tour de " + player.name() + " (" + player.halfStone() + " demi-pierres et " + player.sunStone() + " pierre Soleil)");
 	}
 	
 	//Permet d'afficher un message d'erreur
@@ -51,19 +51,19 @@ public class Referer {
         AnimationTimer doubleAnimation = animateText(idTxtDouble);
 		
 		if (nbrOfTilesAround == 2) {
-     		player.addPoints(1);
+     		player.addHalfStones();
      		doubleAnimation.start();
      	}
  		else if (nbrOfTilesAround == 3) {
- 			player.addPoints(2);
+ 			player.addSunStones(1);
  			trefoilAnimation.start();
  		}
  		else if (nbrOfTilesAround == 4) {
- 			player.addPoints(4);
+ 			player.addSunStones(2);
  			laticeAnimation.start();
  		}
  		if (isSunTile(grid, col, row)) {
-			player.addPoints(2);
+			player.addSunStones(1);
 		}
  		player.Move(0);
  		setPTurnAndAction(player, idTxtPile, idMoves);
@@ -113,7 +113,6 @@ public class Referer {
 		}
 	}
 	
-	//TODO voir si c'est possible de refactor car beaucoup de répétitions ;)
 	public int checkAround(GameBoard gameBoard, int col, int row, Tile tile) {
 		Boolean putIsNotPossible = false;
 		int nbrOfTilesAround = 0;
