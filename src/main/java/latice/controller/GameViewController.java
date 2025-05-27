@@ -7,7 +7,10 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -163,11 +166,18 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
+    	ContextMenu contextM = new ContextMenu();
+    	MenuItem miHalfStone = new MenuItem("Payer en demi-pierres");
+        MenuItem miSunStone = new MenuItem("Payer en pierre soleil");
+        miHalfStone.setOnAction(e -> buyExtraMoveHalfStone());
+        miSunStone.setOnAction(e -> buyExtraMoveSunStone());
+        contextM.getItems().addAll(miHalfStone, miSunStone);
     	player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
     	player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
     	roundCounter = 0;
     	idTurnNumber.setText("Tour 1 :");
     	idErrTile.setVisible(false);
+    	
     	
     	if (isP2) {
         	idPilePlayer1.setVisible(false);
@@ -190,7 +200,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
         //Permet de changer son rack et passer son tour
         idBtnChange.setOnAction(e -> {
-        	
         	if (isP2 && player2.move() == 1) {
         		player2.switchRack();
         		rackPlayer2 = player2.rack();
@@ -203,23 +212,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	}
         	else {
         		referer.displayErrorMessage("Vous ne possédez plus d'actions restantes", idErrTile);
-        	}
-        	
+        	}        	
         });
         
       //Permet d'acheter une action suplémentaire
     	idBtnExtraMove.setOnAction(e -> {
-    		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
-        		player2.buyExtraMove();
-        		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
-        	}
-        	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
-        		player1.buyExtraMove();
-        		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
-        	}
-        	else {
-        		referer.displayErrorMessage("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois", idErrTile);
-        	}
+    		contextM.show(idBtnExtraMove, Side.BOTTOM, 0, 0);
     	});
        
         idRackInvisibleTile1.setOnDragDetected(event -> {
@@ -372,10 +370,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
     		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
 
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
+            if (player2.sunStone() > 3) {
+            	player2.threeSunStones();
+            }
 		    
 		}
 		else {
-			
 			player1.pass();
 		    player1.completeRack(lstPlayer1PlayedTilesIndex);
 		    emptyLstPlayer2PlayedTilesIndex();
@@ -386,6 +386,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    player2.Move(1);
     		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
+            if (player1.sunStone() > 3) {
+            	player1.threeSunStones();
+            }
 		}
 		isP2 = !isP2;
 		roundCounter ++;
@@ -424,24 +427,40 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idPilePlayer2.setVisible(!isP2);
 	}
 	
-	@FXML
- 	public void buyExtraMove() {
- 		if (isP2 && player2.points() >= 2 && player2.move() == 0) {
-     		player2.buyExtraMove();
-     		idTxtPile.setText("Au tour de " + player2Name + " (" + player2.points() + " points)");
-	        	idMovesP2.setText("Actions restantes : " + player2.move());
+ 	public void buyExtraMoveHalfStone() {
+ 		if (isP2 && player2.halfStone() >= 2 && player2.move() == 0) {
+     		player2.buyExtraMoveWithHalfStones();
+     		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
+     		idErrTile.setVisible(false);
      	}
-     	else if (!isP2 && player1.points() >= 2 && player1.move() == 0) {
-     		player1.buyExtraMove();
-     		idTxtPile.setText("Au tour de " + player1Name + " (" + player1.points() + " points)");
-	        	idMovesP1.setText("Actions restantes : " + player1.move());
+     	else if (!isP2 && player1.halfStone() >= 2 && player1.move() == 0) {
+     		player1.buyExtraMoveWithHalfStones();
+     		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
+     		idErrTile.setVisible(false);
      	}
      	else {
      		idErrTile.setVisible(true);
-		        idErrTile.setText("Il faut au moins 2 points pour acheter une action, et une seule action peut être disponible à la fois");
+     		//TODO afficher lui et celui en bas avec des contours blanc
+		        idErrTile.setText("Il faut au moins 2 demi-pierres pour acheter une action, et une seule action peut être disponible à la fois");
      	}
  	}
-
+	
+ 	public void buyExtraMoveSunStone() {
+ 		if (isP2 && player2.sunStone() >= 1 && player2.move() == 0) {
+     		player2.buyExtraMoveWithSunStones();
+     		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
+     		idErrTile.setVisible(false);
+     	}
+     	else if (!isP2 && player1.sunStone() >= 1 && player1.move() == 0) {
+     		player1.buyExtraMoveWithSunStones();
+     		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
+     		idErrTile.setVisible(false);
+     	}
+     	else {
+     		idErrTile.setVisible(true);
+		        idErrTile.setText("Il faut au moins une pierre soleil pour acheter une action, et une seule action peut être disponible à la fois");
+     	}
+ 	}
 	
 	//Éteint le jeu
 	private void shutTheGame() {
@@ -492,8 +511,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	}
 
 	@Override
-	public void handle(MouseEvent event) {
-		// TODO Auto-generated method stub
-		
+	public void handle(MouseEvent event) {		
 	}
 }
