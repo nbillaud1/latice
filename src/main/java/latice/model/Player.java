@@ -48,11 +48,15 @@ public class Player {
 	}
 	
 	public void completeRack(ArrayList<Integer> index, int nbrOfTilesLeftInThePool) {
-		if (nbrOfTilesLeftInThePool <= 5) {
+		if (nbrOfTilesLeftInThePool >= 5 || index.size() < nbrOfTilesLeftInThePool) {
 			for(int ind : index) {
 				rack.tiles().set(ind, this.pool.get(0)); // piocher sur le dessus de la Pool.
 				this.pool.remove(0);
 			}	
+		}
+		else {
+			rack.tiles().add(this.pool.get(0));
+			this.pool.remove(0);
 		}
 	}
 	

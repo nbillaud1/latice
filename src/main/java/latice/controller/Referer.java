@@ -78,7 +78,6 @@ public class Referer {
 		}
 		
 		String shape = url.substring(indexOfLastSlash + 1,indexOfLastSlash + 3);
-		System.out.println("coucou");
 		if (shape.equals("fl")){
 			return Shape.FLOWER;
 		}
