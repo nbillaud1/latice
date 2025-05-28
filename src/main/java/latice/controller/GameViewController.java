@@ -368,7 +368,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		if (isP2) {
 			
 			player2.pass();
-		    player2.completeRack(lstPlayer2PlayedTilesIndex);
+		    player2.completeRack(lstPlayer2PlayedTilesIndex, poolPlayer2.size());
 		    emptyLstPlayer1PlayedTilesIndex();
 			createAndSwitchTiles(rackPlayer1);
 		    
@@ -384,7 +384,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		else {
 			player1.pass();
-		    player1.completeRack(lstPlayer1PlayedTilesIndex);
+		    player1.completeRack(lstPlayer1PlayedTilesIndex, poolPlayer1.size());
 		    emptyLstPlayer2PlayedTilesIndex();
 			
 			createAndSwitchTiles(rackPlayer2);

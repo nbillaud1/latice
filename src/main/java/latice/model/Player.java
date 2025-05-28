@@ -47,11 +47,13 @@ public class Player {
 		move = 0;
 	}
 	
-	public void completeRack(ArrayList<Integer> index) {
-		for(int ind : index) {
-			rack.tiles().set(ind, this.pool.get(0)); // piocher sur le dessus de la Pool.
-			this.pool.remove(0);
-		}	
+	public void completeRack(ArrayList<Integer> index, int nbrOfTilesLeftInThePool) {
+		if (nbrOfTilesLeftInThePool <= 5) {
+			for(int ind : index) {
+				rack.tiles().set(ind, this.pool.get(0)); // piocher sur le dessus de la Pool.
+				this.pool.remove(0);
+			}	
+		}
 	}
 	
 	public void addHalfStones() {
