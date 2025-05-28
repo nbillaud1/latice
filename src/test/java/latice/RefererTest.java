@@ -127,5 +127,7 @@ class RefererTest {
 	
 	//TODO vérifier que le joueur à 3 sunStones si il en avais 4 à la fin de son tour
 	
+	//TODO vérifier qu'on puisse treminer le jeu lorsque un des deux joueurs n'a plus de cartes 
+	
 
 }

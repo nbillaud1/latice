@@ -21,7 +21,7 @@ public class Referer {
 	//Permet d'afficher le joueur qui dois jouer et son compteur d'action
 	public void setPTurnAndAction(Player player, Text idTxtPile, Text idMoves){
         idMoves.setText("Actions restantes : " + player.move());
-		idTxtPile.setText("Au tour de " + player.name() + " (" + player.halfStone() + " demi-pierres et " + player.sunStone() + " pierre Soleil)");
+		idTxtPile.setText("Au tour de " + player.name() + " (" + player.halfStone() + " demi pierres et " + player.sunStone() + " pierre Soleil)");
 	}
 	
 	//Permet d'afficher un message d'erreur
