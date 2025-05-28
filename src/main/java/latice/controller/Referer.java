@@ -70,7 +70,15 @@ public class Referer {
 	}
 	
 	public Shape findShape(String url) {
-		String shape = url.substring(137,139);
+		int indexOfLastSlash = 0;
+		for(int i=0; i<url.length(); i++) {
+			if(url.charAt(i) == '/') {
+				indexOfLastSlash = i;
+			}
+		}
+		
+		String shape = url.substring(indexOfLastSlash + 1,indexOfLastSlash + 3);
+		System.out.println("coucou");
 		if (shape.equals("fl")){
 			return Shape.FLOWER;
 		}

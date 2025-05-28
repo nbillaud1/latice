@@ -288,7 +288,6 @@ public class GameViewController implements EventHandler<MouseEvent>{
  		        int row = (int)(event.getY()/ squareHeight);
  		        Tile tileToAddOnGameBoard = new Tile(referer.findShape(Tile.url(imgTile)), referer.findColor(Tile.url(imgTile)));
  		        int nbrOfTilesAround = referer.checkAround(gameBoard, col, row, tileToAddOnGameBoard);
-
  		        if((!hasToPlayOnTheMoon || (col == 4 && row == 4)) && canContinue == 1) {
 	 		        if(!referer.gridAlreadyFilled(gameBoard.board(), col, row) &&  (nbrOfTilesAround > 0 || hasToPlayOnTheMoon)) {
 	 		        	idErrTile.setVisible(false);
