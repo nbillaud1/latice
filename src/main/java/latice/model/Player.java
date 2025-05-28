@@ -48,15 +48,21 @@ public class Player {
 	}
 	
 	public void completeRack(ArrayList<Integer> index, int nbrOfTilesLeftInThePool) {
-		if (nbrOfTilesLeftInThePool >= 5 || index.size() < nbrOfTilesLeftInThePool) {
+		if (nbrOfTilesLeftInThePool >= 5 || index.size() <= nbrOfTilesLeftInThePool) {
 			for(int ind : index) {
 				rack.tiles().set(ind, this.pool.get(0)); // piocher sur le dessus de la Pool.
 				this.pool.remove(0);
 			}	
 		}
 		else {
-			rack.tiles().add(this.pool.get(0));
-			this.pool.remove(0);
+			for(int ind : index) {
+				rack.tiles().set(ind, this.pool.get(0)); // Mettre une tuile vide 
+				this.pool.remove(0);
+			}	
+			for(int i = 0; i<nbrOfTilesLeftInThePool ; i++) {
+				rack.tiles().set(index.get(i),this.pool.get(0));
+				this.pool.remove(i);
+			}
 		}
 	}
 	
