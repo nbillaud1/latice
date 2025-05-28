@@ -184,19 +184,54 @@ public class LaticeAppSb extends Application{
         rulesWindow.setResizable(false);
         rulesWindow.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
         rulesWindow.setTitle("Règles du jeu");
-        //TODO faire les règles
         Label rules = new Label("Voici les règles du jeu :\n\n"
-                + "1. Règle 1\n"
-                + "2. Règle 2\n"
-                + "3. Règle 3\n");
-
+                + "Le Latice est un jeu de stratégie où vous devez associer des cases de la même couleur ou \n"
+                + "de la même forme.\r\n"
+                + "\r\n"
+                + "Victoire:\r\n"
+                + "Le gagnant est celui qui arrive à ce débarrasser de toutes ses tuiles, ou dans le cas de notre \n"
+                + "application, celui qui a le moins de tuiles à la fin du nombre de tour impartie (10 minimum).\r\n"
+                + "\r\n"
+                + "Déroulement:\r\n"
+                + "La première tuile doit être placée sur la lune au centre.\r\n"
+                + "Par la suite, on ne peux poser une tuile seulement à côté d'une autre. Mais, Il faut qu'elle soit \n"
+                + "de la même forme ou couleur. Attention, les diagonales ne comptent pas. \r\n"
+                + "Chaque tour, chaques joueurs se voit accordé une action.\r\n"
+                + "Si vous ne pouvez jouer où souhaitez juste changer votre rack, vous pouvez utilisez une action. \r\n"
+                + "Attention! Cette action remplace l'intégralité de votre rack et passe votre tour.\r\n"
+                + "Si vous ne pouvez jouer et ou n'avez pas la possibilité de changer votre rack, vous pouvez \n"
+                + "aussi passer votre tour.\r\n"
+                + "A la fin de votre tour vous piochez le nombre de tuiles manquantes de votre rack pour avoir \n"
+                + "lors de votre prochain tour 5 tuiles dedans (sauf cas où la pioche est vide).\r\n"
+                + "En jouant, vous pouvez obtenir différentes pierres qui vous permettrons de les échanger contre \n"
+                + "des actions supplémentaires.\r\n"
+                + "Une action suplémentaire peut être acquise en échangeant une pierre soleil, ou bien deux demi \n"
+                + "pierres avec l'arbitre (l'ordinateur).\r\n"
+                + "\r\n"
+                + "Pierres:\r\n"
+                + "Pour obtenir une pierre, il faut que tu pause ta tuile de manière à ce qu'elle aie au minimum \n"
+                + "deux tuiles adjacentes:\r\n"
+                + "	- Deux tuiles te procure une demi pierre et forment un Double.\r\n"
+                + "	- Trois tuiles te procurent une pierre soleil et forment un Trefoil.\r\n"
+                + "	- Quatre tuiles te procurent deux pierres soleil et forment un Latice.\r\n"
+                + "Tu peux aussi obtenir une pierre soleil en pausant ta tuile sur un soleil. La limite de demi pierres \n"
+                + "est infini, mais si tu finis ton tour avec plus de 3 pierres soleil l'excédent sera retiré.\r\n"
+                + "\r\n"
+                + ""
+                );
+        rules.setFont(new Font("Arial", 15));
+        
+        
         Button btnClose = new Button("Fermer");
         btnClose.setOnAction(e -> rulesWindow.close());
+        HBox hb = new HBox();
+        hb.getChildren().add(btnClose);
+        hb.setAlignment(Pos.CENTER);
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(rules, btnClose);
+        layout.getChildren().addAll(rules, hb);
 
-        Scene scene = new Scene(layout, 500, 500);
+        Scene scene = new Scene(layout, 640, 670);
         rulesWindow.setScene(scene);
         rulesWindow.showAndWait(); // Affiche la fenêtre et attend sa fermeture
     }
