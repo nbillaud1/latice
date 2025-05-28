@@ -10,8 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -54,7 +54,6 @@ public class LaticeAppSb extends Application{
 	private TextField tfPlayer2Name;
 	private Stage primaryStage;
 	private String imgBackground = "fond.png";
-	private int turnNumber;
 	
 	
 
@@ -143,35 +142,10 @@ public class LaticeAppSb extends Application{
 		Button btnRules = new Button("Règles");
 		btnRules.setOnAction(e -> showRules());
 		
-		//Choix du nombre de tours
-		ComboBox<Integer> cbTurnNbr = new ComboBox<>();
-        cbTurnNbr.getItems().addAll(10,12,14,16,18,20);
-        cbTurnNbr.setValue(10);
-        turnNumber = cbTurnNbr.getValue();
-        cbTurnNbr.setOnAction(e -> {
-        	turnNumber = cbTurnNbr.getValue();
-        });
-        
-        //Label nombre de tours
-        Label lbTurnNbr = new Label("Nombre de tours:");
-        lbTurnNbr.setTextFill(Color.WHITE);
-        lbTurnNbr.setFont(Font.font(null, FontWeight.BOLD, 15));
-        
-        //HBox du nombre de tour
-        HBox hbTurnNbr = new HBox(10);
-        hbTurnNbr.setAlignment(Pos.CENTER);
-        hbTurnNbr.getChildren().addAll(lbTurnNbr,cbTurnNbr);
-        
-        
-        //HBox dans la VBox du milieu qui contient les règles et le nombre de tours
-        HBox hbMidle = new HBox(500);
-        hbMidle.setAlignment(Pos.CENTER);
-        hbMidle.getChildren().addAll(hbTurnNbr,btnRules);
-		
 		//VBox du millieu
 		VBox vbMiddle = new VBox();
 		vbMiddle.setAlignment(Pos.CENTER);
-		vbMiddle.getChildren().addAll(hBoxNames, vbBg, hbMidle);
+		vbMiddle.getChildren().addAll(hBoxNames, vbBg, btnRules);
 		vbMiddle.setSpacing(40);
 		vbMiddle.setPadding(new Insets(250, 0, 0, 0));
 		
@@ -217,9 +191,10 @@ public class LaticeAppSb extends Application{
         rulesWindow.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
         rulesWindow.initStyle(StageStyle.UNDECORATED);
         rulesWindow.setTitle("Règles du jeu");
-        Label rules = new Label("Voici les règles du jeu :\n\n"
-                + "Le Latice est un jeu de stratégie où vous devez associer des cases de la même couleur ou \n"
-                + "de la même forme.\r\n"
+        Label rulesTitle = new Label("Voici les règles du jeu :\n\n");
+        Label rules = new Label(
+                "Le Latice est un jeu de stratégie où vous devez associer des cases de la même \n"
+                + "couleur ou de la même forme.\r\n"
                 + "\r\n"
                 + "Victoire:\r\n"
                 + "Le gagnant est celui qui arrive à ce débarrasser de toutes ses tuiles, ou dans le cas \n"
@@ -230,12 +205,12 @@ public class LaticeAppSb extends Application{
                 + "Par la suite, on ne peut poser une tuile seulement à côté d'une autre. Mais, Il faut \n"
                 + "qu'elle soit de la même forme ou couleur. Attention, les diagonales ne comptent pas. \r\n"
                 + "Chaque tour, chaque joueur se voit accorder une action.\r\n"
-                + "Si vous ne pouvez jouer où si vous souhaitez juste changer votre rack, vous pouvez utiliser \r\n"
-                + "une action. Attention! Cette action remplace l'intégralité de votre rack et passe votre tour.\r\n"
-                + "Si vous ne pouvez jouer et/ou n'avez pas la possibilité de changer votre rack, vous pouvez \n"
-                + "aussi passer votre tour.\r\n"
-                + "A la fin de votre tour vous piochez le nombre de tuiles nécessaire pour compléter votre rack \n"
-                + "(sauf cas où la pioche est vide).\r\n"
+                + "Si vous ne pouvez jouer où si vous souhaitez juste changer votre rack, vous \r\n"
+                + "pouvez utiliser une action. Attention! Cette action remplace l'intégralité \r\n"
+                + "de votre rack et passe votre tour. Si vous ne pouvez jouer et/ou n'avez pas la \n"
+                + "possibilité de changer votre rack, vous pouvez aussi passer votre tour.\r\n"
+                + "A la fin de votre tour vous piochez le nombre de tuiles nécessaire pour compléter\n"
+                + "votre rack (sauf cas où la pioche est vide).\r\n"
                 + "En jouant, vous pouvez obtenir différentes pierres (pierre soleil ou demi pierre) \n"
                 + "vous servant à acheter des actions supplémentaires.\r\n"
                 + "\r\n"
@@ -248,9 +223,11 @@ public class LaticeAppSb extends Application{
                 + "Poser sa tuile sur un soleil vous permet aussi d'obtenir une pierre soleil. Il n'y a pas \n"
                 + "de limite de demi pierres, mais si vous finissez votre tour avec plus de 3 pierres soleil \r\n"
                 + "l'excédent sera retiré. \r\n"
-                + ""
-                );
-        rules.setFont(new Font("Arial", 15));
+                + "");
+        rules.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
+        rulesTitle.setFont(Font.font("Calibri", FontWeight.BOLD, 25));
+        rulesTitle.setUnderline(true);
+        
         
         ImageView btnClose = new ImageView(new Image(getClass().getResourceAsStream("/latice/image/quitter.png")));
         btnClose.setFitHeight(40);
@@ -261,15 +238,21 @@ public class LaticeAppSb extends Application{
         hb.getChildren().add(btnClose);
         hb.setAlignment(Pos.CENTER);
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(rules, hb);
-        layout.setPadding(new Insets(25, 15, 10, 20));
-        BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, new CornerRadii(0), new BorderWidths(3));
-        Border border = new Border(borderStroke);
-        layout.setBorder(border);
-        layout.setBorder(new Border(borderStroke));
+        VBox content = new VBox(10);
+        content.getChildren().addAll(rulesTitle, rules, hb);
+        content.setPadding(new Insets(25, 15, 10, 20));
+        Image image = new Image("/latice/image/fond_regles.png");
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, true);
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background background = new Background(backgroundImage);
+        content.setBackground(background);
         
-        Scene scene = new Scene(layout, 640, 670);
+        //Permet d'autoriser le scroll
+        ScrollPane scrollPane = new ScrollPane(content);
+        BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, new CornerRadii(0), new BorderWidths(3));
+        scrollPane.setBorder(new Border(borderStroke));
+        
+        Scene scene = new Scene(scrollPane, 780, 670);
         rulesWindow.setScene(scene);
         rulesWindow.showAndWait(); // Affiche la fenêtre et attend sa fermeture
     }
@@ -321,7 +304,6 @@ public class LaticeAppSb extends Application{
 		root.getChildren().add(loader.load());
 		
 		GameViewController controller = loader.getController(); 
-		controller.setroundConter(turnNumber);
 	    controller.setPlayer1Name(this.player1Name()); // on fournit les noms des joueurs au controller.
 	    controller.setPlayer2Name(this.player2Name());
 	    controller.initialize();
@@ -354,16 +336,12 @@ public class LaticeAppSb extends Application{
 			
     }
 	
-	public int turnNumber() {
-		return turnNumber;
-	}
-	
 	public String player1Name() {
-		return tfPlayer1Name.getText();
+		return this.tfPlayer1Name.getText();
 	}
 	
 	public String player2Name() {
-		return tfPlayer2Name.getText();
+		return this.tfPlayer2Name.getText();
 	}
 	
 	public static void main(String[] args) {
