@@ -167,7 +167,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     @FXML
 	public void initialize() {
     	ContextMenu contextM = new ContextMenu();
-    	MenuItem miHalfStone = new MenuItem("Payer en demi-pierres");
+    	MenuItem miHalfStone = new MenuItem("Payer en demi pierres");
         MenuItem miSunStone = new MenuItem("Payer en pierre soleil");
         miHalfStone.setOnAction(e -> buyExtraMoveHalfStone());
         miSunStone.setOnAction(e -> buyExtraMoveSunStone());
@@ -401,7 +401,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile5.setMouseTransparent(false);
 		
 		idErrTile.setVisible(false);
-		shutTheGame();
+		if (roundCounter == 20 || (rackPlayer1.tiles().size() == 0 && poolPlayer1.size() == 0) || (rackPlayer2.tiles().size() == 0 && poolPlayer2.size() == 0)) {
+			shutTheGame();
+		}
 	}
 
 	private void createAndSwitchTiles(Rack rack) {
@@ -440,7 +442,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
      	}
      	else {
      		idErrTile.setVisible(true);
-		    referer.displayErrorMessage("Il faut au moins 2 demi-pierres pour acheter une action, et une seule action peut être disponible à la fois", idErrTile);
+		    referer.displayErrorMessage("Il faut au moins 2 demi pierres pour acheter une action, et une seule action peut être disponible à la fois", idErrTile);
      	}
  	}
 	
@@ -463,50 +465,48 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	
 	//Éteint le jeu
 	private void shutTheGame() {
-		if (roundCounter == 20) {
-			int nbrTilesLeftP1 = poolPlayer1.size();
-			int nbrTilesLeftP2 = poolPlayer2.size();
-			if (nbrTilesLeftP1 < nbrTilesLeftP2) {
-				idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
-			}
-			else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
-				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
-			}
-			else {
-				idTxtPile.setText("Égalité");
-			}
-			idTxtPile.setFont(Font.font("Bold",42));
-			//Désactive la vue des différentes piles
-			idPilePlayer1.setVisible(false);
-			idPilePlayer2.setVisible(false);
-			//Désactive les boutons
-			idBtnChange.setDisable(true);
-			idBtnExtraMove.setDisable(true);
-			idBtnPass.setDisable(true);
-			//Désactive le fait de pouvoir attraper des tuiles
-			idRackInvisibleTile1.setMouseTransparent(true);
-			idRackInvisibleTile2.setMouseTransparent(true);
-			idRackInvisibleTile3.setMouseTransparent(true);
-			idRackInvisibleTile4.setMouseTransparent(true);
-			idRackInvisibleTile5.setMouseTransparent(true);
-			//Désactive les images du rack
-			idRackImageTile1.setImage(null);
-		    idRackImageTile2.setImage(null);
-		    idRackImageTile3.setImage(null);
-		    idRackImageTile4.setImage(null);
-		    idRackImageTile5.setImage(null);
-		    //Cache le nombre de tours, les action restantes
-		    idTurnNumber.setVisible(false);
-		    idMovesP1.setVisible(false);
-		    idMovesP2.setVisible(false);
-		    //Cache le nombre te tuiles des racks
-		    idNbrTilesPoolP1.setVisible(false);
-		    idNbrTilesPoolP2.setVisible(false);
-			//Pause de 5 secondes
-			PauseTransition pause = new PauseTransition(Duration.seconds(7));
-			pause.setOnFinished(event -> Platform.exit());
-			pause.play();
+		int nbrTilesLeftP1 = poolPlayer1.size();
+		int nbrTilesLeftP2 = poolPlayer2.size();
+		if (nbrTilesLeftP1 < nbrTilesLeftP2) {
+			idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
 		}
+		else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
+			idTxtPile.setText("C'est " + player2Name + " qui l'emporte");
+		}
+		else {
+			idTxtPile.setText("Égalité");
+		}
+		idTxtPile.setFont(Font.font("Bold",42));
+		//Désactive la vue des différentes piles
+		idPilePlayer1.setVisible(false);
+		idPilePlayer2.setVisible(false);
+		//Désactive les boutons
+		idBtnChange.setDisable(true);
+		idBtnExtraMove.setDisable(true);
+		idBtnPass.setDisable(true);
+		//Désactive le fait de pouvoir attraper des tuiles
+		idRackInvisibleTile1.setMouseTransparent(true);
+		idRackInvisibleTile2.setMouseTransparent(true);
+		idRackInvisibleTile3.setMouseTransparent(true);
+		idRackInvisibleTile4.setMouseTransparent(true);
+		idRackInvisibleTile5.setMouseTransparent(true);
+		//Désactive les images du rack
+		idRackImageTile1.setImage(null);
+	    idRackImageTile2.setImage(null);
+	    idRackImageTile3.setImage(null);
+	    idRackImageTile4.setImage(null);
+	    idRackImageTile5.setImage(null);
+	    //Cache le nombre de tours, les action restantes
+	    idTurnNumber.setVisible(false);
+	    idMovesP1.setVisible(false);
+	    idMovesP2.setVisible(false);
+	    //Cache le nombre te tuiles des racks
+	    idNbrTilesPoolP1.setVisible(false);
+	    idNbrTilesPoolP2.setVisible(false);
+		//Pause de 5 secondes
+		PauseTransition pause = new PauseTransition(Duration.seconds(7));
+		pause.setOnFinished(event -> Platform.exit());
+		pause.play();
 	}
 
 	@Override
