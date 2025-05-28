@@ -20,6 +20,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import latice.model.Pool;
@@ -468,6 +469,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			int nbrTilesLeftP2 = poolPlayer2.size();
 			if (nbrTilesLeftP1 < nbrTilesLeftP2) {
 				idTxtPile.setText("C'est " + player1Name + " qui l'emporte");
+				idTxtPile.setFont(Font.font(null, FontWeight.BOLD, 500));
 			}
 			else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
 				idTxtPile.setText("C'est " + player2Name + " qui l'emporte");

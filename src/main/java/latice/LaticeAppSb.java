@@ -21,7 +21,12 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -183,54 +188,61 @@ public class LaticeAppSb extends Application{
         rulesWindow.initModality(Modality.APPLICATION_MODAL); // Bloque la fenêtre principale
         rulesWindow.setResizable(false);
         rulesWindow.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
+        rulesWindow.initStyle(StageStyle.UNDECORATED);
         rulesWindow.setTitle("Règles du jeu");
         Label rules = new Label("Voici les règles du jeu :\n\n"
                 + "Le Latice est un jeu de stratégie où vous devez associer des cases de la même couleur ou \n"
                 + "de la même forme.\r\n"
                 + "\r\n"
                 + "Victoire:\r\n"
-                + "Le gagnant est celui qui arrive à ce débarrasser de toutes ses tuiles, ou dans le cas de notre \n"
-                + "application, celui qui a le moins de tuiles à la fin du nombre de tour impartie (10 minimum).\r\n"
-                + "\r\n"
+                + "Le gagnant est celui qui arrive à ce débarrasser de toutes ses tuiles, ou dans le cas \n"
+                + "de notre application, celui qui a le moins de tuiles à la fin du nombre de\r\n"
+                + "tour imparti (10 minimum). \r\n"
                 + "Déroulement:\r\n"
                 + "La première tuile doit être placée sur la lune au centre.\r\n"
-                + "Par la suite, on ne peux poser une tuile seulement à côté d'une autre. Mais, Il faut qu'elle soit \n"
-                + "de la même forme ou couleur. Attention, les diagonales ne comptent pas. \r\n"
-                + "Chaque tour, chaques joueurs se voit accordé une action.\r\n"
-                + "Si vous ne pouvez jouer où souhaitez juste changer votre rack, vous pouvez utilisez une action. \r\n"
-                + "Attention! Cette action remplace l'intégralité de votre rack et passe votre tour.\r\n"
-                + "Si vous ne pouvez jouer et ou n'avez pas la possibilité de changer votre rack, vous pouvez \n"
+                + "Par la suite, on ne peut poser une tuile seulement à côté d'une autre. Mais, Il faut \n"
+                + "qu'elle soit de la même forme ou couleur. Attention, les diagonales ne comptent pas. \r\n"
+                + "Chaque tour, chaque joueur se voit accorder une action.\r\n"
+                + "Si vous ne pouvez jouer où si vous souhaitez juste changer votre rack, vous pouvez utiliser \r\n"
+                + "une action. Attention! Cette action remplace l'intégralité de votre rack et passe votre tour.\r\n"
+                + "Si vous ne pouvez jouer et/ou n'avez pas la possibilité de changer votre rack, vous pouvez \n"
                 + "aussi passer votre tour.\r\n"
-                + "A la fin de votre tour vous piochez le nombre de tuiles manquantes de votre rack pour avoir \n"
-                + "lors de votre prochain tour 5 tuiles dedans (sauf cas où la pioche est vide).\r\n"
-                + "En jouant, vous pouvez obtenir différentes pierres qui vous permettrons de les échanger contre \n"
-                + "des actions supplémentaires.\r\n"
-                + "Une action suplémentaire peut être acquise en échangeant une pierre soleil, ou bien deux demi \n"
-                + "pierres avec l'arbitre (l'ordinateur).\r\n"
+                + "A la fin de votre tour vous piochez le nombre de tuiles nécessaire pour compléter votre rack \n"
+                + "(sauf cas où la pioche est vide).\r\n"
+                + "En jouant, vous pouvez obtenir différentes pierres (pierre soleil ou demi pierre) \n"
+                + "vous servant à acheter des actions supplémentaires.\r\n"
                 + "\r\n"
-                + "Pierres:\r\n"
-                + "Pour obtenir une pierre, il faut que tu pause ta tuile de manière à ce qu'elle aie au minimum \n"
+                + "Pierres soleil:\r\n"
+                + "Pour obtenir des pierres, il faut poser sa tuile de manière à ce qu'elle ait au minimum \n"
                 + "deux tuiles adjacentes:\r\n"
-                + "	- Deux tuiles te procure une demi pierre et forment un Double.\r\n"
-                + "	- Trois tuiles te procurent une pierre soleil et forment un Trefoil.\r\n"
-                + "	- Quatre tuiles te procurent deux pierres soleil et forment un Latice.\r\n"
-                + "Tu peux aussi obtenir une pierre soleil en pausant ta tuile sur un soleil. La limite de demi pierres \n"
-                + "est infini, mais si tu finis ton tour avec plus de 3 pierres soleil l'excédent sera retiré.\r\n"
-                + "\r\n"
+                + "	- Deux tuiles adjacentes procurent une demi pierre et forment un Double.\r\n"
+                + "	- Trois tuiles adjacentes procurent une pierre soleil et forment un Trefoil.\r\n"
+                + "	- Quatre tuiles adjacentes procurent deux pierres soleil et forment un Latice.\r\n"
+                + "Poser sa tuile sur un soleil vous permet aussi d'obtenir une pierre soleil. Il n'y a pas \n"
+                + "de limite de demi pierres, mais si vous finissez votre tour avec plus de 3 pierres soleil \r\n"
+                + "l'excédent sera retiré. \r\n"
                 + ""
                 );
         rules.setFont(new Font("Arial", 15));
         
         
-        Button btnClose = new Button("Fermer");
-        btnClose.setOnAction(e -> rulesWindow.close());
+        ImageView btnClose = new ImageView(new Image(getClass().getResourceAsStream("/latice/image/quitter.png")));
+        btnClose.setFitHeight(40);
+        btnClose.setFitWidth(40);
+        btnClose.setOnMouseClicked(e -> rulesWindow.close());
+        btnClose.setCursor(Cursor.HAND);
         HBox hb = new HBox();
         hb.getChildren().add(btnClose);
         hb.setAlignment(Pos.CENTER);
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(rules, hb);
-
+        layout.setPadding(new Insets(25, 15, 10, 20));
+        BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, new CornerRadii(0), new BorderWidths(3));
+        Border border = new Border(borderStroke);
+        layout.setBorder(border);
+        layout.setBorder(new Border(borderStroke));
+        
         Scene scene = new Scene(layout, 640, 670);
         rulesWindow.setScene(scene);
         rulesWindow.showAndWait(); // Affiche la fenêtre et attend sa fermeture
