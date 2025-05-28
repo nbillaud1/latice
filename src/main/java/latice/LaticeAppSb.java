@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -48,6 +49,7 @@ public class LaticeAppSb extends Application{
 	private TextField tfPlayer2Name;
 	private Stage primaryStage;
 	private String imgBackground = "fond.png";
+	private int turnNumber;
 	
 	
 
@@ -136,10 +138,35 @@ public class LaticeAppSb extends Application{
 		Button btnRules = new Button("Règles");
 		btnRules.setOnAction(e -> showRules());
 		
+		//Choix du nombre de tours
+		ComboBox<Integer> cbTurnNbr = new ComboBox<>();
+        cbTurnNbr.getItems().addAll(10,12,14,16,18,20);
+        cbTurnNbr.setValue(10);
+        turnNumber = cbTurnNbr.getValue();
+        cbTurnNbr.setOnAction(e -> {
+        	turnNumber = cbTurnNbr.getValue();
+        });
+        
+        //Label nombre de tours
+        Label lbTurnNbr = new Label("Nombre de tours:");
+        lbTurnNbr.setTextFill(Color.WHITE);
+        lbTurnNbr.setFont(Font.font(null, FontWeight.BOLD, 15));
+        
+        //HBox du nombre de tour
+        HBox hbTurnNbr = new HBox(10);
+        hbTurnNbr.setAlignment(Pos.CENTER);
+        hbTurnNbr.getChildren().addAll(lbTurnNbr,cbTurnNbr);
+        
+        
+        //HBox dans la VBox du milieu qui contient les règles et le nombre de tours
+        HBox hbMidle = new HBox(500);
+        hbMidle.setAlignment(Pos.CENTER);
+        hbMidle.getChildren().addAll(hbTurnNbr,btnRules);
+		
 		//VBox du millieu
 		VBox vbMiddle = new VBox();
 		vbMiddle.setAlignment(Pos.CENTER);
-		vbMiddle.getChildren().addAll(hBoxNames, vbBg, btnRules);
+		vbMiddle.getChildren().addAll(hBoxNames, vbBg, hbMidle);
 		vbMiddle.setSpacing(40);
 		vbMiddle.setPadding(new Insets(250, 0, 0, 0));
 		
@@ -221,7 +248,6 @@ public class LaticeAppSb extends Application{
                 );
         rules.setFont(new Font("Arial", 15));
         
-        
         Button btnClose = new Button("Fermer");
         btnClose.setOnAction(e -> rulesWindow.close());
         HBox hb = new HBox();
@@ -283,6 +309,7 @@ public class LaticeAppSb extends Application{
 		root.getChildren().add(loader.load());
 		
 		GameViewController controller = loader.getController(); 
+		controller.setroundConter(turnNumber);
 	    controller.setPlayer1Name(this.player1Name()); // on fournit les noms des joueurs au controller.
 	    controller.setPlayer2Name(this.player2Name());
 	    controller.initialize();
@@ -315,12 +342,16 @@ public class LaticeAppSb extends Application{
 			
     }
 	
+	public int turnNumber() {
+		return turnNumber;
+	}
+	
 	public String player1Name() {
-		return this.tfPlayer1Name.getText();
+		return tfPlayer1Name.getText();
 	}
 	
 	public String player2Name() {
-		return this.tfPlayer2Name.getText();
+		return tfPlayer2Name.getText();
 	}
 	
 	public static void main(String[] args) {

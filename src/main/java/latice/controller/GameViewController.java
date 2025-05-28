@@ -139,6 +139,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Player player1;
 	private Player player2;
 	
+	private int maxTurnNbr;
+	
 	private Image imageTile1;
 	private Image imageTile2;
 	private Image imageTile3;
@@ -148,20 +150,24 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private ArrayList<Integer> lstPlayer1PlayedTilesIndex = new ArrayList<>();
     private ArrayList<Integer> lstPlayer2PlayedTilesIndex = new ArrayList<>();
     
+    public void setroundConter(int value) {
+    	maxTurnNbr = value * 2;
+    }
+    
     public void setPlayer1Name(String name) {
-        this.player1Name = name;
+        player1Name = name;
     }
 
     public void setPlayer2Name(String name) {
-        this.player2Name = name;
+        player2Name = name;
     }
     
     public void emptyLstPlayer1PlayedTilesIndex() {
-    	this.lstPlayer1PlayedTilesIndex = new ArrayList<Integer>();
+    	lstPlayer1PlayedTilesIndex = new ArrayList<Integer>();
     }
     
     public void emptyLstPlayer2PlayedTilesIndex() {
-    	this.lstPlayer2PlayedTilesIndex = new ArrayList<Integer>();
+    	lstPlayer2PlayedTilesIndex = new ArrayList<Integer>();
     }
     
     @FXML
@@ -174,8 +180,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
         contextM.getItems().addAll(miHalfStone, miSunStone);
     	player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
     	player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
-    	roundCounter = 0;
     	idTurnNumber.setText("Tour 1 :");
+    	roundCounter = 0;
     	idErrTile.setVisible(false);
     	
     	
@@ -401,7 +407,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackInvisibleTile5.setMouseTransparent(false);
 		
 		idErrTile.setVisible(false);
-		if (roundCounter == 20 || (rackPlayer1.tiles().size() == 0 && poolPlayer1.size() == 0) || (rackPlayer2.tiles().size() == 0 && poolPlayer2.size() == 0)) {
+		if (roundCounter == maxTurnNbr || (rackPlayer1.tiles().size() == 0 && poolPlayer1.size() == 0) || (rackPlayer2.tiles().size() == 0 && poolPlayer2.size() == 0)) {
 			shutTheGame();
 		}
 	}
