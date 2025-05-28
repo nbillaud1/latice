@@ -20,7 +20,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import latice.model.Pool;
@@ -181,7 +180,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         contextM.getItems().addAll(miHalfStone, miSunStone);
     	player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
     	player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
-    	idTurnNumber.setText("Tour 1 :");
+    	idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
     	roundCounter = 0;
     	idErrTile.setVisible(false);
     	
@@ -357,6 +356,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	    	Platform.exit();
 	}
 	
+	//TODO enlever l'image des tuiles déjà posés lorsque le rack est vide et qu'on ne remplace pas les images
 	@FXML
 	private void changeTiles() {
 		idRackInvisibleTile1.setOpacity(0);
@@ -399,7 +399,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		isP2 = !isP2;
 		roundCounter ++;
-		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + " :");
+		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
 		
 		idRackInvisibleTile1.setMouseTransparent(false);
 		idRackInvisibleTile2.setMouseTransparent(false);
