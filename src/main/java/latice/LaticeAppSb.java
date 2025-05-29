@@ -275,7 +275,7 @@ public class LaticeAppSb extends Application{
         content.getChildren().addAll(title, rules, hb);
         content.setPadding(new Insets(25, 15, 10, 20));
         Image image = new Image("/latice/image/fond_regles.png");
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, true);
+        BackgroundSize backgroundSize = new BackgroundSize(712, 1080, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         content.setBackground(background);
