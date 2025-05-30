@@ -221,7 +221,8 @@ public class LaticeAppSb extends Application{
         Label tabulationTitle = new Label("					");
         Label rulesTitle = new Label("Voici les règles du jeu :\n\n");
         Label rules = new Label(
-                "Le Latice est un jeu de stratégie où vous devez associer des cases de la même \n"
+        		"\r\n"
+                + "Le Latice est un jeu de stratégie où vous devez associer des cases de la même \n"
                 + "couleur ou de la même forme.\r\n"
                 + "Distribution :\r\n"
                 + "Au début de la partie, chaque joueur possède une pioche contenant 31 tuiles\r\n"
@@ -277,7 +278,7 @@ public class LaticeAppSb extends Application{
         content.getChildren().addAll(title, rules, hb);
         content.setPadding(new Insets(25, 15, 10, 20));
         Image image = new Image("/latice/image/fond_regles.png");
-        BackgroundSize backgroundSize = new BackgroundSize(712, 1080, false, false, false, false);
+        BackgroundSize backgroundSize = new BackgroundSize(712, 1200, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         content.setBackground(background);
