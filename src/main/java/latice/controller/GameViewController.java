@@ -360,8 +360,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	void quit() {
 	    	Platform.exit();
 	}
-	
-	//TODO enlever l'image des tuiles déjà posés lorsque le rack est vide et qu'on ne remplace pas les images
+
 	@FXML
 	private void changeTiles() {
 		
