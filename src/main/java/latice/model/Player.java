@@ -55,13 +55,9 @@ public class Player {
 			}	
 		}
 		else {
-			for(int ind : index) {
-				rack.tiles().set(ind, this.pool.get(0)); // Mettre une tuile vide 
-				this.pool.remove(0);
-			}	
 			for(int i = 0; i<nbrOfTilesLeftInThePool ; i++) {
 				rack.tiles().set(index.get(i),this.pool.get(0));
-				this.pool.remove(i);
+				this.pool.remove(0);
 			}
 		}
 	}

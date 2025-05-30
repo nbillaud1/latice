@@ -227,6 +227,7 @@ public class LaticeAppSb extends Application{
                 + "Le gagnant est celui qui arrive à ce débarrasser de toutes ses tuiles, ou dans le cas \n"
                 + "de notre application, celui qui a le moins de tuiles à la fin du nombre de\r\n"
                 + "tour imparti (10 minimum). \r\n"
+                + "\r\n"
                 + "Déroulement:\r\n"
                 + "La première tuile doit être placée sur la lune au centre.\r\n"
                 + "Par la suite, on ne peut poser une tuile seulement à côté d'une autre. Mais, Il faut \n"

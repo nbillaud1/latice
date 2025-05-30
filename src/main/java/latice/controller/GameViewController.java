@@ -146,9 +146,14 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Image imageTile3;
 	private Image imageTile4;
 	private Image imageTile5;
+	
+	private boolean isEndOfTheGame;
     
     private ArrayList<Integer> lstPlayer1PlayedTilesIndex = new ArrayList<>();
     private ArrayList<Integer> lstPlayer2PlayedTilesIndex = new ArrayList<>();
+    
+    private boolean[] finalRackP1 = {false,false,false,false,false};
+    private boolean[] finalRackP2 = {false,false,false,false,false};
     
     public void setroundConter(int value) {
     	maxTurnNbr = value * 2;
@@ -183,6 +188,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
     	roundCounter = 0;
     	idErrTile.setVisible(false);
+    	isEndOfTheGame = false;
     	
     	
     	if (isP2) {
@@ -358,15 +364,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	//TODO enlever l'image des tuiles déjà posés lorsque le rack est vide et qu'on ne remplace pas les images
 	@FXML
 	private void changeTiles() {
-		idRackInvisibleTile1.setOpacity(0);
-		idRackInvisibleTile2.setOpacity(0);
-		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
-		idRackInvisibleTile4.setOpacity(0);
-		idRackInvisibleTile5.setOpacity(0);
 		
 		if (isP2) {
 			
 			player2.pass();
+			isItFinalRack(lstPlayer2PlayedTilesIndex, poolPlayer2.size(), finalRackP2);
+		    dontShowTilesWhen5TilesLeft(lstPlayer1PlayedTilesIndex, poolPlayer1.size(), finalRackP1);
 		    player2.completeRack(lstPlayer2PlayedTilesIndex, poolPlayer2.size());
 		    emptyLstPlayer1PlayedTilesIndex();
 			createAndSwitchTiles(rackPlayer1);
@@ -383,7 +386,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		else {
 			player1.pass();
-		    player1.completeRack(lstPlayer1PlayedTilesIndex, poolPlayer1.size());
+			isItFinalRack(lstPlayer1PlayedTilesIndex, poolPlayer1.size(), finalRackP1);
+			dontShowTilesWhen5TilesLeft(lstPlayer2PlayedTilesIndex, poolPlayer2.size(), finalRackP2);
+			player1.completeRack(lstPlayer1PlayedTilesIndex, poolPlayer1.size());
 		    emptyLstPlayer2PlayedTilesIndex();
 			
 			createAndSwitchTiles(rackPlayer2);
@@ -400,18 +405,72 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		roundCounter ++;
 		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
 		
+		idErrTile.setVisible(false);
+		if ((finalRackP1[0] && finalRackP1[1] && finalRackP1[2] && finalRackP1[3] && finalRackP1[4]  )|| (finalRackP2[0] && finalRackP2[1] && finalRackP2[2] && finalRackP2[3] && finalRackP2[4])) {
+			isEndOfTheGame = true;
+		}
+		
+		if (roundCounter == maxTurnNbr || isEndOfTheGame) {
+			shutTheGame();
+		}
+	}
+	
+	private void isItFinalRack(ArrayList<Integer> lstPlayerPlayedTilesIndex, int poolPlayerSize, boolean[] finalRack) {
+		if (!(poolPlayerSize >= 5 || lstPlayerPlayedTilesIndex.size() <= poolPlayerSize)) {
+			if(idRackInvisibleTile1.isMouseTransparent()) {
+				finalRack[0]=true;
+			}
+			if(idRackInvisibleTile2.isMouseTransparent()) {
+				finalRack[1]=true;
+			}
+			if(idRackInvisibleTile3.isMouseTransparent()) {
+				finalRack[2]=true;
+			}
+			if(idRackInvisibleTile4.isMouseTransparent()) {
+				finalRack[3]=true;
+			}
+			if(idRackInvisibleTile5.isMouseTransparent()) {
+				finalRack[4]=true;
+			}
+		}
+	}
+	
+	private void dontShowTilesWhen5TilesLeft(ArrayList<Integer> lstPlayerPlayedTilesIndex, int poolPlayerSize, boolean[] finalRack) {
+		idRackInvisibleTile1.setOpacity(0);
+		idRackInvisibleTile2.setOpacity(0);
+		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
+		idRackInvisibleTile4.setOpacity(0);
+		idRackInvisibleTile5.setOpacity(0);
+		
 		idRackInvisibleTile1.setMouseTransparent(false);
 		idRackInvisibleTile2.setMouseTransparent(false);
 		idRackInvisibleTile3.setMouseTransparent(false); // réactiver le drag and drop au changement de tour.
 		idRackInvisibleTile4.setMouseTransparent(false);
-		idRackInvisibleTile5.setMouseTransparent(false);
-		
-		idErrTile.setVisible(false);
-		if (roundCounter == maxTurnNbr || (rackPlayer1.tiles().size() == 0 && poolPlayer1.size() == 0) || (rackPlayer2.tiles().size() == 0 && poolPlayer2.size() == 0)) {
-			shutTheGame();
+		idRackInvisibleTile5.setMouseTransparent(false);	
+		if (!(poolPlayerSize >= 5 || lstPlayerPlayedTilesIndex.size() <= poolPlayerSize)) {
+			if (finalRack[0]) {
+				idRackInvisibleTile1.setOpacity(1);
+				idRackInvisibleTile1.setMouseTransparent(true);
+			}
+			if (finalRack[1]) {
+				idRackInvisibleTile2.setOpacity(1);
+				idRackInvisibleTile2.setMouseTransparent(true);
+			}
+			if (finalRack[2]) {
+				idRackInvisibleTile3.setOpacity(1);
+				idRackInvisibleTile3.setMouseTransparent(true);
+			}
+			if (finalRack[3]) {
+				idRackInvisibleTile4.setOpacity(1);
+				idRackInvisibleTile4.setMouseTransparent(true);
+			}
+			if (finalRack[4]) {
+				idRackInvisibleTile5.setOpacity(1);
+				idRackInvisibleTile5.setMouseTransparent(true);
+			}
 		}
 	}
-
+		
 	private void createAndSwitchTiles(Rack rack) {
 		imageTile1 = new Image(getClass().getResource(rack.tiles().get(0).urlImg()).toExternalForm());
 		imageTile2 = new Image(getClass().getResource(rack.tiles().get(1).urlImg()).toExternalForm());
