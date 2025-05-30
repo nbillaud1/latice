@@ -251,9 +251,9 @@ public class LaticeAppSb extends Application{
                 + "   procure une pierre soleil et forme un Trefoil.\r\n"
                 + "	- Poser sa tuile de manière à ce qu'elle ait quatre tuiles adjacentes\r\n"
                 + "   procure deux pierres soleil et forme un Latice.\r\n"
-                + " - Poser sa tuile sur un soleil vous permet d'obtenir une pierre soleil. \r\n"
+                + " - Poser sa tuile sur un soleil permet d'obtenir une pierre soleil. \r\n"
                 + "Une action supplémentaire coûte une pierre ou deux demi pierres.\r\n"
-                + "Il n'y a pas de limite de demi pierres, mais si vous finissez votre tour avec plus \r\n"
+                + "Il n'y a pas de limite de demi pierres, mais si le joueur finit son tour avec plus \r\n"
                 + "de 3 pierres soleil l'excédent sera retiré. \r\n"
                 + "\r\n");
         rules.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
