@@ -218,43 +218,47 @@ public class LaticeAppSb extends Application{
         rulesWindow.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
         rulesWindow.initStyle(StageStyle.UNDECORATED);
         rulesWindow.setTitle("Règles du jeu");
+        Label tabulationTitle = new Label("					");
         Label rulesTitle = new Label("Voici les règles du jeu :\n\n");
         Label rules = new Label(
                 "Le Latice est un jeu de stratégie où vous devez associer des cases de la même \n"
                 + "couleur ou de la même forme.\r\n"
-                + "\r\n"
-                + "Victoire:\r\n"
-                + "Le gagnant est celui qui arrive à ce débarrasser de toutes ses tuiles, ou dans le cas \n"
+                + "Distribution :\r\n"
+                + "Au début de la partie, chaque joueur possède une pioche contenant 31 tuiles\r\n"
+                + "plus une main de 5 tuiles.\r\n"
+                + "Il n'existe deux exemplaires de chaque tuiles."
+                + "Victoire :\r\n"
+                + "Le gagnant est celui qui arrive à se débarrasser de toutes ses tuiles, ou dans le cas \n"
                 + "de notre application, celui qui a le moins de tuiles à la fin du nombre de\r\n"
                 + "tour imparti (10 minimum). \r\n"
                 + "\r\n"
                 + "Déroulement:\r\n"
                 + "La première tuile doit être placée sur la lune au centre.\r\n"
-                + "Par la suite, on ne peut poser une tuile seulement à côté d'une autre. Mais, Il faut \n"
-                + "qu'elle soit de la même forme ou couleur. Attention, les diagonales ne comptent pas. \r\n"
-                + "Chaque tour, chaque joueur se voit accorder une action.\r\n"
-                + "Si vous ne pouvez jouer où si vous souhaitez juste changer votre rack, vous \r\n"
-                + "pouvez utiliser une action. Attention! Cette action remplace l'intégralité \r\n"
-                + "de votre rack et passe votre tour. Si vous ne pouvez jouer et/ou n'avez pas la \n"
-                + "possibilité de changer votre rack, vous pouvez aussi passer votre tour.\r\n"
-                + "A la fin de votre tour vous piochez le nombre de tuiles nécessaire pour compléter\n"
-                + "votre rack (sauf cas où la pioche est vide).\r\n"
-                + "En jouant, vous pouvez obtenir différentes pierres (pierre soleil ou demi pierre) \n"
-                + "vous servant à acheter des actions supplémentaires.\r\n"
-                + "\r\n"
-                + "Pierres soleil:\r\n"
-                + "Pour obtenir des pierres, il faut poser sa tuile de manière à ce qu'elle ait au minimum \n"
-                + "deux tuiles adjacentes:\r\n"
-                + "	- Deux tuiles adjacentes procurent une demi pierre et forment un Double.\r\n"
-                + "	- Trois tuiles adjacentes procurent une pierre soleil et forment un Trefoil.\r\n"
-                + "	- Quatre tuiles adjacentes procurent deux pierres soleil et forment un Latice.\r\n"
-                + "Poser sa tuile sur un soleil vous permet aussi d'obtenir une pierre soleil. Il n'y a pas \n"
-                + "de limite de demi pierres, mais si vous finissez votre tour avec plus de 3 pierres soleil \r\n"
-                + "l'excédent sera retiré. \r\n"
-                + "");
+                + "Par la suite, on ne peut poser une tuile que si elle possède un côté\r\n"
+                + "adjacent à une tuile déjà posée.\r\n"
+                + "Il faut qu'elle soit de la même forme ou couleur (les diagonales ne comptent pas). \r\n"
+                + "A chaque tour, chaque joueur se voit accorder une action :\r\n"
+                + " - Poser une tuile\r\n"
+                + " - Changer l'intégralité de sa main (cette option passe le tour du joueur)\r\n"
+                + " - Passer son tour\r\n"
+                + "S'il pose une tuile, il peut alors acheter une action\r\n"
+                + "supplémentaire à l'aide de ses pierres.\r\n"
+                + "Les pierres (pierre soleil ou demi pierre) sont obtenues comme suit : \r\n"
+                + "	- Poser sa tuile de manière à ce qu'elle ait deux tuiles adjacentes\r\n"
+                + "   procure une demi pierre et forme un Double.\r\n"
+                + "	- Poser sa tuile de manière à ce qu'elle ait trois tuiles adjacentes\r\n"
+                + "   procure une pierre soleil et forme un Trefoil.\r\n"
+                + "	- Poser sa tuile de manière à ce qu'elle ait quatre tuiles adjacentes\r\n"
+                + "   procure deux pierres soleil et forme un Latice.\r\n"
+                + " - Poser sa tuile sur un soleil vous permet d'obtenir une pierre soleil. \r\n"
+                + "Une action supplémentaire coûte une pierre ou deux demi pierres.\r\n"
+                + "Il n'y a pas de limite de demi pierres, mais si vous finissez \r\n"
+                + "votre tour avec plus de 3 pierres soleil l'excédent sera retiré. \r\n"
+                + "\r\n");
         rules.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
         rulesTitle.setFont(Font.font("Calibri", FontWeight.BOLD, 25));
         rulesTitle.setUnderline(true);
+        tabulationTitle.setFont(Font.font("Calibri", FontWeight.BOLD, 25));
         
         
         ImageView btnClose = new ImageView(new Image(getClass().getResourceAsStream("/latice/image/quitter.png")));
@@ -267,10 +271,12 @@ public class LaticeAppSb extends Application{
         hb.setAlignment(Pos.CENTER);
 
         VBox content = new VBox(10);
-        content.getChildren().addAll(rulesTitle, rules, hb);
+        HBox title = new HBox();
+        title.getChildren().addAll(tabulationTitle, rulesTitle);
+        content.getChildren().addAll(title, rules, hb);
         content.setPadding(new Insets(25, 15, 10, 20));
         Image image = new Image("/latice/image/fond_regles.png");
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, true);
+        BackgroundSize backgroundSize = new BackgroundSize(712, 1080, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         content.setBackground(background);
@@ -280,7 +286,7 @@ public class LaticeAppSb extends Application{
         BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, new CornerRadii(0), new BorderWidths(3));
         scrollPane.setBorder(new Border(borderStroke));
         
-        Scene scene = new Scene(scrollPane, 780, 670);
+        Scene scene = new Scene(scrollPane, 740, 670);
         rulesWindow.setScene(scene);
         rulesWindow.showAndWait(); // Affiche la fenêtre et attend sa fermeture
     }
