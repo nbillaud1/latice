@@ -219,7 +219,7 @@ public class LaticeAppSb extends Application{
         rulesWindow.initStyle(StageStyle.UNDECORATED);
         rulesWindow.setTitle("Règles du jeu");
         Label tabulationTitle = new Label("					");
-        Label rulesTitle = new Label("Voici les règles du jeu :\n\n");
+        Label rulesTitle = new Label("Voici les règles du jeu:\n\n");
         Label rules = new Label(
         		"\r\n"
                 + "Le Latice est un jeu de stratégie où vous devez associer des cases de la même \n"
