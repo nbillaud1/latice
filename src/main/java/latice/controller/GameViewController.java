@@ -257,7 +257,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		dragTile(idRackInvisibleTile, imageTile);
 		event.consume();
 	}
-
+	
 	private void dragTile(ImageView tile, Image imgTile) {
 		if (isP2) {
 			canContinue = player2.move();
@@ -360,7 +360,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	void quit() {
 	    	Platform.exit();
 	}
-
+	
+	//Gère le changement entre le tour du P1 et du P2
 	@FXML
 	private void changeTiles() {
 		
@@ -385,7 +386,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		else {
 			player1.pass();
-			isItFinalRack(lstPlayer1PlayedTilesIndex, poolPlayer1.size(), finalRackP1);
+			isItFinalRack(lstPlayer1PlayedTilesIndex, poolPlayer1.size(), finalRackP1);	
 			dontShowTilesWhen5TilesLeft(lstPlayer2PlayedTilesIndex, poolPlayer2.size(), finalRackP2);
 			player1.completeRack(lstPlayer1PlayedTilesIndex, poolPlayer1.size());
 		    emptyLstPlayer2PlayedTilesIndex();
@@ -414,12 +415,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 	}
 	
+	//Détermine les cases à ne pas afficher dans le cas où le nombres de tuiles restant dans la pool est inférieur au nombre de tuiles à remettre
 	private void isItFinalRack(ArrayList<Integer> lstPlayerPlayedTilesIndex, int poolPlayerSize, boolean[] finalRack) {
 		if (!(poolPlayerSize >= 5 || lstPlayerPlayedTilesIndex.size() <= poolPlayerSize)) {
 			int nbrOfTilesToHide = lstPlayerPlayedTilesIndex.size() - poolPlayerSize;
 			int tilesLeft = nbrOfTilesToHide;
 			for (int i = 0; i<nbrOfTilesToHide ; i++) {
-				if(tilesLeft > 0) {	// Permet de mettre à true 
+				if(tilesLeft > 0) { 
 					finalRack[lstPlayerPlayedTilesIndex.get((-i)+1)] = true;
 					tilesLeft -= 1;
 				}
@@ -427,7 +429,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 	}
 	
-	private void dontShowTilesWhen5TilesLeft(ArrayList<Integer> lstPlayerPlayedTilesIndex, int poolPlayerSize, boolean[] finalRack) {
+	//Peremt de déterminer quelles tuiles du rack il faut afficher quand il y a moins de 5 tuiles dans la pool
+	private void dontShowTilesWhen5TilesLeft(ArrayList<Integer> lstPlayerPlayedTilesIndex, int poolPlayerSize, boolean[] finalRack) { 
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
 		idRackInvisibleTile3.setOpacity(0); // faire disparaitre le fond bleu pour pas qu'il n'y ait de cases vides.
@@ -462,7 +465,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			}
 		}
 	}
-		
+	
+	//Permet de remplacer l'affichage du rack actuel par de nouvelles images
 	private void createAndSwitchTiles(Rack rack) {
 		imageTile1 = new Image(getClass().getResource(rack.tiles().get(0).urlImg()).toExternalForm());
 		imageTile2 = new Image(getClass().getResource(rack.tiles().get(1).urlImg()).toExternalForm());
@@ -476,8 +480,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idRackImageTile4.setImage(imageTile4);
 		idRackImageTile5.setImage(imageTile5);
 	}
-
-	private void switchView(Boolean isP2) {
+	//Permet d'activer / désactiver les différent affichages du P1 et du P2 celon le tour en cour
+	private void switchView(Boolean isP2) { 
 		idMovesP2.setVisible(!isP2);
 		idMovesP1.setVisible(isP2);
 		idNbrTilesPoolP2.setVisible(!isP2);
@@ -486,7 +490,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		idPilePlayer2.setVisible(!isP2);
 	}
 	
- 	public void buyExtraMoveHalfStone() {
+	//Acheter une extra move via deux halfStones
+ 	public void buyExtraMoveHalfStone() { 
  		if (isP2 && player2.halfStone() >= 2 && player2.move() == 0) {
      		player2.buyExtraMoveWithHalfStones();
      		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
@@ -503,7 +508,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
      	}
  	}
 	
- 	public void buyExtraMoveSunStone() {
+ 	//Peremt d'acheter un extra move via une sunStone
+ 	public void buyExtraMoveSunStone() { 
  		if (isP2 && player2.sunStone() >= 1 && player2.move() == 0) {
      		player2.buyExtraMoveWithSunStones();
      		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
