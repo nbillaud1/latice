@@ -67,6 +67,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private ImageView idRackInvisibleTile5;
 	
 	@FXML
+	private ImageView idImgSound;
+	
+	@FXML
 	private Button idBtnPass;
 	
 	@FXML
@@ -154,6 +157,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     private boolean[] finalRackP1 = {false,false,false,false,false};
     private boolean[] finalRackP2 = {false,false,false,false,false};
+    private Boolean musicOn = true;
     
     public void setroundConter(int value) {
     	maxTurnNbr = value * 2;
@@ -359,6 +363,20 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	@FXML
 	void quit() {
 	    	Platform.exit();
+	}
+	
+	@FXML
+	void switchTheSound() {
+		if(!musicOn) {
+			MusicManager.play("/latice/sound/Latice_theme.wav");
+			idImgSound.setImage(new Image("/latice/image/activer_le_son.png"));
+		}
+		else {
+			MusicManager.stop();
+			idImgSound.setImage(new Image("/latice/image/couper_le_son.png"));
+			
+		}
+		musicOn = !musicOn;
 	}
 	
 	//Gère le changement entre le tour du P1 et du P2

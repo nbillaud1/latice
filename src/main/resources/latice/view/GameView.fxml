@@ -852,5 +852,20 @@
             </RadialGradient>
          </fill>
       </Text>
+      <Button mnemonicParsing="false" onAction="#switchTheSound" style="-fx-background-color: transparent;" textFill="TRANSPARENT" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="10.0" top="100.0" />
+         </StackPane.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fx:id="idImgSound" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/activer_le_son.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </StackPane>
