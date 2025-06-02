@@ -20,7 +20,7 @@ public class Tile {
 	}
 	
 	public String afficher() {
-		return color.nom(shape.code());
+		return color.name(shape.code());
 	}
 	
 	public String urlImg() {
@@ -75,6 +75,6 @@ public class Tile {
 	}
 	
 	public String toString() {
-		return "|  " + color.nom(shape.code()) + "  ";
+		return "|  " + color.name(shape.code()) + "  ";
 	}
 }

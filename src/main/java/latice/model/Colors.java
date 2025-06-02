@@ -10,13 +10,13 @@ public enum Colors {
 	TEAL("\u001B[36m"),
 	WHITE("\u001B[0m");
 	
-	private String nom;
+	private String name;
 
-	private Colors(String nom) {
-		this.nom = nom;
+	private Colors(String name) {
+		this.name = name;
 	}
 
-	public String nom(String text) {
-		return this.nom + text + "\u001B[0m";
+	public String name(String text) {
+		return this.name + text + "\u001B[0m";
 	}
 }
