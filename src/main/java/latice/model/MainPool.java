@@ -158,6 +158,4 @@ public class MainPool {
 	public void shuffle() {
 		Collections.shuffle(this.tiles());
 	}
-	
-	
 }

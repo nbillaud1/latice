@@ -78,6 +78,11 @@ public class LaticeAppSb extends Application{
 		HBox hbTop = new HBox();
 		hbTop.getChildren().addAll(title, btnQuit);
 		hbTop.setSpacing(50);
+		Label team = new Label("														by Latice Team ®");
+	    team.setTextFill(Color.WHITE);
+	    team.setFont(Font.font(null, FontWeight.BOLD, 20));
+		VBox vbTop = new VBox();
+		vbTop.getChildren().addAll(hbTop, team);
         
         //Erreur au start
         this.lblErrorStart = new Label();
@@ -188,11 +193,11 @@ public class LaticeAppSb extends Application{
 		hBoxBottom.setAlignment(Pos.CENTER);
 		HBox.setMargin(vBoxBottom, new Insets(0, 0, 50, 0));
 		//BorderPane
-		BorderPane.setAlignment(hbTop, Pos.CENTER);
-		BorderPane.setMargin(hbTop, new Insets(40, 0, 0, 90));
+		BorderPane.setAlignment(vbTop, Pos.CENTER);
+		BorderPane.setMargin(vbTop, new Insets(40, 0, 0, 90));
 		//Root
 		BorderPane root = new BorderPane();
-		root.setTop(hbTop);
+		root.setTop(vbTop);
         root.setCenter(vbMiddle);
         root.setBottom(hBoxBottom);
         
