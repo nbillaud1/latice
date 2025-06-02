@@ -416,20 +416,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	
 	private void isItFinalRack(ArrayList<Integer> lstPlayerPlayedTilesIndex, int poolPlayerSize, boolean[] finalRack) {
 		if (!(poolPlayerSize >= 5 || lstPlayerPlayedTilesIndex.size() <= poolPlayerSize)) {
-			if(idRackInvisibleTile1.isMouseTransparent()) {
-				finalRack[0]=true;
-			}
-			if(idRackInvisibleTile2.isMouseTransparent()) {
-				finalRack[1]=true;
-			}
-			if(idRackInvisibleTile3.isMouseTransparent()) {
-				finalRack[2]=true;
-			}
-			if(idRackInvisibleTile4.isMouseTransparent()) {
-				finalRack[3]=true;
-			}
-			if(idRackInvisibleTile5.isMouseTransparent()) {
-				finalRack[4]=true;
+			int nbrOfTilesToHide = lstPlayerPlayedTilesIndex.size() - poolPlayerSize;
+			int tilesLeft = nbrOfTilesToHide;
+			for (int i = 0; i<nbrOfTilesToHide ; i++) {
+				if(tilesLeft > 0) {	// Permet de mettre à true 
+					finalRack[lstPlayerPlayedTilesIndex.get((-i)+1)] = true;
+					tilesLeft -= 1;
+				}
 			}
 		}
 	}
