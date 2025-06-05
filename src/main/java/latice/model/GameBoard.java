@@ -1,7 +1,5 @@
 package latice.model;
 
-//TODO : un bon fond d'écran, un style sur les boutons, un menu pr les paramètres.
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
