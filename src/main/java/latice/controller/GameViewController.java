@@ -440,7 +440,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			int tilesLeft = nbrOfTilesToHide;
 			for (int i = 0; i<nbrOfTilesToHide ; i++) {
 				if(tilesLeft > 0) { 
-					finalRack[lstPlayerPlayedTilesIndex.get((-i)+1)] = true;
+					finalRack[lstPlayerPlayedTilesIndex.get(lstPlayerPlayedTilesIndex.size() - 1 - i)] = true;
 					tilesLeft -= 1;
 				}
 			}
