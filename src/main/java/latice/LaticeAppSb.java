@@ -437,7 +437,7 @@ public class LaticeAppSb extends Application{
 			primaryStage.close();
 		}
 		catch(IllegalArgumentException e) {
-			lblErrorStart.setText("L'image selectionnée n'est pas valide.");
+			lblErrorStart.setText("L'image de fond selectionnée n'est pas valide.");
 		}
 			
     }

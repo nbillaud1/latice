@@ -447,7 +447,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 	}
 	
-	//Peremt de déterminer quelles tuiles du rack il faut afficher quand il y a moins de 5 tuiles dans la pool
+	//Permet de déterminer quelles tuiles du rack il faut afficher quand il y a moins de 5 tuiles dans la pool
 	private void dontShowTilesWhen5TilesLeft(ArrayList<Integer> lstPlayerPlayedTilesIndex, int poolPlayerSize, boolean[] finalRack) { 
 		idRackInvisibleTile1.setOpacity(0);
 		idRackInvisibleTile2.setOpacity(0);
