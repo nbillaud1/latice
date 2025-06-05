@@ -1,6 +1,6 @@
 package latice.model;
 
-//TODO : un bouton pour couper le son, un bon fond d'écran, un style sur les boutons.
+//TODO : un bon fond d'écran, un style sur les boutons, un menu pr les paramètres.
 
 import java.util.ArrayList;
 import java.util.HashMap;

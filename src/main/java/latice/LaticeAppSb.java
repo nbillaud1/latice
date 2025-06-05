@@ -46,7 +46,10 @@ public class LaticeAppSb extends Application{
 	
 	private Button btnStart;
 	private Button btnBackground;
+	private Button btnRules;
+	private Button btnOk;
 	private ImageView btnQuit;
+	private ImageView btnOptions;
 	private Label lblPlayer1Name;
 	private Label lblPlayer2Name;
 	private Label lblErrorStart;
@@ -54,6 +57,8 @@ public class LaticeAppSb extends Application{
 	private TextField tfPlayer1Name;
 	private TextField tfPlayer2Name;
 	private Stage primaryStage;
+	private Stage options;
+	private Stage rulesWindow;
 	private String imgBackground = "fond.png";
 	private int turnNumber;
 	
@@ -127,17 +132,6 @@ public class LaticeAppSb extends Application{
 		this.btnStart = new Button("Commencer la partie !");
 		this.btnStart.setOnMouseClicked(lstnBtn);
 		
-		//VBox background chooser
-	    this.lblBackgPath = new Label("Fond d'écran de la partie : " + imgBackground);
-	    lblBackgPath.setTextFill(Color.WHITE);
-	    lblBackgPath.setFont(Font.font(null, FontWeight.BOLD, 15));
-		this.btnBackground = new Button("Changer le fond");
-		this.btnBackground.setOnMouseClicked(lstnBtn);
-		VBox vbBg = new VBox();
-		vbBg.getChildren().addAll(btnBackground, lblBackgPath);
-		vbBg.setAlignment(Pos.CENTER);
-		vbBg.setSpacing(10);
-		
 		//HBox des deux noms
 		HBox hBoxNames = new HBox();
 		hBoxNames.setAlignment(Pos.CENTER);
@@ -145,39 +139,15 @@ public class LaticeAppSb extends Application{
 		hBoxNames.setPadding(new Insets(20));
 		hBoxNames.getChildren().addAll(vBoxName1,vBoxName2);
 		
-		//Bouton pour afficher les règles
-		Button btnRules = new Button("Règles");
-		btnRules.setOnAction(e -> showRules());
-		
-		//Choix du nombre de tours
-		ComboBox<Integer> cbTurnNbr = new ComboBox<>();
-        cbTurnNbr.getItems().addAll(10,12,14,16,18,20);
-        cbTurnNbr.setValue(10);
-        turnNumber = cbTurnNbr.getValue();
-        cbTurnNbr.setOnAction(e -> {
-        	turnNumber = cbTurnNbr.getValue();
-        });
-        
-        //Label nombre de tours
-        Label lbTurnNbr = new Label("Nombre de tours:");
-        lbTurnNbr.setTextFill(Color.WHITE);
-        lbTurnNbr.setFont(Font.font(null, FontWeight.BOLD, 15));
-        
-        //HBox du nombre de tour
-        HBox hbTurnNbr = new HBox(10);
-        hbTurnNbr.setAlignment(Pos.CENTER);
-        hbTurnNbr.getChildren().addAll(lbTurnNbr,cbTurnNbr);
-        
-        
-        //HBox dans la VBox du milieu qui contient les règles et le nombre de tours
-        HBox hbMidle = new HBox(500);
-        hbMidle.setAlignment(Pos.CENTER);
-        hbMidle.getChildren().addAll(hbTurnNbr,btnRules);
-		
 		//VBox du millieu
 		VBox vbMiddle = new VBox();
+		btnOptions = new ImageView(new Image(getClass().getResourceAsStream("/latice/image/options.png")));
+		btnOptions.setFitWidth(50);
+		btnOptions.setFitHeight(50);
+		btnOptions.setOnMouseClicked(lstnBtn);
+		btnOptions.setCursor(Cursor.HAND);
 		vbMiddle.setAlignment(Pos.CENTER);
-		vbMiddle.getChildren().addAll(hBoxNames, vbBg, hbMidle);
+		vbMiddle.getChildren().addAll(hBoxNames, btnOptions);
 		vbMiddle.setSpacing(40);
 		vbMiddle.setPadding(new Insets(250, 0, 0, 0));
 		
@@ -195,6 +165,7 @@ public class LaticeAppSb extends Application{
 		//BorderPane
 		BorderPane.setAlignment(vbTop, Pos.CENTER);
 		BorderPane.setMargin(vbTop, new Insets(40, 0, 0, 90));
+		BorderPane.setMargin(vbMiddle, new Insets(0, 0, 100, 0));
 		//Root
 		BorderPane root = new BorderPane();
 		root.setTop(vbTop);
@@ -215,14 +186,84 @@ public class LaticeAppSb extends Application{
         primaryStage.setTitle("Choix du nom des joueurs");
         primaryStage.show();
 	}
+	
+	private void showOptions() {
+		options = new Stage();
+		options.initModality(Modality.APPLICATION_MODAL); // Bloque la fenêtre principale
+		options.setResizable(false);
+		options.initStyle(StageStyle.UNDECORATED);
+        options.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
+        
+        ButtonListener lstnBtn = new ButtonListener();
+        btnOk = new Button("Ok");
+        btnOk.setOnMouseClicked(lstnBtn);
+        
+        Label lblOptions = new Label("Options de la partie : ");
+        
+        //VBox background chooser
+	    this.lblBackgPath = new Label("Fond d'écran de la partie : " + imgBackground);
+	    //lblBackgPath.setTextFill(Color.WHITE);
+	    lblBackgPath.setFont(Font.font(null, FontWeight.BOLD, 15));
+		btnBackground = new Button("Changer le fond");
+		btnBackground.setOnMouseClicked(lstnBtn);
+		btnBackground.setCursor(Cursor.HAND);
+		
+		VBox vbBg = new VBox();
+		vbBg.getChildren().addAll(btnBackground, lblBackgPath);
+		vbBg.setAlignment(Pos.CENTER);
+		vbBg.setSpacing(10);
+		
+		//Label nombre de tours
+        Label lblTurnNbr = new Label("Nombre de tours:");
+        lblTurnNbr.setTextFill(Color.WHITE);
+        lblTurnNbr.setFont(Font.font(null, FontWeight.BOLD, 15));
+        
+        //Bouton pour afficher les règles
+      	btnRules = new Button("Règles");
+      	btnRules.setOnMouseClicked(lstnBtn);
+      		
+  		//Choix du nombre de tours
+  		ComboBox<Integer> cbTurnNbr = new ComboBox<>();
+        cbTurnNbr.getItems().addAll(10,12,14,16,18,20);
+        cbTurnNbr.setValue(10);
+        turnNumber = cbTurnNbr.getValue();
+        cbTurnNbr.setOnAction(e -> {
+        	turnNumber = cbTurnNbr.getValue();
+        });
+        
+        //HBox du nombre de tour
+        HBox hbTurnNbr = new HBox(10);
+        hbTurnNbr.setAlignment(Pos.CENTER);
+        hbTurnNbr.getChildren().addAll(lblTurnNbr,cbTurnNbr);
+        
+        
+        //HBox dans la VBox du milieu qui contient les règles et le nombre de tours
+        HBox hbMiddle = new HBox(500);
+        hbMiddle.setAlignment(Pos.CENTER);
+        hbMiddle.getChildren().addAll(hbTurnNbr,btnRules);
+		
+		//VBox du millieu
+		VBox vbMiddle = new VBox();
+		vbMiddle.setAlignment(Pos.CENTER);
+		vbMiddle.getChildren().addAll(vbBg, hbMiddle);
+		/*vbMiddle.setSpacing(40);
+		vbMiddle.setPadding(new Insets(250, 0, 0, 0));*/
+		
+		//Root
+		BorderPane root = new BorderPane();
+		root.setTop(lblOptions);
+        root.setCenter(vbMiddle);
+        root.setBottom(btnOk);
+        options.setScene(new Scene(root, 500, 500));
+        options.showAndWait();		
+	}
 
 	private void showRules() {
-        Stage rulesWindow = new Stage();
-        rulesWindow.initModality(Modality.APPLICATION_MODAL); // Bloque la fenêtre principale
+        rulesWindow = new Stage();
+        rulesWindow.initModality(Modality.APPLICATION_MODAL);
         rulesWindow.setResizable(false);
         rulesWindow.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
         rulesWindow.initStyle(StageStyle.UNDECORATED);
-        rulesWindow.setTitle("Règles du jeu");
         Label tabulationTitle = new Label("					");
         Label rulesTitle = new Label("Voici les règles du jeu:\n\n");
         Label rules = new Label(
@@ -322,6 +363,15 @@ public class LaticeAppSb extends Application{
 						e.printStackTrace();
 					}
 				}
+			}
+			else if(event.getSource() == btnOptions) {
+				showOptions();
+			}
+			else if(event.getSource() == btnRules) {
+				showRules();
+			}
+			else if(event.getSource() == btnOk) {
+				options.close();
 			}
 			else if(event.getSource() == btnBackground) {
 				FileChooser fileChooser = new FileChooser();
