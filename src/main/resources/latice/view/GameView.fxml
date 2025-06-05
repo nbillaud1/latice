@@ -555,7 +555,7 @@
       </Text>
       <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" maxWidth="1000.0" StackPane.alignment="BOTTOM_LEFT">
          <children>
-            <Button fx:id="idBtnPass" mnemonicParsing="false" onAction="#changeTiles" prefHeight="33.0" prefWidth="176.0" text="Passer/Finir son tour" textAlignment="CENTER">
+            <Button fx:id="idBtnPass" mnemonicParsing="false" onAction="#changeTiles" prefHeight="33.0" prefWidth="222.0" text="Passer/Finir son tour" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="17.0" />
                </font>

@@ -1,0 +1,57 @@
+.button {
+	-fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4);
+    -fx-cursor: hand;
+    -fx-border-radius: 30px;
+    -fx-border-color: transparent;
+    -fx-transition: all 0.3s ease;
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(to bottom right, #4facfe, #00f2fe);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);
+    -fx-translate-y: 2px;
+}
+
+
+.combo-box {
+	-fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4);
+    -fx-cursor: hand;
+    -fx-border-radius: 30px;
+    -fx-border-color: transparent;
+    -fx-transition: all 0.3s ease;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #3e5870;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);;
+    -fx-text-fill: white;
+}
+
+.option-root{
+	-fx-background-color: lightsteelblue;
+	-fx-background-radius: 20;
+	-fx-padding: 20;
+}

@@ -60,7 +60,18 @@ public class LaticeAppSb extends Application{
 	private Stage options;
 	private Stage rulesWindow;
 	private String imgBackground = "fond.png";
-	private int turnNumber;
+	private int turnNumber = 10;
+	
+	/*private static String BTN_STYLE = "-fx-background-color: linear-gradient(to bottom right, #4facfe, #00f2fe);\r\n"
+			+ "    -fx-background-radius: 30px;\r\n"
+			+ "    -fx-text-fill: white;\r\n"
+			+ "    -fx-font-size: 14px;\r\n"
+			+ "    -fx-font-weight: bold;\r\n"
+			+ "    -fx-padding: 10 20;\r\n"
+			+ "    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4);\r\n"
+			+ "    -fx-cursor: hand;\r\n"
+			+ "    -fx-border-radius: 30px;\r\n"
+			+ "    -fx-border-color: transparent;";*/
 	
 	
 
@@ -131,6 +142,7 @@ public class LaticeAppSb extends Application{
 		//Bouton pour commencer
 		this.btnStart = new Button("Commencer la partie !");
 		this.btnStart.setOnMouseClicked(lstnBtn);
+		this.btnStart.setCursor(Cursor.HAND);
 		
 		//HBox des deux noms
 		HBox hBoxNames = new HBox();
@@ -182,7 +194,9 @@ public class LaticeAppSb extends Application{
         //Music du lobby
         MusicManager.play("/latice/sound/Lobby_music.wav");
         
-        primaryStage.setScene(new Scene(root, 1000,1000));
+        Scene scene = new Scene(root, 1000, 1000);
+		scene .getStylesheets().add(getClass().getResource("/latice/view/style.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.setTitle("Choix du nom des joueurs");
         primaryStage.show();
 	}
@@ -191,14 +205,16 @@ public class LaticeAppSb extends Application{
 		options = new Stage();
 		options.initModality(Modality.APPLICATION_MODAL); // Bloque la fenêtre principale
 		options.setResizable(false);
-		options.initStyle(StageStyle.UNDECORATED);
+		options.initStyle(StageStyle.TRANSPARENT);
         options.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));
         
         ButtonListener lstnBtn = new ButtonListener();
         btnOk = new Button("Ok");
         btnOk.setOnMouseClicked(lstnBtn);
+        btnOk.setCursor(Cursor.HAND);
         
         Label lblOptions = new Label("Options de la partie : ");
+        lblOptions.setFont(Font.font(null, FontWeight.BOLD, 40));
         
         //VBox background chooser
 	    this.lblBackgPath = new Label("Fond d'écran de la partie : " + imgBackground);
@@ -207,20 +223,21 @@ public class LaticeAppSb extends Application{
 		btnBackground = new Button("Changer le fond");
 		btnBackground.setOnMouseClicked(lstnBtn);
 		btnBackground.setCursor(Cursor.HAND);
+		btnBackground.getStyleClass().add("button");
 		
 		VBox vbBg = new VBox();
-		vbBg.getChildren().addAll(btnBackground, lblBackgPath);
+		vbBg.getChildren().addAll(lblBackgPath, btnBackground);
 		vbBg.setAlignment(Pos.CENTER);
 		vbBg.setSpacing(10);
 		
 		//Label nombre de tours
         Label lblTurnNbr = new Label("Nombre de tours:");
-        lblTurnNbr.setTextFill(Color.WHITE);
         lblTurnNbr.setFont(Font.font(null, FontWeight.BOLD, 15));
         
         //Bouton pour afficher les règles
       	btnRules = new Button("Règles");
       	btnRules.setOnMouseClicked(lstnBtn);
+      	btnRules.setCursor(Cursor.HAND);
       		
   		//Choix du nombre de tours
   		ComboBox<Integer> cbTurnNbr = new ComboBox<>();
@@ -230,31 +247,41 @@ public class LaticeAppSb extends Application{
         cbTurnNbr.setOnAction(e -> {
         	turnNumber = cbTurnNbr.getValue();
         });
+        cbTurnNbr.setCursor(Cursor.HAND);
         
-        //HBox du nombre de tour
-        HBox hbTurnNbr = new HBox(10);
-        hbTurnNbr.setAlignment(Pos.CENTER);
-        hbTurnNbr.getChildren().addAll(lblTurnNbr,cbTurnNbr);
+        
+        //VBox du nombre de tour
+        VBox vbTurnNbr = new VBox(10);
+        vbTurnNbr.setAlignment(Pos.CENTER);
+        vbTurnNbr.getChildren().addAll(lblTurnNbr,cbTurnNbr);
         
         
         //HBox dans la VBox du milieu qui contient les règles et le nombre de tours
         HBox hbMiddle = new HBox(500);
         hbMiddle.setAlignment(Pos.CENTER);
-        hbMiddle.getChildren().addAll(hbTurnNbr,btnRules);
+        hbMiddle.getChildren().addAll(vbTurnNbr,btnRules);
 		
 		//VBox du millieu
 		VBox vbMiddle = new VBox();
 		vbMiddle.setAlignment(Pos.CENTER);
 		vbMiddle.getChildren().addAll(vbBg, hbMiddle);
-		/*vbMiddle.setSpacing(40);
-		vbMiddle.setPadding(new Insets(250, 0, 0, 0));*/
+		vbMiddle.setSpacing(40);
 		
 		//Root
 		BorderPane root = new BorderPane();
+		root.getStyleClass().add("option-root");
 		root.setTop(lblOptions);
         root.setCenter(vbMiddle);
         root.setBottom(btnOk);
-        options.setScene(new Scene(root, 500, 500));
+        BorderPane.setMargin(btnOk, new Insets(0, 0, 20, 0));
+        BorderPane.setAlignment(btnOk, Pos.CENTER);
+        BorderPane.setMargin(lblOptions, new Insets(20, 0, 0, 0));
+        BorderPane.setAlignment(lblOptions, Pos.CENTER);
+        
+        Scene scene = new Scene(root, 750, 550);
+        scene .getStylesheets().add(getClass().getResource("/latice/view/style.css").toExternalForm());
+        scene.setFill(Color.TRANSPARENT); // Pour que l'on voit les bords arrondis
+        options.setScene(scene);
         options.showAndWait();		
 	}
 
@@ -395,13 +422,14 @@ public class LaticeAppSb extends Application{
 		root.getChildren().add(loader.load());
 		
 		GameViewController controller = loader.getController(); 
-		controller.setroundConter(turnNumber);
+		controller.setRoundConter(turnNumber);
 	    controller.setPlayer1Name(this.player1Name()); // on fournit les noms des joueurs au controller.
 	    controller.setPlayer2Name(this.player2Name());
 	    controller.initialize();
 	    
 		Stage stage = new Stage();
 		Scene scene = new Scene(root,1000,1000);
+		scene.getStylesheets().add(getClass().getResource("/latice/view/style.css").toExternalForm());
 		stage.setResizable(false);
 		stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/latice/image/icon.png")));

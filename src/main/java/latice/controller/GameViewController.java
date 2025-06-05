@@ -159,7 +159,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     private boolean[] finalRackP2 = {false,false,false,false,false};
     private Boolean musicOn = true;
     
-    public void setroundConter(int value) {
+    public void setRoundConter(int value) {
     	maxTurnNbr = value * 2;
     }
     
