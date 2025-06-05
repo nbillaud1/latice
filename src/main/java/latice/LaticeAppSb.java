@@ -61,20 +61,6 @@ public class LaticeAppSb extends Application{
 	private Stage rulesWindow;
 	private String imgBackground = "fond.png";
 	private int turnNumber = 10;
-	
-	/*private static String BTN_STYLE = "-fx-background-color: linear-gradient(to bottom right, #4facfe, #00f2fe);\r\n"
-			+ "    -fx-background-radius: 30px;\r\n"
-			+ "    -fx-text-fill: white;\r\n"
-			+ "    -fx-font-size: 14px;\r\n"
-			+ "    -fx-font-weight: bold;\r\n"
-			+ "    -fx-padding: 10 20;\r\n"
-			+ "    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4);\r\n"
-			+ "    -fx-cursor: hand;\r\n"
-			+ "    -fx-border-radius: 30px;\r\n"
-			+ "    -fx-border-color: transparent;";*/
-	
-	
-
 
 	@Override
 	public void start(Stage primaryStage){
