@@ -24,7 +24,7 @@ public class MusicManager {
     public static void stop() {
         if (currentPlayer != null) {
             currentPlayer.stop();
-            currentPlayer.dispose();
+            currentPlayer.dispose(); //Sert à libérer l'espace utilisé par l'audio en cour
             currentPlayer = null;
         }
     }
