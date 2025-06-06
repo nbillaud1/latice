@@ -55,7 +55,7 @@ public class LacticeApplicationConsole {
 		}
 		catch(CannotPutATileException e) {
 			System.out.println(e.getMessage());
-		}*/
+		}
 		gameBoard.addBoard(5, 5, tileTurtle);
 		try {
 			checkAndPutTile(4, 3, tileFeather); //test ok.
@@ -63,6 +63,7 @@ public class LacticeApplicationConsole {
 		catch(CannotPutATileException e) {
 			System.out.println(e.getMessage());
 		}
+		*/
 		gameBoard.printGameBoard();
 	}
 	
