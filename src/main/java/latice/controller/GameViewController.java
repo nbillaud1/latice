@@ -195,7 +195,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	idErrTile.setVisible(false); //Cache le label d'erreur
     	isEndOfTheGame = false;
     	
-    	//Initialise la partie celon si c'est le tour du P1 ou du P2
+    	//Initialise la partie selon si c'est le tour du P1 ou du P2
     	if (isP2) {
         	idPilePlayer1.setVisible(false);
         	idMovesP1.setVisible(false);
@@ -232,12 +232,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
         	}        	
         });
         
-      //Permet d'acheter une action suplémentaire
+      //Permet d'acheter une action supplémentaire
     	idBtnExtraMove.setOnAction(e -> {
-    		contextM.show(idBtnExtraMove, Side.BOTTOM, 0, 0); //Definit la position de contextM
+    		contextM.show(idBtnExtraMove, Side.BOTTOM, 0, 0); //Définit la position de contextM
     	});
        
-      //S'occupe de déterminer quelle à persu un drag and drop
+      //S'occupe de déterminer quelle tuile a detecté un drag
         idRackInvisibleTile1.setOnDragDetected(event -> {
         	dragP1OrP2Tile(event,imageTile1,idRackInvisibleTile1);
         });
