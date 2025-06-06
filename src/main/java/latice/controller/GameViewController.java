@@ -553,10 +553,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		int nbrTilesLeftP1 = poolPlayer1.size();
 		int nbrTilesLeftP2 = poolPlayer2.size();
 		if (nbrTilesLeftP1 < nbrTilesLeftP2) {
-			idTxtPile.setText("C'est " + player1Name + " qui l'emporte !");
+			idTxtPile.setText("C'est " + player1Name + " qui l'emporte ! Avec " + Integer.toString(poolPlayer2.size() - poolPlayer1.size()) + " tuile(s) de moins que " + player2Name);
 		}
 		else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
-			idTxtPile.setText("C'est " + player2Name + " qui l'emporte !");
+			idTxtPile.setText("C'est " + player2Name + " qui l'emporte ! Avec " + Integer.toString(poolPlayer1.size() - poolPlayer2.size()) + " tuile(s) de moins que " + player1Name);
 		}
 		else {
 			idTxtPile.setText("Égalité");
