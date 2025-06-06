@@ -26,7 +26,7 @@ public class Referer {
 	
 	//Permet d'afficher un message d'erreur
 	public void displayErrorMessage(String message, Text idErrTile) {
-		DropShadow outline = new DropShadow();
+		DropShadow outline = new DropShadow(); //Permet de mettre un contour blanc au label d'erreur
         outline.setOffsetX(0);
         outline.setOffsetY(0);
         outline.setColor(Color.WHITE);
@@ -37,7 +37,7 @@ public class Referer {
      	idErrTile.setText(message);
 	}
 	
-	//Test pour poser une tuile
+	//Test pour poser une tuile (renvoir l'url d'une ImageView)
 	public String findTile(ImageView imageGrid) {
 		Image img = imageGrid.getImage();
 		String urlImage = Tile.url(img);
@@ -69,6 +69,7 @@ public class Referer {
  		setPTurnAndAction(player, idTxtPile, idMoves);
 	}
 	
+	//Retourne la shape de l'url
 	public Shape findShape(String url) {
 		int indexOfLastSlash = 0;
 		for(int i=0; i<url.length(); i++) {
@@ -98,6 +99,7 @@ public class Referer {
 		}
 	}
 	
+	//Retourne la couleur de l'url
 	public Colors findColor(String url) {
 		String color = url.substring(url.length()-5, url.length()-4);
 		if (color.equals("y")){
@@ -120,6 +122,7 @@ public class Referer {
 		}
 	}
 	
+	//Teste dans les 4 directions si la tuile peut être posé à cette endroit
 	public int checkAround(GameBoard gameBoard, int col, int row, Tile tile) {
 		Boolean putIsNotPossible = false;
 		int nbrOfTilesAround = 0;
@@ -175,6 +178,7 @@ public class Referer {
 		return nbrOfTilesAround;
 	}
 
+	//Vérifie si la tuile à côté est soi de la même couleur ou forme
 	private Boolean canPutHere(GameBoard gameBoard, int col, int row, Colors colorTileToPut, Shape shapeTileToPut) {
 		Boolean putIsNotPossible;
 		Tile tileNextTo = gameBoard.board().get(row).get(col);

@@ -171,7 +171,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
         player2Name = name;
     }
     
-    public void emptyLstPlayer1PlayedTilesIndex() {
+    public void emptyLstPlayer1PlayedTilesIndex() { //Initialise une ArrayList vide que l'on remplira par l'emplacement de la tuile du rack du joueur
     	lstPlayer1PlayedTilesIndex = new ArrayList<Integer>();
     }
     
@@ -181,8 +181,9 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
+    	//Initilise le fait de pouvoir payer en demi pierres ou pierre soleil
     	ContextMenu contextM = new ContextMenu();
-    	MenuItem miHalfStone = new MenuItem("Payer en demi pierres");
+    	MenuItem miHalfStone = new MenuItem("Payer en demi pierres"); 
         MenuItem miSunStone = new MenuItem("Payer en pierre soleil");
         miHalfStone.setOnAction(e -> buyExtraMoveHalfStone());
         miSunStone.setOnAction(e -> buyExtraMoveSunStone());
@@ -191,10 +192,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
     	player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
     	idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
     	roundCounter = 0;
-    	idErrTile.setVisible(false);
+    	idErrTile.setVisible(false); //Cache le label d'erreur
     	isEndOfTheGame = false;
     	
-    	
+    	//Initialise la partie celon si c'est le tour du P1 ou du P2
     	if (isP2) {
         	idPilePlayer1.setVisible(false);
         	idMovesP1.setVisible(false);
@@ -233,9 +234,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
         
       //Permet d'acheter une action suplémentaire
     	idBtnExtraMove.setOnAction(e -> {
-    		contextM.show(idBtnExtraMove, Side.BOTTOM, 0, 0);
+    		contextM.show(idBtnExtraMove, Side.BOTTOM, 0, 0); //Definit la position de contextM
     	});
        
+      //S'occupe de déterminer quelle à persu un drag and drop
         idRackInvisibleTile1.setOnDragDetected(event -> {
         	dragP1OrP2Tile(event,imageTile1,idRackInvisibleTile1);
         });
@@ -257,11 +259,13 @@ public class GameViewController implements EventHandler<MouseEvent>{
         });
     }
 
+   //Drag and drop + event consume
 	private void dragP1OrP2Tile(MouseEvent event, Image imageTile, ImageView idRackInvisibleTile) {
 		dragTile(idRackInvisibleTile, imageTile);
 		event.consume();
 	}
 	
+   //Drag and drop
 	private void dragTile(ImageView tile, Image imgTile) {
 		if (isP2) {
 			canContinue = player2.move();
@@ -422,8 +426,8 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		isP2 = !isP2;
 		roundCounter ++;
 		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
-		
 		idErrTile.setVisible(false);
+		
 		if ((finalRackP1[0] && finalRackP1[1] && finalRackP1[2] && finalRackP1[3] && finalRackP1[4]  )|| (finalRackP2[0] && finalRackP2[1] && finalRackP2[2] && finalRackP2[3] && finalRackP2[4])) {
 			isEndOfTheGame = true;
 		}
@@ -440,7 +444,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 			int tilesLeft = nbrOfTilesToHide;
 			for (int i = 0; i<nbrOfTilesToHide ; i++) {
 				if(tilesLeft > 0) { 
-					finalRack[lstPlayerPlayedTilesIndex.get((-i)+1)] = true;
+					finalRack[lstPlayerPlayedTilesIndex.get(lstPlayerPlayedTilesIndex.size() - 1 - i)] = true;
 					tilesLeft -= 1;
 				}
 			}
