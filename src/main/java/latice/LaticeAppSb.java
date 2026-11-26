@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -30,14 +31,17 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 import latice.audio.MusicManager;
 import latice.controller.GameViewController;
@@ -61,6 +65,14 @@ public class LaticeAppSb extends Application{
 	private Stage rulesWindow;
 	private String imgBackground = "fond.png";
 	private int turnNumber = 10;
+
+	//Réduit une fenêtre conçue en w x h pour qu'elle tienne dans l'écran (sans l'agrandir)
+	private static Scene fitToScreen(Region root, double w, double h) {
+		double scale = Math.min(1, Screen.getPrimary().getVisualBounds().getHeight() / h);
+		root.setPrefSize(w, h);
+		root.getTransforms().add(new Scale(scale, scale, 0, 0));
+		return new Scene(new Group(root), w * scale, h * scale);
+	}
 
 	@Override
 	public void start(Stage primaryStage){
@@ -180,7 +192,7 @@ public class LaticeAppSb extends Application{
         //Music du lobby
         MusicManager.play("/latice/sound/Lobby_music.wav");
         
-        Scene scene = new Scene(root, 1000, 1000);
+        Scene scene = fitToScreen(root, 1000, 1000);
 		scene .getStylesheets().add(getClass().getResource("/latice/view/style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Choix du nom des joueurs");
@@ -414,7 +426,7 @@ public class LaticeAppSb extends Application{
 	    controller.initialize();
 	    
 		Stage stage = new Stage();
-		Scene scene = new Scene(root,1000,1000);
+		Scene scene = fitToScreen(root, 1000, 1000);
 		scene.getStylesheets().add(getClass().getResource("/latice/view/style.css").toExternalForm());
 		stage.setResizable(false);
 		stage.initStyle(StageStyle.UNDECORATED); // désactive la barre du haut de la fenêtre.
