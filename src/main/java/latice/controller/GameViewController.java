@@ -318,7 +318,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	        ClipboardContent content = new ClipboardContent();
 	        content.putString(imgTile.toString());
 	        dragboard.setContent(content);
-	        dragboard.setDragView(imgTile, 50, 50);
+	        dragboard.setDragView(new Image(Tile.url(imgTile), 80, 80, true, true), 40, 40); //sprite 200px réduit à la taille d'une case
 	 	
 	 		idInvisibleGrid.setOnDragOver(event -> {
 	 		    if (event.getGestureSource() != idGrid && event.getDragboard().hasString()) {
