@@ -71,7 +71,7 @@ public class Tile {
 	}
 	
 	public static String url(Image img) {
-		return img.impl_getUrl();
+		return img.getUrl();
 	}
 	
 	public String toString() {
