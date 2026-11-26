@@ -40,6 +40,7 @@ import javafx.util.Duration;
 import latice.audio.MusicManager;
 import latice.controller.GameViewController;
 import latice.view.Icons;
+import latice.view.RulesView;
 import latice.view.ScaledLayout;
 
 public class LaticeAppSb extends Application{
@@ -291,36 +292,7 @@ public class LaticeAppSb extends Application{
         HBox header = new HBox(rulesTitle, spacer, btnClose);
         header.setAlignment(Pos.CENTER_LEFT);
 
-        Label rules = new Label(
-                "Le Latice est un jeu de stratégie où vous devez associer des tuiles de la même "
-                + "couleur ou de la même forme.\n\n"
-                + "DISTRIBUTION\n"
-                + "Au début de la partie, chaque joueur possède une pioche de 31 tuiles plus une main de 5 tuiles. "
-                + "Il existe seulement deux exemplaires de chaque tuile.\n\n"
-                + "VICTOIRE\n"
-                + "Le gagnant est celui qui se débarrasse de toutes ses tuiles ou, dans notre application, "
-                + "celui qui a le moins de tuiles à la fin du nombre de tours impartis (10 minimum).\n\n"
-                + "DÉROULEMENT\n"
-                + "La première tuile doit être placée sur la lune au centre. Ensuite, une tuile ne peut être posée "
-                + "que si elle touche par un côté une tuile déjà posée, et qu'elle est de la même forme ou de la même "
-                + "couleur que chacune de ses voisines (les diagonales ne comptent pas).\n\n"
-                + "À chaque tour, le joueur dispose d'une action :\n"
-                + "  •  poser une tuile ;\n"
-                + "  •  changer toute sa main (cela passe son tour) ;\n"
-                + "  •  passer son tour.\n"
-                + "S'il pose une tuile, il peut acheter une action supplémentaire avec ses pierres.\n\n"
-                + "LES PIERRES\n"
-                + "  •  2 tuiles voisines : un Double, qui rapporte une demi-pierre.\n"
-                + "  •  3 tuiles voisines : un Trèfle, qui rapporte une pierre soleil.\n"
-                + "  •  4 tuiles voisines : un Latice, qui rapporte deux pierres soleil.\n"
-                + "  •  Poser sur un soleil rapporte une pierre soleil.\n"
-                + "Une action supplémentaire coûte une pierre soleil ou deux demi-pierres. Les demi-pierres ne sont "
-                + "pas limitées, mais au-delà de 3 pierres soleil en fin de tour, l'excédent est retiré.");
-        rules.getStyleClass().add("rules-text");
-        rules.setWrapText(true);
-        rules.setPrefWidth(610);
-
-        ScrollPane scrollPane = new ScrollPane(rules);
+        ScrollPane scrollPane = new ScrollPane(RulesView.build());
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
@@ -328,7 +300,7 @@ public class LaticeAppSb extends Application{
         VBox root = new VBox(14, header, scrollPane);
         root.getStyleClass().add("rules-root");
 
-        Scene scene = new Scene(root, 700, 620);
+        Scene scene = new Scene(root, 820, Math.min(760, Screen.getPrimary().getVisualBounds().getHeight() * 0.92));
         scene.getStylesheets().add(getClass().getResource(STYLE).toExternalForm());
         scene.setFill(Color.TRANSPARENT);
         rulesWindow.setScene(scene);
