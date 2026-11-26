@@ -1,57 +1,342 @@
+/* Thème « Lagon » : bleu profond, turquoise, sable, corail et soleil */
+.root {
+    -deep: #0b3954;
+    -ocean: #1385a8;
+    -lagoon: #22c3c3;
+    -foam: #fffcf3;
+    -sand: #f6e3b4;
+    -sand-dark: #d9b26f;
+    -wood: #a8743f;
+    -coral: #ff7a59;
+    -coral-dark: #e3593a;
+    -sun: #ffc94a;
+    -ink: #123247;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+}
+
+/* ---------- Boutons ---------- */
 .button {
-	-fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);
-    -fx-background-radius: 30px;
+    -fx-background-color: rgba(11, 57, 84, 0.35), linear-gradient(to bottom, #3fd6cf, #129ea6);
+    -fx-background-insets: 0 0 -4 0, 0;
+    -fx-background-radius: 999;
+    -fx-border-color: rgba(255, 255, 255, 0.7);
+    -fx-border-width: 2;
+    -fx-border-radius: 999;
     -fx-text-fill: white;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-padding: 10 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4);
+    -fx-padding: 9 22;
     -fx-cursor: hand;
-    -fx-border-radius: 30px;
-    -fx-border-color: transparent;
-    -fx-transition: all 0.3s ease;
+    -fx-effect: dropshadow(gaussian, rgba(4, 30, 50, 0.35), 10, 0.2, 0, 3);
 }
-
 .button:hover {
-	-fx-background-color: linear-gradient(to bottom right, #4facfe, #00f2fe);
+    -fx-background-color: rgba(11, 57, 84, 0.35), linear-gradient(to bottom, #5be4dc, #18b2b8);
+    -fx-scale-x: 1.04;
+    -fx-scale-y: 1.04;
 }
-
 .button:pressed {
-    -fx-background-color: linear-gradient(to bottom right, #11998e, #38ef7d);
-    -fx-translate-y: 2px;
+    -fx-translate-y: 3;
+    -fx-background-insets: 0 0 -1 0, 0;
+}
+.button:disabled {
+    -fx-opacity: 0.45;
 }
 
+.button.cta {
+    -fx-background-color: #b8432a, linear-gradient(to bottom, #ff9670, #ff6b48);
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-padding: 12 42;
+    -fx-background-insets: 0 0 -5 0, 0;
+}
+.button.cta:hover {
+    -fx-background-color: #b8432a, linear-gradient(to bottom, #ffab8b, #ff7a59);
+}
+
+.button.secondary {
+    -fx-background-color: -sand-dark, -foam;
+    -fx-text-fill: -deep;
+    -fx-border-color: -sand-dark;
+}
+.button.secondary:hover {
+    -fx-background-color: -sand-dark, white;
+}
+
+/* Boutons ronds avec une icône (options, son, quitter) */
+.button.icon-button {
+    -fx-background-color: rgba(11, 57, 84, 0.3), rgba(255, 252, 243, 0.92);
+    -fx-padding: 10;
+    -fx-min-width: 52;
+    -fx-min-height: 52;
+}
+.button.icon-button:hover {
+    -fx-background-color: rgba(11, 57, 84, 0.3), white;
+}
+.button.icon-button.danger:hover .icon {
+    -fx-fill: -coral-dark;
+}
+.button .icon {
+    -fx-fill: white;
+}
+.button.icon-button .icon {
+    -fx-fill: -deep;
+}
+
+/* ---------- Champs ---------- */
+.text-field {
+    -fx-background-color: -lagoon, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 14, 12;
+    -fx-padding: 10 14;
+    -fx-font-size: 18px;
+    -fx-text-fill: -ink;
+    -fx-prompt-text-fill: #8aa3b0;
+}
+.text-field:focused {
+    -fx-background-color: -coral, white;
+}
 
 .combo-box {
-	-fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);
-    -fx-background-radius: 30px;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4);
+    -fx-background-color: -lagoon, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 999;
+    -fx-padding: 2 8;
     -fx-cursor: hand;
-    -fx-border-radius: 30px;
-    -fx-border-color: transparent;
-    -fx-transition: all 0.3s ease;
 }
-
 .combo-box .list-cell {
+    -fx-text-fill: -ink;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+}
+.combo-box-popup .list-cell:hover, .combo-box-popup .list-cell:selected {
+    -fx-background-color: -lagoon;
     -fx-text-fill: white;
-    -fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);;
 }
 
-.combo-box .list-cell:hover {
-    -fx-background-color: #3e5870;
+.context-menu {
+    -fx-background-color: -foam;
+    -fx-background-radius: 14;
+    -fx-border-color: -sand-dark;
+    -fx-border-radius: 14;
+    -fx-border-width: 2;
+    -fx-padding: 6;
 }
-
-.combo-box .list-cell:selected {
-    -fx-background-color: linear-gradient(to bottom right, #43e97b, #38f9d7);;
+.context-menu .menu-item .label {
+    -fx-text-fill: -ink;
+    -fx-font-weight: bold;
+}
+.context-menu .menu-item:focused {
+    -fx-background-color: -lagoon;
+    -fx-background-radius: 8;
+}
+.context-menu .menu-item:focused .label {
     -fx-text-fill: white;
 }
 
-.option-root{
-	-fx-background-color: lightsteelblue;
-	-fx-background-radius: 20;
-	-fx-padding: 20;
+/* ---------- Cartes et textes ---------- */
+.panel {
+    -fx-background-color: -sand-dark, -foam;
+    -fx-background-insets: 0, 4;
+    -fx-background-radius: 28, 24;
+    -fx-padding: 28 34;
+    -fx-effect: dropshadow(gaussian, rgba(4, 30, 50, 0.45), 30, 0.15, 0, 10);
+}
+.panel .label {
+    -fx-text-fill: -ink;
+}
+
+.logo {
+    -fx-font-size: 118px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, #0b3954, 0, 1, 0, 7);
+}
+.tagline {
+    -fx-font-size: 22px;
+    -fx-font-style: italic;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(11, 57, 84, 0.8), 6, 0.4, 0, 1);
+}
+.section-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: 900;
+}
+.field-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.error-label {
+    -fx-text-fill: -coral-dark !important;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+.footer {
+    -fx-text-fill: #7a5a2e;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Options et règles ---------- */
+.option-root {
+    -fx-background-color: -sand-dark, -foam;
+    -fx-background-insets: 0, 4;
+    -fx-background-radius: 28, 24;
+    -fx-padding: 24;
+}
+.rules-root {
+    -fx-background-color: -sand-dark, -foam;
+    -fx-background-insets: 0, 4;
+    -fx-background-radius: 28, 24;
+    -fx-padding: 26 30 20 30;
+}
+.rules-text {
+    -fx-font-size: 16px;
+    -fx-line-spacing: 3;
+    -fx-text-fill: -ink;
+}
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: -lagoon;
+    -fx-background-radius: 999;
+}
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-padding: 0;
+}
+
+/* ---------- Plateau de jeu ---------- */
+/* Cadre en bois flotté autour de la grille : dessiné hors des cases pour garder les 80 px par case */
+#idGrid {
+    -fx-background-color: #6f4a26, linear-gradient(to bottom, #c99a62, -wood), #0e6a8a;
+    -fx-background-insets: -18, -15, -3;
+    -fx-background-radius: 26, 23, 8;
+    -fx-effect: dropshadow(gaussian, rgba(4, 30, 50, 0.55), 28, 0.2, 0, 10);
+}
+.rack {
+    -fx-background-color: #6f4a26, linear-gradient(to bottom, #c99a62, -wood);
+    -fx-background-insets: -12, -9;
+    -fx-background-radius: 20, 17;
+    -fx-effect: dropshadow(gaussian, rgba(4, 30, 50, 0.45), 16, 0.2, 0, 6);
+}
+
+/* ---------- Barre d'état et rangée de jeu ---------- */
+.chip {
+    -fx-background-color: -sand-dark, rgba(255, 252, 243, 0.95);
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 999;
+    -fx-padding: 6 16 6 12;
+    -fx-effect: dropshadow(gaussian, rgba(4, 30, 50, 0.35), 8, 0.2, 0, 2);
+}
+.player-chip {
+    -fx-background-color: #b8432a, linear-gradient(to bottom, #ff9670, #ff6b48);
+    -fx-padding: 6 20;
+}
+.player-chip .chip-caption {
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+.player-chip .chip-value {
+    -fx-fill: white;
+    -fx-font-size: 20px;
+}
+.chip-icon {
+    -fx-fill: -ocean;
+}
+.sun-icon {
+    -fx-fill: #f0a500;
+}
+.half-icon {
+    -fx-fill: #8a6bd1;
+}
+.chip-value {
+    -fx-fill: -ink;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+}
+.chip-caption {
+    -fx-text-fill: #5f7682;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+.hud-caption {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #0b3954, 3, 0.7, 0, 1);
+}
+/* Pioche dessinée : trois dos de tuiles empilés, celui du dessus couleur lagon */
+.pile {
+    -fx-background-color:
+        #8a6235, -sand,
+        #8a6235, #fbeecb,
+        #0b3954, linear-gradient(to bottom, #3fc1d0, #1385a8);
+    -fx-background-insets:
+        12 0 0 0, 14 2 2 2,
+        6 0 6 0, 8 2 8 2,
+        0 0 12 0, 2 2 14 2;
+    -fx-background-radius: 14, 12, 14, 12, 14, 12;
+    -fx-effect: dropshadow(gaussian, rgba(4, 30, 50, 0.45), 10, 0.2, 0, 4);
+}
+.pile-count {
+    -fx-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-effect: dropshadow(gaussian, #0b3954, 3, 0.6, 0, 1);
+}
+.button.action-button {
+    -fx-font-size: 15px;
+    -fx-padding: 7 16 7 12;
+}
+.tooltip {
+    -fx-background-color: -deep;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 8 12;
+}
+.toast {
+    -fx-background-color: -coral, -foam;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 999;
+    -fx-padding: 8 20;
+    -fx-effect: dropshadow(gaussian, rgba(4, 30, 50, 0.45), 12, 0.2, 0, 3);
+}
+.toast-text {
+    -fx-fill: #c8361b;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Victoire ---------- */
+.victory-overlay {
+    -fx-background-color: radial-gradient(center 50% 45%, radius 70%, rgba(19, 133, 168, 0.55), rgba(6, 30, 48, 0.85));
+}
+.victory-card {
+    -fx-padding: 34 40;
+}
+.victory-title {
+    -fx-font-size: 62px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -coral !important;
+    -fx-effect: dropshadow(gaussian, #b8432a, 0, 1, 0, 4);
+}
+.victory-winner {
+    -fx-font-size: 30px;
+    -fx-font-weight: 900;
+}
+.victory-detail {
+    -fx-font-size: 17px;
+    -fx-text-alignment: center;
+    -fx-padding: 0 0 10 0;
 }

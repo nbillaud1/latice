@@ -19,7 +19,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.TextFlow;
+import latice.view.StoneText;
+import javafx.stage.Stage;
+import latice.LaticeAppSb;
+import latice.view.Icons;
+import latice.view.VictoryOverlay;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import latice.model.Pool;
@@ -67,7 +79,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private ImageView idRackInvisibleTile5;
 	
 	@FXML
-	private ImageView idImgSound;
+	private Button idBtnSound;
 	
 	@FXML
 	private Button idBtnPass;
@@ -79,10 +91,10 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private Button idBtnQuit;
 	
 	@FXML
-	private ImageView idPilePlayer1;
+	private Region idPilePlayer1;
 	
 	@FXML
-	private ImageView idPilePlayer2;
+	private Region idPilePlayer2;
 	
 	@FXML
 	private Text idTxtPile;
@@ -104,6 +116,26 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 
 	 @FXML
 	 private Text idMovesP2;
+	 @FXML
+	 private StackPane idErrToast;
+	 @FXML
+	 private TextFlow idErrFlow;
+	 @FXML
+	 private VBox idHud;
+	 @FXML
+	 private FlowPane idChips;
+	 @FXML
+	 private FlowPane idPlayRow;
+	 @FXML
+	 private VBox idPileBox;
+	 @FXML
+	 private StackPane idRack;
+	 @FXML
+	 private VBox idActions;
+	 @FXML
+	 private Text idSunStones;
+	 @FXML
+	 private Text idHalfStones;
 	 
 	 @FXML
 	 private Text idTxtLatice;
@@ -181,18 +213,25 @@ public class GameViewController implements EventHandler<MouseEvent>{
     
     @FXML
 	public void initialize() {
+    	idBtnQuit.setGraphic(Icons.icon(Icons.CLOSE, 26));
+    	idBtnSound.setGraphic(Icons.icon(musicOn ? Icons.SOUND_ON : Icons.SOUND_OFF, 26));
     	//Initilise le fait de pouvoir payer en demi pierres ou pierre soleil
     	ContextMenu contextM = new ContextMenu();
     	MenuItem miHalfStone = new MenuItem("Payer en demi pierres"); 
         MenuItem miSunStone = new MenuItem("Payer en pierre soleil");
+        miHalfStone.setGraphic(StoneText.icon(true, 18));
+        miSunStone.setGraphic(StoneText.icon(false, 18));
         miHalfStone.setOnAction(e -> buyExtraMoveHalfStone());
         miSunStone.setOnAction(e -> buyExtraMoveSunStone());
         contextM.getItems().addAll(miHalfStone, miSunStone);
     	player1 = new Player(poolPlayer1, rackPlayer1, player1Name);
     	player2 = new Player(poolPlayer2, rackPlayer2, player2Name);
-    	idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
+    	idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2));
     	roundCounter = 0;
     	idErrTile.setVisible(false); //Cache le label d'erreur
+    	idErrToast.visibleProperty().bind(idErrTile.visibleProperty()); //La bulle suit le message
+    	StoneText.fill(idErrFlow, idErrTile.getText(), "toast-text");
+    	idErrTile.textProperty().addListener((obs, old, message) -> StoneText.fill(idErrFlow, message, "toast-text"));
     	isEndOfTheGame = false;
     	
     	//Initialise la partie selon si c'est le tour du P1 ou du P2
@@ -203,7 +242,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idNbrTilesPoolP1.setVisible(false);
             idNbrTilesPoolP2.setVisible(true);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
-            referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
+            updateHud(player2, idTxtPile, idMovesP2);
     	}
     	else {
         	idPilePlayer2.setVisible(false);
@@ -212,7 +251,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
             idNbrTilesPoolP2.setVisible(false);
             idNbrTilesPoolP1.setVisible(true);
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
-            referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
+            updateHud(player1, idTxtPile, idMovesP1);
     	}
         
         //Permet de changer son rack et passer son tour
@@ -306,9 +345,11 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	 		        	idErrTile.setVisible(false);
 	 		        	if (isP2) {
 	 		        		referer.pointsManagement(nbrOfTilesAround, player2, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP2, player2Name, gameBoard.board());
+	 		        		updateHud(player2, idTxtPile, idMovesP2);
 	 		        	}
 	 		        	else {
-	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP1, player1Name, gameBoard.board());    		
+	 		        		referer.pointsManagement(nbrOfTilesAround, player1, idTxtLatice, idTxtTrefoil, idTxtDouble, col, row, idTxtPile, idMovesP1, player1Name, gameBoard.board());
+	 		        		updateHud(player1, idTxtPile, idMovesP1);    		
 	 		        	}
 	 		        	gameBoard.addBoard(row + 1, col + 1, tileToAddOnGameBoard);
 	 		        	idInvisibleGrid.add(droppedTile, col, row);
@@ -373,16 +414,50 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	void switchTheSound() {
 		if(!musicOn) {
 			MusicManager.play("/latice/sound/Latice_theme.wav");
-			idImgSound.setImage(new Image("/latice/image/activer_le_son.png"));
+			idBtnSound.setGraphic(Icons.icon(Icons.SOUND_ON, 26));
 		}
 		else {
 			MusicManager.stop();
-			idImgSound.setImage(new Image("/latice/image/couper_le_son.png"));
+			idBtnSound.setGraphic(Icons.icon(Icons.SOUND_OFF, 26));
 			
 		}
 		musicOn = !musicOn;
 	}
 	
+	//Disposition adaptée à la fenêtre :
+	//paysage = plateau à gauche et panneau de jeu à droite, portrait = panneau sous le plateau
+	public void applyLayout(boolean wide) {
+		StackPane board = (StackPane) idGrid.getParent();
+Pos gridPos = wide ? Pos.CENTER_LEFT : Pos.TOP_CENTER;
+		Insets gridMargin = wide ? new Insets(0, 0, 0, 50) : new Insets(28, 0, 0, 0);
+		for (Node grid : new Node[] {idGrid, idInvisibleGrid}) {
+			StackPane.setAlignment(grid, gridPos);
+			StackPane.setMargin(grid, gridMargin);
+		}
+		StackPane.setAlignment(idHud, wide ? Pos.CENTER_RIGHT : Pos.BOTTOM_CENTER);
+		StackPane.setMargin(idHud, wide ? new Insets(0, 50, 0, 0) : new Insets(0, 0, 16, 0));
+		double wrap = wide ? 480 : 960;
+		idChips.setPrefWrapLength(wrap);
+		idPlayRow.setPrefWrapLength(wrap);
+		//En paysage le chevalet passe au-dessus, pioche et actions dessous
+		idPlayRow.getChildren().setAll(wide ? new Node[] {idRack, idPileBox, idActions} : new Node[] {idPileBox, idRack, idActions});
+		StackPane.setAlignment(idErrToast, wide ? Pos.BOTTOM_RIGHT : Pos.BOTTOM_CENTER);
+		StackPane.setMargin(idErrToast, wide ? new Insets(0, 40, 40, 0) : new Insets(0, 0, 250, 0));
+		idErrFlow.setMaxWidth(wide ? 460 : 760);
+		//Les animations Double/Trèfle/Latice restent centrées sur le plateau
+		for (Node combo : new Node[] {idTxtLatice, idTxtTrefoil, idTxtDouble}) {
+			combo.setTranslateX(wide ? 50 + 360 - 670 : 0);
+		}
+		board.setPrefSize(wide ? 1340 : 1000, wide ? 800 : 1000);
+	}
+
+	//Met à jour la barre d'état: joueur actif, actions restantes et pierres
+	private void updateHud(Player player, Text idTxtPile, Text idMoves) {
+		referer.setPTurnAndAction(player, idTxtPile, idMoves);
+		idSunStones.setText(String.valueOf(player.sunStone()));
+		idHalfStones.setText(String.valueOf(player.halfStone()));
+	}
+
 	//Gère le changement entre le tour du P1 et du P2
 	@FXML
 	private void changeTiles() {
@@ -398,7 +473,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    
 			switchView(isP2);
 		    player1.Move(1);
-    		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
+    		updateHud(player1, idTxtPile, idMovesP1);
 
             idNbrTilesPoolP1.setText(String.valueOf(poolPlayer1.size()));
             if (player2.sunStone() > 3) {
@@ -417,7 +492,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		    switchView(isP2);
 		    
 		    player2.Move(1);
-    		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
+    		updateHud(player2, idTxtPile, idMovesP2);
             idNbrTilesPoolP2.setText(String.valueOf(poolPlayer2.size()));
             if (player1.sunStone() > 3) {
             	player1.threeSunStones();
@@ -425,7 +500,7 @@ public class GameViewController implements EventHandler<MouseEvent>{
 		}
 		isP2 = !isP2;
 		roundCounter ++;
-		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2) + " :");
+		idTurnNumber.setText("Tour " + Integer.toString(roundCounter/2 + 1) + "/" + Integer.toString(maxTurnNbr/2));
 		idErrTile.setVisible(false);
 		
 		if ((finalRackP1[0] && finalRackP1[1] && finalRackP1[2] && finalRackP1[3] && finalRackP1[4]  )|| (finalRackP2[0] && finalRackP2[1] && finalRackP2[2] && finalRackP2[3] && finalRackP2[4])) {
@@ -516,12 +591,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
  	public void buyExtraMoveHalfStone() { 
  		if (isP2 && player2.halfStone() >= 2 && player2.move() == 0) {
      		player2.buyExtraMoveWithHalfStones();
-     		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
+     		updateHud(player2, idTxtPile, idMovesP2);
      		idErrTile.setVisible(false);
      	}
      	else if (!isP2 && player1.halfStone() >= 2 && player1.move() == 0) {
      		player1.buyExtraMoveWithHalfStones();
-     		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
+     		updateHud(player1, idTxtPile, idMovesP1);
      		idErrTile.setVisible(false);
      	}
      	else {
@@ -534,12 +609,12 @@ public class GameViewController implements EventHandler<MouseEvent>{
  	public void buyExtraMoveSunStone() { 
  		if (isP2 && player2.sunStone() >= 1 && player2.move() == 0) {
      		player2.buyExtraMoveWithSunStones();
-     		referer.setPTurnAndAction(player2, idTxtPile, idMovesP2);
+     		updateHud(player2, idTxtPile, idMovesP2);
      		idErrTile.setVisible(false);
      	}
      	else if (!isP2 && player1.sunStone() >= 1 && player1.move() == 0) {
      		player1.buyExtraMoveWithSunStones();
-     		referer.setPTurnAndAction(player1, idTxtPile, idMovesP1);
+     		updateHud(player1, idTxtPile, idMovesP1);
      		idErrTile.setVisible(false);
      	}
      	else {
@@ -552,16 +627,23 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	private void shutTheGame() {
 		int nbrTilesLeftP1 = poolPlayer1.size();
 		int nbrTilesLeftP2 = poolPlayer2.size();
+		String title = "Victoire !";
+		String winner;
+		String detail;
 		if (nbrTilesLeftP1 < nbrTilesLeftP2) {
-			idTxtPile.setText("C'est " + player1Name + " qui l'emporte ! Avec " + Integer.toString(poolPlayer2.size() - poolPlayer1.size()) + " tuile(s) de moins que " + player2Name);
+			winner = player1Name + " remporte la partie";
+			detail = "Avec " + (nbrTilesLeftP2 - nbrTilesLeftP1) + " tuile(s) de moins que " + player2Name + ".";
 		}
 		else if (nbrTilesLeftP1 > nbrTilesLeftP2) {
-			idTxtPile.setText("C'est " + player2Name + " qui l'emporte ! Avec " + Integer.toString(poolPlayer1.size() - poolPlayer2.size()) + " tuile(s) de moins que " + player1Name);
+			winner = player2Name + " remporte la partie";
+			detail = "Avec " + (nbrTilesLeftP1 - nbrTilesLeftP2) + " tuile(s) de moins que " + player1Name + ".";
 		}
 		else {
-			idTxtPile.setText("Égalité");
+			title = "Égalité !";
+			winner = player1Name + " et " + player2Name;
+			detail = "Vous finissez avec le même nombre de tuiles.";
 		}
-		idTxtPile.setFont(Font.font("Bold",42));
+		idTxtPile.setVisible(false);
 		//Désactive la vue des différentes piles
 		idPilePlayer1.setVisible(false);
 		idPilePlayer2.setVisible(false);
@@ -588,10 +670,20 @@ public class GameViewController implements EventHandler<MouseEvent>{
 	    //Cache le nombre te tuiles des racks
 	    idNbrTilesPoolP1.setVisible(false);
 	    idNbrTilesPoolP2.setVisible(false);
-		//Pause de 5 secondes
-		PauseTransition pause = new PauseTransition(Duration.seconds(7));
-		pause.setOnFinished(event -> Platform.exit());
+		//Laisse voir le plateau final un instant, puis affiche l'écran de victoire
+		StackPane gameRoot = (StackPane) idGrid.getParent().getParent(); //toute la fenêtre, au-dessus du plateau
+		String finalTitle = title;
+		PauseTransition pause = new PauseTransition(Duration.seconds(1.2));
+		pause.setOnFinished(event -> gameRoot.getChildren().add(new VictoryOverlay(gameRoot.getWidth(), gameRoot.getHeight(), finalTitle, winner, detail,
+				this::replay, Platform::exit)));
 		pause.play();
+	}
+
+	//Ferme la partie et revient au menu avec de nouveaux joueurs
+	private void replay() {
+		Stage gameStage = (Stage) idGrid.getScene().getWindow();
+		new LaticeAppSb().start(new Stage());
+		gameStage.close();
 	}
 
 	@Override

@@ -18,10 +18,10 @@ import latice.model.Tile;
 public class Referer {
 
 	
-	//Permet d'afficher le joueur qui dois jouer et son compteur d'action
+	//Permet d'afficher le joueur qui doit jouer et son compteur d'actions (les pierres ont leurs propres pastilles)
 	public void setPTurnAndAction(Player player, Text idTxtPile, Text idMoves){
-        idMoves.setText("Actions restantes : " + player.move());
-		idTxtPile.setText("Au tour de " + player.name() + " (" + player.halfStone() + " demi pierre(s) et " + player.sunStone() + " pierre(s) Soleil)");
+        idMoves.setText(String.valueOf(player.move()));
+		idTxtPile.setText(player.name());
 	}
 	
 	//Permet d'afficher un message d'erreur
